@@ -6,7 +6,9 @@ using UnityEngine.Events;
 
 public class Unit : MouseSelectable
 {
-    private Squad SquadRef;
+    public Squad SquadRef;
+    public string unitname = "temp";
+
     private void FixedUpdate()
     {
         Debug.DrawLine(this.transform.position, this.transform.position + (transform.forward * 5), Color.blue);

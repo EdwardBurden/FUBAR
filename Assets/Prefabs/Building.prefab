@@ -106,6 +106,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9454ff04ee80ca84d88f24ea56f01eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnPoint: {fileID: 4054380362806393676}
+  LocalOperations: []
+  BaseInfo: {fileID: 11400000, guid: fd2c0ee25874f74479b132bad97fb6cb, type: 2}
+  HP: 0
   GameObjectUnityEvent:
     m_PersistentCalls:
       m_Calls:
@@ -120,8 +124,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  BuildInfo: {fileID: 11400000, guid: fd2c0ee25874f74479b132bad97fb6cb, type: 2}
-  SpwanPoint: {fileID: 4054380362806393676}
+  HP: 0
+  BuildingName: 
 --- !u!1 &7042371709945060178
 GameObject:
   m_ObjectHideFlags: 0

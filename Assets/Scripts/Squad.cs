@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Squad : MonoBehaviour
+public class Squad : MouseSelectable
 {
     private Transform Target;
-    public SquadInfo SquadInfo;
+    private SquadInfo SquadInfo;
+
     private List<Unit> Units;
 
-    public void Start()
+    public override void Start()
     {
+        base.Start();
+        SquadInfo = (SquadInfo)BaseInfo;
         Units = new List<Unit>();
-       // Target = FindObjectOfType<Target>().transform;
         InstantiateSquadMembers();
-       // DelegateMovement();
     }
 
 
@@ -39,7 +40,9 @@ public class Squad : MonoBehaviour
             {
                 for (int j = 0; j < SquadInfo.DefaultDepth; j++)
                 {
-                    Units.Add(Instantiate(localunits[placed], this.transform.position + new Vector3(i * 3, 0, j * 3), Quaternion.identity, this.transform));
+                    Unit unit = Instantiate(localunits[placed], this.transform.position + new Vector3(i * 3, 0, j * 3), Quaternion.identity, this.transform);
+                    unit.SquadRef = this;
+                    Units.Add(unit);
                     placed++;
                 }
             }

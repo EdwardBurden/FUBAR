@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: UpgradeBarracksOperation
   m_EditorClassIdentifier: 
   Icon: {fileID: 0}
-  Title: Spawns scout
+  Title: Upgrade Building
   Description: 
   NewBuildingTitle: Barracks level 2
+  UpgradeOperations:
+  - {fileID: 11400000, guid: ead34f683e70d4146b06c338ee40f650, type: 2}
+  MaxHp: 200

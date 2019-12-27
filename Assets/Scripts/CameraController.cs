@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-
-    public GameObject FollowObject;
+    public static CameraController instance;
+    public bool Follow;
     public Camera MainCamera;
     public float NormalSpeed;
     public float SprintSpeed;
@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        instance = this;
         TargetPosition = transform.position;
         TargetRotation = transform.rotation;
         TargetZoom = MainCamera.transform.localPosition;
@@ -36,9 +37,9 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (FollowObject)
+        if (Follow && SelectionController.instance.IsSelectionFollowable())
         {
-            transform.position = FollowObject.transform.position;
+            transform.position = SelectionController.instance.UnitSelected.transform.position;
         }
         else
         {
@@ -47,13 +48,12 @@ public class CameraController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            FollowObject = null;
+            Follow = false;
         }
-    }
-
-    public void AssignFollowObject(GameObject gameObject)
-    {
-        FollowObject = gameObject;
+        if (Input.GetKeyDown(KeyCode.Insert))
+        {
+            Follow = true;
+        }
     }
 
     private void HandleMouseInput()

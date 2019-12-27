@@ -43,4 +43,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9013c92acdf13894d9e345fafdffdf2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SquadInfo: {fileID: 11400000, guid: c4b5619df1b190c4ab9f7779346c9d67, type: 2}
+  SpawnPoint: {fileID: 8746791099575432132}
+  LocalOperations: []
+  BaseInfo: {fileID: 11400000, guid: c4b5619df1b190c4ab9f7779346c9d67, type: 2}
+  HP: 0
+  GameObjectUnityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 18d8a4b0665b4584986679888ab68b44, type: 2}
+        m_MethodName: Raise
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  squadname: 

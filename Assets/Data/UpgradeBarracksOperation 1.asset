@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28d5033fb8e03f34d84474f9466b0cd3, type: 3}
-  m_Name: ScoutSpawnOperation
+  m_Script: {fileID: 11500000, guid: e08f04cdb1573fc418c11bcedebb9a37, type: 3}
+  m_Name: UpgradeBarracksOperation 1
   m_EditorClassIdentifier: 
-  BuildingRef: {fileID: 0}
   Icon: {fileID: 0}
-  Title: Scout spawn
+  Title: Upgrade Building
   Description: 
-  SpawnObject: {fileID: 7025758220416703250, guid: 1e966a7e8907d744cadd5737c4ecdc7d,
-    type: 3}
+  NewBuildingTitle: Barracks level 3
+  UpgradeOperations: []
+  MaxHp: 200
