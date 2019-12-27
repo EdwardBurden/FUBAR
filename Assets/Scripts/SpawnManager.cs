@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour
     }
 
 
-    public GameObject PrefabUnit;
+    public GameObject PrefabSquad;
     public bool UnitSelected;
 
     public void OnSelect()
@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour
         RayCastInfo info = IsTerrainFocusedOnClick();
         if (info.Focused && UnitSelected)
         {
-            Instantiate(PrefabUnit, info.HitInfo.point, Quaternion.identity);
+            Instantiate(PrefabSquad, info.HitInfo.point, Quaternion.identity);
         }
     }
 

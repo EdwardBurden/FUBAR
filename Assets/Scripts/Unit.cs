@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class Unit : MonoBehaviour
 {
-    private Transform Target;
-    private NavMeshAgent Agent;
-    // Start is called before the first frame update
-    void Start()
+    public GameObjectUnityEvent UnitSelected;
+    private void FixedUpdate()
     {
-        Target = FindObjectOfType<Target>().transform;
-        Agent = GetComponent<NavMeshAgent>();
+        Debug.DrawLine(this.transform.position, this.transform.position + (transform.forward * 5), Color.blue);
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void OnMouseUpAsButton()
     {
-        Agent.SetDestination(Target.position);
+        UnitSelected.Invoke(this.gameObject);
     }
 }
