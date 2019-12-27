@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 149539d68d735ae4daebb09c6eebe57d, type: 3}
-  m_Name: Squad1
+  m_Name: ScoutsInfo
   m_EditorClassIdentifier: 
   Units:
   - Amount: 7
@@ -22,3 +22,4 @@ MonoBehaviour:
   SquadName: Starter Unit
   Formation: 0
   DefaultDepth: 3
+  SpawnTime: 0.5

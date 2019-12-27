@@ -63,7 +63,7 @@ public class CameraController : MonoBehaviour
             TargetZoom += Input.mouseScrollDelta.y * ZoomStrength;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
             Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition);
@@ -74,7 +74,7 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1))
         {
 
             Plane plane = new Plane(Vector3.up, Vector3.zero);
