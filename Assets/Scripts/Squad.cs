@@ -12,9 +12,9 @@ public class Squad : MonoBehaviour
     public void Start()
     {
         Units = new List<Unit>();
-        Target = FindObjectOfType<Target>().transform;
+       // Target = FindObjectOfType<Target>().transform;
         InstantiateSquadMembers();
-        DelegateMovement();
+       // DelegateMovement();
     }
 
 

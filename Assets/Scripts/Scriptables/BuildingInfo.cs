@@ -8,4 +8,5 @@ public class BuildingInfo : ScriptableObject
 {
     public string BuildingName = "";
     public List<BuildOperation> BuildOperations;
+    public int Hp;
 }

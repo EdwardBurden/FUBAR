@@ -8,6 +8,6 @@ public class BuildSpawnOperation : BuildOperation
 
     public override void Activate()
     {
-        Debug.Log("BuildSpawnOperation");
+        Instantiate(SpawnObject, BuildingRef.SpwanPoint.position, BuildingRef.SpwanPoint.rotation, null);
     }
 }
