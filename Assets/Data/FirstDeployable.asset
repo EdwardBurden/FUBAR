@@ -23,7 +23,7 @@ MonoBehaviour:
   DeploymentTime: 1
   UnitAmount: 5
   BuildingAmount: 2
-  BuildingPrefab: {fileID: 3111635418181984378, guid: 61e0646664a21e644af6c5410a9ad72e,
+  BuildingPrefab: {fileID: 8580805927502294378, guid: 3292407ab8d196c4688d719fdb375e30,
     type: 3}
   UnitPrefab: {fileID: 772260320093354607, guid: d194d67d058520544a41dde92442eda1,
     type: 3}

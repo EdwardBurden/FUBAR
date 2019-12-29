@@ -17,6 +17,8 @@ MonoBehaviour:
   Description: 
   StateFlag: 1
   NewBuildingTitle: Barracks level 2
+  NewBuildingPrefab: {fileID: 4745657787775277790, guid: 105a537e4d258c3419c029d7e96d4341,
+    type: 3}
   UpgradeOperations:
   - {fileID: 11400000, guid: ead34f683e70d4146b06c338ee40f650, type: 2}
   MaxHp: 200

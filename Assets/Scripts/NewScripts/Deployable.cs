@@ -19,6 +19,22 @@ public class Deployable : MonoBehaviour
     public string DeploymentName;
     public Vector3 SpawnPointOffset;
     public GameObject BuildingPrefab;
+    public Vector3 ClickablesCenterPos
+    {
+        get
+        {
+            if (ClickableDeployments != null && ClickableDeployments.Count > 0)
+            {
+                Vector3 total = Vector3.zero;
+                foreach (var item in ClickableDeployments)
+                {
+                    total += item.gameObject.transform.position;
+                }
+                return total / (float)ClickableDeployments.Count;
+            }
+            else return this.transform.position;
+        }
+    }
     public Transform SpawnPoint
     {
         get
@@ -63,6 +79,7 @@ public class Deployable : MonoBehaviour
 
     public void ChangeState(DeploymentState newstate)
     {
+        this.transform.position = ClickablesCenterPos;
         ClearClickables();
         CurrentState = newstate;
         InitClickables();
@@ -86,7 +103,7 @@ public class Deployable : MonoBehaviour
         {
             for (int i = 0; i < Data.BuildingAmount; i++)
             {
-                ClickableDeployment building = Instantiate(BuildingPrefab, this.transform.position + new Vector3(i * 3, 0, 0), Quaternion.identity, this.transform).GetComponent<ClickableDeployment>();
+                ClickableDeployment building = Instantiate(BuildingPrefab, this.transform.position + new Vector3((i * 3) - ((Data.BuildingAmount - 1) * 3) / 2.0f, 0, 0), Quaternion.identity, this.transform).GetComponent<ClickableDeployment>();
                 building.DeployableRef = this;
                 ClickableDeployments.Add(building);
             }
@@ -100,7 +117,7 @@ public class Deployable : MonoBehaviour
         {
             for (int i = 0; i < Data.UnitAmount; i++)
             {
-                ClickableDeployment building = Instantiate(Data.UnitPrefab, this.transform.position + new Vector3(i * 3, 0, 0), Quaternion.identity, this.transform).GetComponent<ClickableDeployment>();
+                ClickableDeployment building = Instantiate(Data.UnitPrefab, this.transform.position + new Vector3((i * 3)-((Data.UnitAmount-1)*3)/2.0f, 0, 0), Quaternion.identity, this.transform).GetComponent<ClickableDeployment>();
                 building.DeployableRef = this;
                 ClickableDeployments.Add(building);
             }
