@@ -14,8 +14,11 @@ public class Squad : MouseSelectable
     {
         base.Start();
         SquadInfo = (SquadInfo)BaseInfo;
+        Target = FindObjectOfType<Target>().transform;
         Units = new List<Unit>();
         InstantiateSquadMembers();
+        DelegateMovement();
+       
     }
 
 
