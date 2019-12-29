@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d5033fb8e03f34d84474f9466b0cd3, type: 3}
   m_Name: ScoutSpawnOperation
   m_EditorClassIdentifier: 
-  BuildingRef: {fileID: 0}
   Icon: {fileID: 0}
   Title: Scout spawn
   Description: 
+  StateFlag: 1
   SpawnObject: {fileID: 7025758220416703250, guid: 1e966a7e8907d744cadd5737c4ecdc7d,
     type: 3}

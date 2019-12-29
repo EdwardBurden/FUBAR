@@ -6,7 +6,7 @@ public class SpawnOperation : Operation
 {
     public GameObject SpawnObject;
 
-    public override void Activate(MouseSelectable selectable)
+    public override void Activate(Deployable selectable)
     {
         Instantiate(SpawnObject, selectable.SpawnPoint.position, selectable.SpawnPoint.rotation, null);
     }

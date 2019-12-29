@@ -69,10 +69,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730492a439ca8b64aa5ae53d88555b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameObjectUnityEvent:
+  localitemname: 
+  DeployableRef: {fileID: 0}
+  OnClickEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 18d8a4b0665b4584986679888ab68b44, type: 2}
+      - m_Target: {fileID: 11400000, guid: e8cdcb754acaeda4dac64100786da52f, type: 2}
         m_MethodName: Raise
         m_Mode: 0
         m_Arguments:

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8746791099575432132}
-  - component: {fileID: 8923863361538213201}
+  - component: {fileID: 4440322005162064941}
   m_Layer: 0
   m_Name: Squad
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8923863361538213201
+--- !u!114 &4440322005162064941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,25 +40,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7025758220416703250}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9013c92acdf13894d9e345fafdffdf2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 33dde048215e2924eb98bffb034c0a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPoint: {fileID: 8746791099575432132}
+  CurrentState: 0
+  ClickableDeployments: []
+  Data: {fileID: 11400000, guid: c8f7d1df634f19f4781417ffe4e4c37d, type: 2}
   LocalOperations: []
-  BaseInfo: {fileID: 11400000, guid: c4b5619df1b190c4ab9f7779346c9d67, type: 2}
   HP: 0
-  GameObjectUnityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 18d8a4b0665b4584986679888ab68b44, type: 2}
-        m_MethodName: Raise
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  squadname: 
+  DeploymentName: 
+  UnitAmount: 0

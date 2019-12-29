@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b1f4225dad50b9499bb5aa4299de4d0, type: 3}
-  m_Name: SquadSelectedEvent
+  m_Name: ClickableDeploymentSelected
   m_EditorClassIdentifier: 

@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e27a0b0c1f0e75f44860f193e0d30729, type: 3}
-  m_Name: BarracksInfo
+  m_Script: {fileID: 11500000, guid: cbc8df6c61b001c43bdcdedfedeaa78e, type: 3}
+  m_Name: ChnageFirstDeployableState
   m_EditorClassIdentifier: 
-  Operations:
-  - {fileID: 11400000, guid: 263a0efc10d464c48a2a73616fe426d9, type: 2}
-  - {fileID: 11400000, guid: 57542a08b7c9a32468cc1f8dd4ce72ed, type: 2}
-  Name: Barracks
-  HP: 50
+  Icon: {fileID: 0}
+  Title: Static
+  Description: 
+  StateFlag: 0
+  DeploymentState: 1

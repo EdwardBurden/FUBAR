@@ -5,15 +5,18 @@ using UnityEngine;
 public class UpgradeOperation : Operation
 {
     public string NewBuildingTitle;
+    public GameObject NewBuildingPrefab;
     public List<Operation> UpgradeOperations;
     public int MaxHp;
 
-    public override void Activate(MouseSelectable selectable)
+    public override void Activate(Deployable selectable)
     {
         selectable.LocalOperations.AddRange(UpgradeOperations);
         selectable.LocalOperations.Remove(this);
         selectable.HP = MaxHp;
-        selectable.SelectableName = NewBuildingTitle;
+        selectable.DeploymentName = NewBuildingTitle;
+        selectable.BuildingPrefab = NewBuildingPrefab;
+        selectable.ChangeState(selectable.CurrentState);
         Debug.Log("BuildUpgradeOperation");
         UIController.instance.Refreshpanels();
     }

@@ -9,6 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b1f4225dad50b9499bb5aa4299de4d0, type: 3}
-  m_Name: BuildingSelected
+  m_Script: {fileID: 11500000, guid: cbc8df6c61b001c43bdcdedfedeaa78e, type: 3}
+  m_Name: ChnageFirstDeployableState 1
   m_EditorClassIdentifier: 
+  Icon: {fileID: 0}
+  Title: Move
+  Description: 
+  StateFlag: 1
+  DeploymentState: 0

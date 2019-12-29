@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 0}
   Title: Upgrade Building
   Description: 
+  StateFlag: 1
   NewBuildingTitle: Barracks level 3
   UpgradeOperations: []
   MaxHp: 200
