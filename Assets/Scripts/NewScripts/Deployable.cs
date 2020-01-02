@@ -91,7 +91,7 @@ public class Deployable : MonoBehaviour
         {
             LocalOperations = new List<Operation>(Data.Operations);
             HP = Data.MaxHp;
-            DeploymentName = Data.DeployableName;
+            DeploymentName = Data.DeployableName + Random.Range(0,100);
             CurrentState = Data.StartingState;
             BuildingPrefab = Data.BuildingPrefab;
         }

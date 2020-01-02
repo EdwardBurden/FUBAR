@@ -52,10 +52,7 @@ public class UIController : MonoBehaviour
     private void ClearUnitPanel()
     {
         UnitInfoPanel.GetComponentInChildren<Text>().text = "";
-        foreach (Transform item in UnitInfoPanel.transform.GetChild(1))
-        {
-            Destroy(item.gameObject);
-        }
+        UnitInfoPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "";
     }
 
     private void FillDeployableInfoPanel(Deployable selected)
@@ -74,8 +71,9 @@ public class UIController : MonoBehaviour
 
     private void FillClickableDeploymentInfoPanel(ClickableDeployment clickableDeployment)
     {
-        UnitInfoPanel.GetComponentInChildren<Text>().text = "Unit name : " + clickableDeployment.localitemname;
+        UnitInfoPanel.GetComponentInChildren<Text>().text = "Unit name : " + clickableDeployment.LocalName;
         UnitInfoPanel.GetComponentInChildren<Button>().onClick.AddListener(() => SquadSelectedFromUnit.Invoke(clickableDeployment.DeployableRef.gameObject));
+        UnitInfoPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = clickableDeployment.DeployableRef.DeploymentName;
     }
 
     public void OnClickableDeplymentSelected(GameObject gameObject)

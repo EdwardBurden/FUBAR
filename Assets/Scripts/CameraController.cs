@@ -39,7 +39,7 @@ public class CameraController : MonoBehaviour
     {
         if (Follow && SelectionController.instance.IsSelectionFollowable())
         {
-            transform.position = SelectionController.instance.UnitSelected.transform.position;
+            transform.position = SelectionController.instance.Selected[0].transform.position;
         }
         else
         {
