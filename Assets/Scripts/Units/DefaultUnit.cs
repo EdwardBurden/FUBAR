@@ -28,7 +28,7 @@ public class DefaultUnit : ClickableDeployment
     {
         if (EnemyTarget != null)
         {
-            MainWeapon.UseWeaponRanged(EnemyTarget.gameObject);
+            MainWeapon.Fire(EnemyTarget.gameObject);
             this.transform.position += new Vector3(0, 1, 0);
         }
     }
@@ -61,7 +61,7 @@ public class DefaultUnit : ClickableDeployment
         EnemyTarget = enemy;
     }
 
-    public override void EnemyLost(ClickableDeployment enemy)
+    public override void EnemyLost()
     {
         EnemyTarget = null;
     }

@@ -19,14 +19,17 @@ public class DetectionController : MonoBehaviour
         DetectableObjects = FindObjectsOfType<ClickableDeployment>().ToList();
         foreach (ClickableDeployment item in DetectableObjects)
         {
-            foreach (ClickableDeployment enemy in DetectableObjects.Where(x => x.DeployableRef.Side != DeployableSides.Nuetral && item.DeployableRef.Side != x.DeployableRef.Side))
+            List<ClickableDeployment> potentialtargets = DetectableObjects.Where(x => x.DeployableRef.Side != DeployableSides.Nuetral && item.DeployableRef.Side != x.DeployableRef.Side && Vector3.Distance(x.transform.position, item.transform.position) <= item.SightRange).ToList();
+            if (potentialtargets.Count > 0)
             {
-                if (Vector3.Distance(enemy.transform.position, item.transform.position) <= item.SightRange)
-                    item.EnemyDetected(enemy);
-                else
-                    item.EnemyLost(enemy);
+                int index = Random.Range(0, potentialtargets.Count);
+                item.EnemyDetected(potentialtargets[index]);
             }
+            else
+                item.EnemyLost();
         }
+
     }
 }
+
 

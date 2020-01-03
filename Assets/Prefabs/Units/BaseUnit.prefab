@@ -86,8 +86,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  MainWeapon: {fileID: 3765751982880970946}
-  SightRange: 5
+  SightRange: 20
+  MainWeapon: {fileID: 3222204922010266027}
   MeleeRange: 1
   enemy: 0
   TargetUp: {x: 0, y: 0, z: 0}
@@ -226,15 +226,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7114885443447533037}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3765751982880970946 stripped
+--- !u!114 &3222204922010266027 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6268876434876298543, guid: bb20dd42fae2f03499fc29ea946a1e31,
+  m_CorrespondingSourceObject: {fileID: 5623505893051483206, guid: bb20dd42fae2f03499fc29ea946a1e31,
     type: 3}
   m_PrefabInstance: {fileID: 7114885443447533037}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c95cc704a487ea41aeb5b455c68d24b, type: 3}
+  m_Script: {fileID: 11500000, guid: a03eb7fa0ee04514294bcf145a7097b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

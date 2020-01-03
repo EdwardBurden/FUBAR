@@ -21,5 +21,5 @@ public class ClickableDeployment : MonoBehaviour
 
     public virtual void EnemyDetected(ClickableDeployment enemy) { }
 
-    public virtual void EnemyLost(ClickableDeployment enemy) { }
+    public virtual void EnemyLost() { }
 }
