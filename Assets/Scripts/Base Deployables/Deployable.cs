@@ -9,6 +9,13 @@ public enum DeploymentState
     Static
 }
 
+public enum DeployableSides
+{
+    Player,
+    Enemy,
+    Nuetral,
+}
+
 public class Deployable : MonoBehaviour
 {
     public DeploymentState CurrentState;
@@ -19,6 +26,7 @@ public class Deployable : MonoBehaviour
     public string DeploymentName;
     public Vector3 SpawnPointOffset;
     public GameObject BuildingPrefab;
+    public DeployableSides Side;
     public Vector3 ClickablesCenterPos
     {
         get
@@ -91,7 +99,7 @@ public class Deployable : MonoBehaviour
         {
             LocalOperations = new List<Operation>(Data.Operations);
             HP = Data.MaxHp;
-            DeploymentName = Data.DeployableName + Random.Range(0,100);
+            DeploymentName = Data.DeployableName + Random.Range(0, 100);
             CurrentState = Data.StartingState;
             BuildingPrefab = Data.BuildingPrefab;
         }
@@ -117,7 +125,7 @@ public class Deployable : MonoBehaviour
         {
             for (int i = 0; i < Data.UnitAmount; i++)
             {
-                ClickableDeployment building = Instantiate(Data.UnitPrefab, this.transform.position + new Vector3((i * 3)-((Data.UnitAmount-1)*3)/2.0f, 0, 0), Quaternion.identity, this.transform).GetComponent<ClickableDeployment>();
+                ClickableDeployment building = Instantiate(Data.UnitPrefab, this.transform.position + new Vector3((i * 3) - ((Data.UnitAmount - 1) * 3) / 2.0f, 0, 0), Quaternion.identity, this.transform).GetComponent<ClickableDeployment>();
                 building.DeployableRef = this;
                 ClickableDeployments.Add(building);
             }
@@ -153,7 +161,7 @@ public class Deployable : MonoBehaviour
     {
         for (int i = 0; i < ClickableDeployments.Count; i++)
         {
-            if (ClickableDeployments[i].GetComponent<Unit>() && ClickableDeployments[i].GetComponent<NavMeshAgent>())
+            if (ClickableDeployments[i].GetComponent<DefaultUnit>() && ClickableDeployments[i].GetComponent<NavMeshAgent>())
             {
                 ClickableDeployments[i].GetComponent<NavMeshAgent>().SetDestination(target + new Vector3(i * 3, 0, 0));
             }

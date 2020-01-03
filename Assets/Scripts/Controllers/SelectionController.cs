@@ -111,10 +111,10 @@ public class SelectionController : MonoBehaviour
 
     public void SingleUnitSelected(GameObject gameObject)
     {
-        if (gameObject && gameObject.GetComponent<Unit>())
+        if (gameObject && gameObject.GetComponent<DefaultUnit>())
         {
             Selected.Clear();
-            Selected.Add(gameObject.GetComponent<Unit>());
+            Selected.Add(gameObject.GetComponent<DefaultUnit>());
             CurrentSelection = SelectionType.SingleUnit;
         }
     }
@@ -130,16 +130,23 @@ public class SelectionController : MonoBehaviour
         }
     }
 
+    public void DeSelectAll()
+    {
+        Selected.Clear();
+        SelectedDeployable = null;
+        CurrentSelection = SelectionType.None;
+    }
     public void OnTerrainClick(GameObject gameObject)
     {
-        if (!SelectionInProgress) { 
-        RayCastInfo info = IsTerrainFocusedOnClick();
+        if (!SelectionInProgress)
+        {
+            RayCastInfo info = IsTerrainFocusedOnClick();
             if (info.Focused)
             {
                 switch (CurrentSelection)
                 {
                     case SelectionType.SingleUnit:
-                        ((Unit)Selected[0]).MoveToTarget(info.HitInfo.point);
+                        ((DefaultUnit)Selected[0]).MoveToTarget(info.HitInfo.point);
                         break;
                     case SelectionType.SingleSquad:
                         SelectedDeployable.MoveToTarget(info.HitInfo.point);
@@ -147,8 +154,8 @@ public class SelectionController : MonoBehaviour
                     case SelectionType.MultipleUnits:
                         foreach (ClickableDeployment item in Selected)
                         {
-                            if (item is Unit)
-                                ((Unit)item).MoveToTarget(info.HitInfo.point);
+                            if (item is DefaultUnit)
+                                ((DefaultUnit)item).MoveToTarget(info.HitInfo.point);
                         }
                         break;
                     case SelectionType.None:

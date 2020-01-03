@@ -21,7 +21,7 @@ MonoBehaviour:
   DeployableName: Test
   MaxHp: 100
   DeploymentTime: 1
-  UnitAmount: 5
+  UnitAmount: 6
   BuildingAmount: 2
   BuildingPrefab: {fileID: 8580805927502294378, guid: 3292407ab8d196c4688d719fdb375e30,
     type: 3}
