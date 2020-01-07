@@ -6,14 +6,11 @@ public class ClickableDeployment : MonoBehaviour
 {
     public string LocalName;
     public Deployable DeployableRef;
-    public GameObjectUnityEvent OnClickEvent;
-    public GameObjectUnityEvent OnAddedToSelectionEvent;
-    public GameObjectUnityEvent OnDeselectEvent;
-    public GameObjectUnityEvent OnHoverEvent;
-    public GameObjectUnityEvent OffHoverEvent;
     public int SightRange = 5;
     public int Health = 500;
 
+    public GameObject HoverObject;
+    public GameObject ClickObject;
 
     public virtual void Start()
     {
@@ -31,27 +28,31 @@ public class ClickableDeployment : MonoBehaviour
 
     public virtual void TriggerOnClick()
     {
-        OnClickEvent.Invoke(this.gameObject);
+        if (ClickObject)
+            ClickObject.SetActive(true);
     }
 
     public virtual void TriggerOnAddedToSelection()
     {
-        OnAddedToSelectionEvent.Invoke(this.gameObject);
+        if (ClickObject)
+            ClickObject.SetActive(true);
     }
 
     public virtual void TriggerDeselect()
     {
-        OnDeselectEvent.Invoke(this.gameObject);
+        if (ClickObject)
+            ClickObject.SetActive(false);
     }
 
     public virtual void TriggerOnHover()
     {
-        OnHoverEvent.Invoke(this.gameObject);
+        if (HoverObject)
+            HoverObject.SetActive(true);
     }
 
     public virtual void TriggerOffHover()
     {
-        OffHoverEvent.Invoke(this.gameObject);
+        if (HoverObject)
+            HoverObject.SetActive(false);
     }
-
 }
