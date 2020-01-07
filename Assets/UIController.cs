@@ -9,124 +9,106 @@ public class UIController : MonoBehaviour
 
     public GameObjectUnityEvent SquadSelectedFromUnit;
     public Button Button;
-    public GameObject SquadInfoPanel;
-    public GameObject BuildingInfoPanel;
+    public GameObject DeployableInfoPanel;
     public GameObject UnitInfoPanel;
 
-    private Building LastSelectedBuilding;
-    private Unit LastSelectedUnit;
-    private Squad LastSelectedSquad;
+    private ClickableDeployment SelectedClickableDeployment;
+    private Deployable SelectedDeployable;
 
     private void Start()
     {
         instance = this;
-        SquadInfoPanel.SetActive(false);
-        BuildingInfoPanel.SetActive(false);
+        DeployableInfoPanel.SetActive(false);
         UnitInfoPanel.SetActive(false);
+    }
+
+    public void NukeIt()
+    {
+        SelectedDeployable = null;
+        SelectedClickableDeployment = null;
+        RefreshDeployablePanel();
+        RefreshUnitPanel();
     }
 
     public void Refreshpanels()
     {
-        RefreshBuildPanel();
-        RefreshSquadPanel();
+        RefreshDeployablePanel();
+        RefreshUnitPanel();
     }
 
-    public void RefreshBuildPanel()
+    public void RefreshDeployablePanel()
     {
-        ClearBuildPanel();
-        FillBuildInfoPanel(LastSelectedBuilding);
+        ClearDeployablePanel();
+        if (SelectedDeployable)
+            FillDeployableInfoPanel(SelectedDeployable);
     }
 
-    private void ClearBuildPanel()
+    private void ClearDeployablePanel()
     {
-        BuildingInfoPanel.GetComponentInChildren<Text>().text = "";
-        foreach (Transform item in BuildingInfoPanel.transform.GetChild(1))
+        DeployableInfoPanel.GetComponentInChildren<Text>().text = "";
+        foreach (Transform item in DeployableInfoPanel.transform.GetChild(1))
         {
             Destroy(item.gameObject);
         }
     }
 
-    public void RefreshSquadPanel()
+    public void RefreshUnitPanel()
     {
-        ClearSquadPanel();
-        FillSquadInfoPanel(LastSelectedSquad);
+        ClearUnitPanel();
+        if (SelectedClickableDeployment)
+            FillClickableDeploymentInfoPanel(SelectedClickableDeployment);
     }
 
-    private void ClearSquadPanel()
+    private void ClearUnitPanel()
     {
-        SquadInfoPanel.GetComponentInChildren<Text>().text = "";
-        foreach (Transform item in SquadInfoPanel.transform.GetChild(1))
-        {
-            Destroy(item.gameObject);
-        }
+        UnitInfoPanel.GetComponentInChildren<Text>().text = "";
+        UnitInfoPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "";
     }
 
-    private void FillBuildInfoPanel(Building selected)
+    private void FillDeployableInfoPanel(Deployable selected)
     {
-        BuildingInfoPanel.GetComponentInChildren<Text>().text = "Building name : " + selected.SelectableName;
+        DeployableInfoPanel.GetComponentInChildren<Text>().text = "Building name : " + selected.DeploymentName;
         foreach (var item in selected.LocalOperations)
         {
-            Button button = Instantiate(Button, BuildingInfoPanel.transform.GetChild(1));
-            button.onClick.AddListener(() => item.Activate(selected));
-            button.GetComponentInChildren<Text>().text = item.Title;
+            if (item.StateFlag == selected.CurrentState)
+            {
+                Button button = Instantiate(Button, DeployableInfoPanel.transform.GetChild(1));
+                button.onClick.AddListener(() => item.Activate(selected));
+                button.GetComponentInChildren<Text>().text = item.Title;
+            }
         }
     }
 
-    private void FillUnitInfoPanel(Unit unit)
+    private void FillClickableDeploymentInfoPanel(ClickableDeployment clickableDeployment)
     {
-        UnitInfoPanel.GetComponentInChildren<Text>().text = "Unit name : " + unit.unitname;
-        UnitInfoPanel.GetComponentInChildren<Button>().onClick.AddListener(() => SquadSelectedFromUnit.Invoke(unit.SquadRef.gameObject));
+        UnitInfoPanel.GetComponentInChildren<Text>().text = "Unit name : " + clickableDeployment.LocalName;
+        UnitInfoPanel.GetComponentInChildren<Button>().onClick.AddListener(() => SquadSelectedFromUnit.Invoke(clickableDeployment.DeployableRef.gameObject));
+        UnitInfoPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = clickableDeployment.DeployableRef.DeploymentName;
     }
 
-    private void FillSquadInfoPanel(Squad squad)
+    public void OnClickableDeplymentSelected(GameObject gameObject)
     {
-        SquadInfoPanel.GetComponentInChildren<Text>().text = "Squad name : " + squad.SelectableName;
-        foreach (var item in squad.LocalOperations)
-        {
-            Button button = Instantiate(Button, SquadInfoPanel.transform.GetChild(1));
-            button.onClick.AddListener(() => item.Activate(squad));
-            button.GetComponentInChildren<Text>().text = item.Title;
-        }
-    }
-
-    public void BuildingSelected(GameObject gameObject)
-    {
-        Building selectedbuilding = gameObject.GetComponent<Building>();
-        if (selectedbuilding)
-        {
-            LastSelectedBuilding = selectedbuilding;
-            ClearBuildPanel();
-            FillBuildInfoPanel(LastSelectedBuilding);
-        }
-        SquadInfoPanel.SetActive(false);
-        BuildingInfoPanel.SetActive(true);
-        UnitInfoPanel.SetActive(false);
-    }
-
-    public void UnitSelected(GameObject gameObject)
-    {
-        Unit selectedunit = gameObject.GetComponent<Unit>();
+        ClickableDeployment selectedunit = gameObject.GetComponent<ClickableDeployment>();
         if (selectedunit)
         {
-            LastSelectedUnit = selectedunit;
-            FillUnitInfoPanel(LastSelectedUnit);
+            SelectedClickableDeployment = selectedunit;
+            ClearUnitPanel();
+            FillClickableDeploymentInfoPanel(SelectedClickableDeployment);
         }
         UnitInfoPanel.SetActive(true);
-        SquadInfoPanel.SetActive(false);
-        BuildingInfoPanel.SetActive(false);
+        DeployableInfoPanel.SetActive(false);
     }
 
-    public void SquadSelected(GameObject gameObject)
+    public void OnDeployableSelected(GameObject gameObject)
     {
-        Squad squad = gameObject.GetComponent<Squad>();
+        Deployable squad = gameObject.GetComponent<Deployable>();
         if (squad)
         {
-            LastSelectedSquad = squad;
-            ClearSquadPanel();
-            FillSquadInfoPanel(LastSelectedSquad);
+            SelectedDeployable = squad;
+            ClearDeployablePanel();
+            FillDeployableInfoPanel(SelectedDeployable);
         }
         UnitInfoPanel.SetActive(false);
-        SquadInfoPanel.SetActive(true);
-        BuildingInfoPanel.SetActive(false);
+        DeployableInfoPanel.SetActive(true);
     }
 }

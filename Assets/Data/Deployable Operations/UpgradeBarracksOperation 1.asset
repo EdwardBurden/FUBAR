@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e08f04cdb1573fc418c11bcedebb9a37, type: 3}
+  m_Name: UpgradeBarracksOperation 1
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 0}
+  Title: Upgrade Building
+  Description: 
+  StateFlag: 1
+  NewBuildingTitle: Barracks level 3
+  NewBuildingPrefab: {fileID: 4745657787775277790, guid: 28882d10e46b94e449cb592b1b49e50e,
+    type: 3}
+  UpgradeOperations: []
+  MaxHp: 200
