@@ -22,6 +22,14 @@ public class UIController : MonoBehaviour
         UnitInfoPanel.SetActive(false);
     }
 
+    public void NukeIt()
+    {
+        SelectedDeployable = null;
+        SelectedClickableDeployment = null;
+        RefreshDeployablePanel();
+        RefreshUnitPanel();
+    }
+
     public void Refreshpanels()
     {
         RefreshDeployablePanel();
@@ -31,7 +39,8 @@ public class UIController : MonoBehaviour
     public void RefreshDeployablePanel()
     {
         ClearDeployablePanel();
-        FillDeployableInfoPanel(SelectedDeployable);
+        if (SelectedDeployable)
+            FillDeployableInfoPanel(SelectedDeployable);
     }
 
     private void ClearDeployablePanel()
@@ -46,7 +55,8 @@ public class UIController : MonoBehaviour
     public void RefreshUnitPanel()
     {
         ClearUnitPanel();
-        FillClickableDeploymentInfoPanel(SelectedClickableDeployment);
+        if (SelectedClickableDeployment)
+            FillClickableDeploymentInfoPanel(SelectedClickableDeployment);
     }
 
     private void ClearUnitPanel()

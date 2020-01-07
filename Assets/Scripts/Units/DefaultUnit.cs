@@ -11,7 +11,7 @@ public class DefaultUnit : ClickableDeployment
     public Weapon MainWeapon;
     public int MeleeRange = 1;
     public bool enemy = false;
-    private ClickableDeployment EnemyTarget;
+    public ClickableDeployment EnemyTarget;
 
     public override void Start()
     {
@@ -24,12 +24,13 @@ public class DefaultUnit : ClickableDeployment
 
     public Vector3 TargetUp;
 
-    private void Update()
+    public override void Update()
     {
+        base.Update();
         if (EnemyTarget != null)
         {
+            transform.LookAt(EnemyTarget.transform, Vector3.up);
             MainWeapon.Fire(EnemyTarget.gameObject);
-            this.transform.position += new Vector3(0, 1, 0);
         }
     }
 
@@ -65,4 +66,6 @@ public class DefaultUnit : ClickableDeployment
     {
         EnemyTarget = null;
     }
+
+
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum SelectionType
 {
@@ -11,19 +12,21 @@ public enum SelectionType
     MultipleUnits
 }
 
+public struct RayCastInfo<T> where T : MonoBehaviour
+{
+    public bool Focused;
+    public T FocusObject;
+    public RaycastHit HitInfo;
+    public RayCastInfo(bool focus, RaycastHit info, T focusobject)
+    {
+        Focused = focus;
+        HitInfo = info;
+        FocusObject = focusobject;
+    }
+}
+
 public class SelectionController : MonoBehaviour
 {
-    private struct RayCastInfo
-    {
-        public bool Focused;
-        public RaycastHit HitInfo;
-        public RayCastInfo(bool focus, RaycastHit info)
-        {
-            Focused = focus;
-            HitInfo = info;
-        }
-    }
-
 
     public static SelectionController instance;
     [SerializeField]
@@ -31,19 +34,17 @@ public class SelectionController : MonoBehaviour
 
     private Vector3 SelectionImageStartPos;
     private Vector3 SelectionImageEndPos;
-
     private Vector3 SelectionMouseStartPos;
     private Vector3 SelectionMouseEndPos;
+
     public SelectionType CurrentSelection;
 
+    public ClickableDeployment HoveredClickable;
     public List<ClickableDeployment> Selected;
     public Deployable SelectedDeployable;
 
-    private bool SelectionInProgress;
-
     private void Start()
     {
-        SelectionInProgress = false;
         instance = this;
         CurrentSelection = SelectionType.None;
         Selected = new List<ClickableDeployment>();
@@ -52,45 +53,88 @@ public class SelectionController : MonoBehaviour
 
     private void Update()
     {
-        SelectionInProgress = false;
+        CheckHoverObject();
+        CheckSelection();
+        if (Input.GetMouseButtonUp(1))
+            CheckForMovement();
+    }
+
+    private void CheckHoverObject()
+    {
+        RayCastInfo<ClickableDeployment> clickable = CheckIfObjectIsInFocus<ClickableDeployment>();
+        if (clickable.Focused)
+        {
+            if (clickable.FocusObject != HoveredClickable)
+            {
+                if (HoveredClickable)
+                    HoveredClickable.TriggerOffHover();
+                clickable.FocusObject.TriggerOnHover();
+                HoveredClickable = clickable.FocusObject;
+            }
+        }
+        else HoveredClickable = null;
+    }
+
+    private void CheckSelection()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             SelectionImageStartPos = Input.mousePosition;
             SelectionMouseStartPos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                if (HoveredClickable && !Selected.Contains(HoveredClickable))
+                    HoveredClickable.TriggerOnAddedToSelection();
+                else
+                    HoveredClickable.TriggerDeselect();
+            }
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            SelectSquareImage.gameObject.SetActive(false);
-            SelectionMouseEndPos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-            if (SelectionMouseStartPos != SelectionMouseEndPos)
-                SelectObjectsFromBox();
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                SelectSquareImage.gameObject.SetActive(false);
+                SelectionMouseEndPos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+                if (Mathf.Abs(SelectionImageStartPos.x - SelectionImageEndPos.x) > 30 && Mathf.Abs(SelectionImageStartPos.y - SelectionImageEndPos.y) > 30)
+                    SelectObjectsFromBox();
+                else
+                {
+                    if (HoveredClickable != null)
+                    {
+                        ResetSelection();
+                        HoveredClickable.TriggerOnClick();
+                    }
+                    else
+                        SelectNone();
+                }
+            }
         }
 
         if (Input.GetMouseButton(0))
         {
-            if (!SelectSquareImage.gameObject.activeInHierarchy)
-                SelectSquareImage.gameObject.SetActive(true);
-
             SelectionImageEndPos = Input.mousePosition;
-            SetSelectionImageSize();
+            if ((Mathf.Abs(SelectionImageStartPos.x - SelectionImageEndPos.x) > 30 && Mathf.Abs(SelectionImageStartPos.y - SelectionImageEndPos.y) > 30) || HoveredClickable == null)
+            {
+                if (!SelectSquareImage.gameObject.activeInHierarchy)
+                    SelectSquareImage.gameObject.SetActive(true);
+                SetSelectionImageSize();
+            }
+
 
         }
     }
 
+
     private void SelectObjectsFromBox()
     {
-        SelectionInProgress = true;
-        Selected.Clear();
-        CurrentSelection = SelectionType.MultipleUnits;
+        ResetSelection();
         Rect selectionrect = new Rect(SelectionMouseStartPos.x, SelectionMouseStartPos.y, SelectionMouseEndPos.x - SelectionMouseStartPos.x, SelectionMouseEndPos.y - SelectionMouseStartPos.y);
         List<ClickableDeployment> Searchable = FindObjectsOfType<ClickableDeployment>().ToList();
         foreach (ClickableDeployment item in Searchable)
         {
             if (selectionrect.Contains(Camera.main.WorldToViewportPoint(item.gameObject.transform.position), true))
-            {
-                Selected.Add(item);
-            }
+                item.TriggerOnAddedToSelection();
         }
     }
 
@@ -109,68 +153,104 @@ public class SelectionController : MonoBehaviour
         return (CurrentSelection == SelectionType.SingleUnit && Selected.Count == 1);
     }
 
-    public void SingleUnitSelected(GameObject gameObject)
+    public void ClickableSelected(GameObject gameObject)
     {
-        if (gameObject && gameObject.GetComponent<DefaultUnit>())
+        if (gameObject && gameObject.GetComponent<ClickableDeployment>())
         {
             Selected.Clear();
             Selected.Add(gameObject.GetComponent<DefaultUnit>());
             CurrentSelection = SelectionType.SingleUnit;
+            //update ui
+            //etc
         }
     }
 
-    public void SingleSquadSelected(GameObject gameObject)
+    private void SelectNone()
     {
-        //either selected all units in squad or clicked select squad button on unit
+        CurrentSelection = SelectionType.None;
+        UIController.instance.NukeIt();
+    }
+
+    public void ClickableSelectionAdded(GameObject gameObject)
+    {
+        if (gameObject && gameObject.GetComponent<ClickableDeployment>())
+        {
+            Selected.Add(gameObject.GetComponent<DefaultUnit>());
+            CurrentSelection = SelectionType.MultipleUnits;
+            //update ui
+            //etc
+        }
+    }
+
+    public void ClickableDeSelected(GameObject gameObject)
+    {
+        if (gameObject && gameObject.GetComponent<ClickableDeployment>())
+        {
+            Selected.Remove(gameObject.GetComponent<DefaultUnit>());
+            if (Selected.Count == 0)
+                SelectNone();
+            //update ui
+            //etc
+        }
+    }
+
+    public void DeplyableSelected(GameObject gameObject)
+    {
+        //clicked select squad button on unit
         if (gameObject && gameObject.GetComponent<Deployable>())
         {
-            Selected.Clear();
+            ResetSelection();
             SelectedDeployable = gameObject.GetComponent<Deployable>();
             CurrentSelection = SelectionType.SingleSquad;
         }
     }
 
-    public void DeSelectAll()
+    public void CheckForMovement()
     {
-        Selected.Clear();
-        SelectedDeployable = null;
-        CurrentSelection = SelectionType.None;
-    }
-    public void OnTerrainClick(GameObject gameObject)
-    {
-        if (!SelectionInProgress)
+        RayCastInfo<TerrainClickable> info = CheckIfObjectIsInFocus<TerrainClickable>();
+        if (info.Focused)
         {
-            RayCastInfo info = IsTerrainFocusedOnClick();
-            if (info.Focused)
+            switch (CurrentSelection)
             {
-                switch (CurrentSelection)
-                {
-                    case SelectionType.SingleUnit:
-                        ((DefaultUnit)Selected[0]).MoveToTarget(info.HitInfo.point);
-                        break;
-                    case SelectionType.SingleSquad:
-                        SelectedDeployable.MoveToTarget(info.HitInfo.point);
-                        break;
-                    case SelectionType.MultipleUnits:
-                        foreach (ClickableDeployment item in Selected)
-                        {
-                            if (item is DefaultUnit)
-                                ((DefaultUnit)item).MoveToTarget(info.HitInfo.point);
-                        }
-                        break;
-                    case SelectionType.None:
-                        break;
-                    default:
-                        break;
-                }
+                case SelectionType.SingleUnit:
+                    ((DefaultUnit)Selected[0]).MoveToTarget(info.HitInfo.point);
+                    break;
+                case SelectionType.SingleSquad:
+                    SelectedDeployable.MoveToTarget(info.HitInfo.point);
+                    break;
+                case SelectionType.MultipleUnits:
+                    foreach (ClickableDeployment item in Selected)
+                    {
+                        if (item is DefaultUnit)
+                            ((DefaultUnit)item).MoveToTarget(info.HitInfo.point);
+                    }
+                    break;
+                case SelectionType.None:
+                    break;
+                default:
+                    break;
             }
         }
     }
 
-    private RayCastInfo IsTerrainFocusedOnClick()
+    private void ResetSelection()
     {
-        bool terrainfocused = false;
+        if (Selected != null && Selected.Count > 0)
+            for (int i = 0; i < Selected.Count; i++)
+            {
+                if (Selected[i])
+                    Selected[i].TriggerDeselect();
+            }
+
+        Selected.Clear();
+        SelectNone();
+    }
+
+    private RayCastInfo<T> CheckIfObjectIsInFocus<T>() where T : MonoBehaviour
+    {
         RaycastHit hit = new RaycastHit();
+        bool inSight = false;
+        T foundObject = null;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         float distance = 10000;
         RaycastHit[] raycasts = Physics.RaycastAll(ray);
@@ -179,15 +259,17 @@ public class SelectionController : MonoBehaviour
             if (raycasts[i].distance < distance)
             {
                 distance = raycasts[i].distance;
-                if (raycasts[i].collider.gameObject.GetComponent<Terrain>())
+                T foundobject = raycasts[i].collider.gameObject.GetComponent<T>();
+                if (foundobject)
                 {
-                    terrainfocused = true;
+                    inSight = true;
                     hit = raycasts[i];
+                    foundObject = foundobject;
                 }
                 else
-                    terrainfocused = false;
+                    inSight = false;
             }
         }
-        return new RayCastInfo(terrainfocused, hit);
+        return new RayCastInfo<T>(inSight, hit, foundObject);
     }
 }

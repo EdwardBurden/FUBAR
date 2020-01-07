@@ -6,6 +6,7 @@ public class ProjectileBullet : Bullet
 {
     private float TimeCount = 0;
     private Vector3 Forward;
+    private int damage = 50;
     public override void Init(GameObject enemy, Weapon Weapon)
     {
         Forward = enemy.transform.position - this.transform.position;
@@ -13,14 +14,19 @@ public class ProjectileBullet : Bullet
 
     private void Update()
     {
-        this.transform.position += Forward * Time.deltaTime;
+        this.transform.position += Forward * Time.deltaTime * Data.BulletSpeed;
         TimeCount += Time.deltaTime;
-        if (TimeCount > 2)
+        if (TimeCount > 1)
             Destroy(this.gameObject);
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void OnCollisionEnter(Collision collision)
     {
-        Destroy(this.gameObject);
+        if (collision.gameObject && collision.gameObject.GetComponent<ClickableDeployment>())
+        {
+            collision.gameObject.GetComponent<ClickableDeployment>().Health -= 50;
+            Destroy(this.gameObject);
+        }
+
     }
 }

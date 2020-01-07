@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    private float fixedDeltaTime;
     public static CameraController instance;
     public bool Follow;
     public Camera MainCamera;
@@ -33,6 +34,7 @@ public class CameraController : MonoBehaviour
         TargetPosition = transform.position;
         TargetRotation = transform.rotation;
         TargetZoom = MainCamera.transform.localPosition;
+        this.fixedDeltaTime = Time.fixedDeltaTime;
     }
 
     private void Update()
@@ -63,7 +65,7 @@ public class CameraController : MonoBehaviour
             TargetZoom += Input.mouseScrollDelta.y * ZoomStrength;
         }
 
-        if (Input.GetMouseButtonDown(1))
+        /*if (Input.GetMouseButtonDown(1))
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
             Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition);
@@ -85,7 +87,7 @@ public class CameraController : MonoBehaviour
                 DragCurrentPosition = ray.GetPoint(entry);
                 TargetPosition = transform.position + DragStartPosition - DragCurrentPosition;
             }
-        }
+        }*/
 
         if (Input.GetMouseButtonDown(2))
         {
@@ -142,6 +144,18 @@ public class CameraController : MonoBehaviour
         {
             TargetZoom -= ZoomStrength;
         }
+        if (Time.timeScale == 0.2f)
+            Time.timeScale = 1.0f;
+        // Adjust fixed delta time according to timescale
+        // The fixed delta time will now be 0.02 frames per real-time second
+
+        if (Input.GetKey(KeyCode.L))
+        {
+
+            Time.timeScale = 0.2f;
+
+        }
+        Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
 
         transform.position = Vector3.Lerp(transform.position, TargetPosition, Time.deltaTime * MovementTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, Time.deltaTime * MovementTime);

@@ -12,11 +12,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Unit1
       objectReference: {fileID: 0}
-    - target: {fileID: 1653259805859217620, guid: b54a5200c978f19418290f50f33812bb,
-        type: 3}
-      propertyPath: m_Convex
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1830484310738494827, guid: b54a5200c978f19418290f50f33812bb,
         type: 3}
       propertyPath: m_LocalPosition.x
