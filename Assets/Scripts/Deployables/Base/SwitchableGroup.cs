@@ -30,7 +30,7 @@ public class SwitchGroupLocalData
         CurrentState = currentState;
     }
 }
-public class SwitchableGroup : Deployable
+public abstract class SwitchableGroup : Deployable
 {
     public SwitchGroupLocalData LocalData;
 

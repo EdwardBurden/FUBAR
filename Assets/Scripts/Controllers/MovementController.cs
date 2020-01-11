@@ -37,43 +37,41 @@ public class MovementController : MonoBehaviour
         switch (SelectionController.CurrentSelection)
         {
             case SelectionType.SingleClickable:
-                {
-                    MoveableClickable move = SelectionController.Selected[0].GetComponent<MoveableClickable>();
-                    if (move)
-                        move.ExecuteMovementOrder(ordr);
-                }
+                SendOrder(SelectionController.Selected, ordr);
                 break;
             case SelectionType.SingleGroup:
-                {
-                    List<ClickableDeployment> moveobject = SelectionController.SelectedDeployable.ClickableDeployments;
-                    for (int i = 0; i < moveobject.Count; i++)
-                    {
-                        MoveableClickable moveable = moveobject[i].GetComponent<MoveableClickable>();
-                        if (moveable)
-                        {
-                            Vector3 offset = new Vector3((i * moveobject[i].SpawnRadius) - ((moveobject.Count - 1) * moveobject[i].SpawnRadius) / 2.0f, 0, 0);
-                            moveable.ExecuteMovementOrder(ordr + offset);
-                        }
-                    }
-                }
+                SendOrder(SelectionController.SelectedDeployable.ClickableDeployments, ordr);
                 break;
             case SelectionType.None:
                 break;
             case SelectionType.MultipleClickables:
-                for (int i = 0; i < SelectionController.Selected.Count; i++)
-                {
-                    MoveableClickable moveable = SelectionController.Selected[i].GetComponent<MoveableClickable>();
-                    if (moveable)
-                    {
-                        Vector3 offset = new Vector3((i * SelectionController.Selected[i].SpawnRadius) - ((SelectionController.Selected.Count - 1) * SelectionController.Selected[i].SpawnRadius) / 2.0f, 0, 0);
-                        moveable.ExecuteMovementOrder(ordr + offset);
-                    }
-                }
+                SendOrder(SelectionController.Selected, ordr);
                 break;
         }
-
     }
 
+    private void SendOrder(List<ClickableDeployment> clickableDeployments, Vector3 target)
+    {
+        for (int i = 0; i < clickableDeployments.Count; i++)
+        {
+            MoveableClickable moveable = clickableDeployments[i].GetComponent<MoveableClickable>();
+            if (moveable)
+            {
+                RayCastInfo<AttachmentComponent> atcomp = Helpers.CheckIfObjectIsInFocus<AttachmentComponent>();
+                if (atcomp.Focused)
+                {
+                    atcomp.
 
-
+                }
+                else
+                {
+                    Vector3 offset = new Vector3((i * moveable.SpawnRadius) - ((clickableDeployments.Count - 1) * moveable.SpawnRadius) / 2.0f, 0, 0);
+                    if (Input.GetKey(KeyCode.LeftControl))
+                        moveable.AddMovementOrder(target + offset);
+                    else
+                        moveable.NewMovementOrder(target + offset);
+                }
+            }
+        }
+    }
 }

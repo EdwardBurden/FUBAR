@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TerrainClickable : MonoBehaviour
+public class TurretBunker : MonoBehaviour
 {
   
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StaticClickable : ClickableDeployment
+public abstract class StaticClickable : ClickableDeployment
 {
     public override void Init(Deployable deployable)
     {

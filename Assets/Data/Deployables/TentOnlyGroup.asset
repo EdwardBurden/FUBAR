@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1b79e83d6f6ef40b2a4b4b53079b4a, type: 3}
   m_Name: TentOnlyGroup
   m_EditorClassIdentifier: 
-  Operations: []
-  DeployableName: 
+  Operations:
+  - {fileID: 11400000, guid: 263a0efc10d464c48a2a73616fe426d9, type: 2}
+  DeployableName: Tents
   StaticAmount: 4
-  StaticPrefab: {fileID: 8580805927502294379, guid: 3292407ab8d196c4688d719fdb375e30,
-    type: 3}
+  StaticPrefab: {fileID: 0}

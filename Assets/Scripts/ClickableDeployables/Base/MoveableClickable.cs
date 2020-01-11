@@ -3,33 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MoveableClickable : ClickableDeployment
+public abstract class MoveableClickable : ClickableDeployment
 {
     [SerializeField]
     private NavMeshAgent Agent;
 
     private ClickableDeployment AttackTarget;
     private List<Vector3> MovmentOders;
-
-    public void OrderMovements(List<Vector3> movments)
-    {
-        MovmentOders = movments;
-    }
-    public void AddMovementOrder(Vector3 transform)
-    {
-        MovmentOders.Add(transform);
-    }
-
-    private void ExecuteMovementOrders()
-    {
-        foreach (Vector3 order in MovmentOders)
-        {
-            ExecuteMovementOrder(order);
-            if (!pathComplete())
-                return;
-        }
-    }
-
+    public AttachmentComponent Attachment;
 
     public virtual void Start()
     {
@@ -37,22 +18,42 @@ public class MoveableClickable : ClickableDeployment
         Agent.updateUpAxis = true;
         Agent.updateRotation = true;
         MovmentOders = new List<Vector3>();
+        Agent.ResetPath();
     }
 
     public virtual void Update()
-    {   //temp redo before commit
-       // ExecuteMovementOrders();
+    {
+        if (pathComplete())
+        {
+            if (MovmentOders.Count > 0)
+                ExecuteMovementOrder(MovmentOders[0]);
+        }
     }
 
-    public void ExecuteMovementOrder(Vector3 order)
+
+    public void NewMovementOrder(Vector3 orders)
+    {
+        MovmentOders.Clear();
+        MovmentOders.Add(orders);
+        ExecuteMovementOrder(orders);
+    }
+
+    public void AddMovementOrder(Vector3 orders)
+    {
+        MovmentOders.Add(orders);
+    }
+
+
+    private void ExecuteMovementOrder(Vector3 order)
     {
         Agent.SetDestination(order);
         transform.LookAt(order);
+        MovmentOders.RemoveAt(0);
     }
 
     private bool pathComplete()
     {
-        if (Vector3.Distance(Agent.destination, Agent.transform.position) <= Agent.stoppingDistance)
+        if (Helpers.FlatDistanceTo(Agent.destination, Agent.transform.position) <= Agent.stoppingDistance)
         {
             if (!Agent.hasPath || Agent.velocity.sqrMagnitude == 0f)
             {

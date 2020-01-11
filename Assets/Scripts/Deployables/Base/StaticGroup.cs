@@ -20,7 +20,7 @@ public class StaticGroupLocalData
         DeployableName = deployableName;
     }
 }
-public class StaticGroup : Deployable
+public abstract class StaticGroup : Deployable
 {
     public StaticGroupLocalData LocalData;
 
