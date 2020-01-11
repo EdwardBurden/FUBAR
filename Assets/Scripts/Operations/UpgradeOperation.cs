@@ -4,19 +4,44 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Operations/Upgrade")]
 public class UpgradeOperation : Operation
 {
-    public string NewBuildingTitle;
-    public GameObject NewBuildingPrefab;
+    public string NewTitle;
+    public ClickableDeployment NewPrefab;
     public List<Operation> UpgradeOperations;
-    public int MaxHp;
 
     public override void Activate(Deployable selectable)
     {
-        selectable.LocalOperations.AddRange(UpgradeOperations);
-        selectable.LocalOperations.Remove(this);
-        selectable.HP = MaxHp;
-        selectable.DeploymentName = NewBuildingTitle;
-        selectable.BuildingPrefab = NewBuildingPrefab;
-        selectable.ChangeState(selectable.CurrentState);
+        SwitchableGroup group = selectable.GetComponent<SwitchableGroup>();
+        if (group)
+        {
+            switch (group.LocalData.CurrentState)
+            {
+                case DeploymentState.Movement:
+                    group.LocalData.MovingPrefab = NewPrefab;
+                    break;
+                case DeploymentState.Grounded:
+                    group.LocalData.StaticPrefab = NewPrefab;
+                    break;
+                default:
+                    break;
+            }
+            group.LocalData.DeployableName = NewTitle;
+            group.LocalData.Operations.AddRange(UpgradeOperations);
+            group.LocalData.Operations.Remove(this);
+            group.ChangeState(group.LocalData.CurrentState);
+        }
+        else
+        {
+            StaticGroup staticgroup = selectable.GetComponent<StaticGroup>();
+            if (staticgroup)
+            {
+                staticgroup.LocalData.StaticPrefab = NewPrefab;
+                staticgroup.LocalData.DeployableName = NewTitle;
+                staticgroup.LocalData.Operations.AddRange(UpgradeOperations);
+                staticgroup.LocalData.Operations.Remove(this);
+            }
+        }
+
+
         Debug.Log("BuildUpgradeOperation");
         UIController.instance.Refreshpanels();
     }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1b79e83d6f6ef40b2a4b4b53079b4a, type: 3}
+  m_Name: TentOnlyGroup
+  m_EditorClassIdentifier: 
+  Operations: []
+  DeployableName: 
+  StaticAmount: 4
+  StaticPrefab: {fileID: 8580805927502294379, guid: 3292407ab8d196c4688d719fdb375e30,
+    type: 3}

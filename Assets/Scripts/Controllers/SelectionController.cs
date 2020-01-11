@@ -7,9 +7,9 @@ using UnityEngine.EventSystems;
 public enum SelectionType
 {
     None,
-    SingleUnit,
-    SingleSquad,
-    MultipleUnits
+    SingleClickable,
+    SingleGroup,
+    MultipleClickables
 }
 
 public struct RayCastInfo<T> where T : MonoBehaviour
@@ -27,8 +27,6 @@ public struct RayCastInfo<T> where T : MonoBehaviour
 
 public class SelectionController : MonoBehaviour
 {
-
-    public static SelectionController instance;
     [SerializeField]
     private RectTransform SelectSquareImage;
 
@@ -52,7 +50,6 @@ public class SelectionController : MonoBehaviour
 
     private void Start()
     {
-        instance = this;
         CurrentSelection = SelectionType.None;
         Selected = new List<ClickableDeployment>();
         SelectSquareImage.gameObject.SetActive(false);
@@ -62,13 +59,12 @@ public class SelectionController : MonoBehaviour
     {
         CheckHoverObject();
         CheckSelection();
-        if (Input.GetMouseButtonUp(1))
-            CheckForMovement();
+
     }
 
     private void CheckHoverObject()
     {
-        RayCastInfo<ClickableDeployment> clickable = CheckIfObjectIsInFocus<ClickableDeployment>();
+        RayCastInfo<ClickableDeployment> clickable = Helpers.CheckIfObjectIsInFocus<ClickableDeployment>();
         if (clickable.Focused)
         {
             if (clickable.FocusObject != HoveredClickable)
@@ -117,7 +113,7 @@ public class SelectionController : MonoBehaviour
                             ClickableSelected(HoveredClickable);
                         else
                         {
-                            RayCastInfo<TerrainClickable> clickable = CheckIfObjectIsInFocus<TerrainClickable>();
+                            RayCastInfo<TerrainClickable> clickable = Helpers.CheckIfObjectIsInFocus<TerrainClickable>();
                             if (clickable.Focused)
                             {
                                 ResetSelection();
@@ -132,15 +128,13 @@ public class SelectionController : MonoBehaviour
         {
             SelectionImageEndPos = Input.mousePosition;
             SelectionMouseEndPos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-            if ((Mathf.Abs(SelectionImageStartPos.x - SelectionImageEndPos.x) > 30 && Mathf.Abs(SelectionImageStartPos.y - SelectionImageEndPos.y) > 30))
+            if ((Mathf.Abs(SelectionImageStartPos.x - SelectionImageEndPos.x) > 30 && Mathf.Abs(SelectionImageStartPos.y - SelectionImageEndPos.y) > 30) || HoveredClickable == null)
             {
                 if (!SelectSquareImage.gameObject.activeInHierarchy)
                     SelectSquareImage.gameObject.SetActive(true);
                 SetSelectionImageSize();
                 HoverObjectsFromBox();
             }
-
-
         }
     }
 
@@ -193,7 +187,7 @@ public class SelectionController : MonoBehaviour
 
     public bool IsSelectionFollowable()
     {
-        return (CurrentSelection == SelectionType.SingleUnit && Selected.Count == 1);
+        return (CurrentSelection == SelectionType.SingleClickable && Selected.Count == 1);
     }
 
     public void ClickableSelected(ClickableDeployment clickable)
@@ -202,7 +196,7 @@ public class SelectionController : MonoBehaviour
         clickable.TriggerOffHover();
         Selected.Add(clickable);
         clickable.TriggerOnClick();
-        CurrentSelection = SelectionType.SingleUnit;
+        CurrentSelection = SelectionType.SingleClickable;
         OnClickEvent.Invoke(clickable.gameObject);
     }
     public void ClickableSelectionAdded(ClickableDeployment clickable)
@@ -210,7 +204,7 @@ public class SelectionController : MonoBehaviour
         clickable.TriggerOffHover();
         Selected.Add(clickable);
         clickable.TriggerOnAddedToSelection();
-        CurrentSelection = SelectionType.MultipleUnits;
+        CurrentSelection = SelectionType.MultipleClickables;
         OnAddedToSelectionEvent.Invoke(clickable.gameObject);
     }
     public void ClickableDeSelected(ClickableDeployment clickable)
@@ -248,41 +242,13 @@ public class SelectionController : MonoBehaviour
         {
             ResetSelection();
             SelectedDeployable = gameObject.GetComponent<Deployable>();
-            CurrentSelection = SelectionType.SingleSquad;
+            CurrentSelection = SelectionType.SingleGroup;
 
             foreach (var item in SelectedDeployable.ClickableDeployments)
             {
                 Selected.Add(item);
                 item.TriggerOnAddedToSelection();
                 OnAddedToSelectionEvent.Invoke(item.gameObject);
-            }
-        }
-    }
-
-    public void CheckForMovement()
-    {
-        RayCastInfo<TerrainClickable> info = CheckIfObjectIsInFocus<TerrainClickable>();
-        if (info.Focused)
-        {
-            switch (CurrentSelection)
-            {
-                case SelectionType.SingleUnit:
-                    ((DefaultUnit)Selected[0]).MoveToTarget(info.HitInfo.point);
-                    break;
-                case SelectionType.SingleSquad:
-                    SelectedDeployable.MoveToTarget(info.HitInfo.point);
-                    break;
-                case SelectionType.MultipleUnits:
-                    foreach (ClickableDeployment item in Selected)
-                    {
-                        if (item is DefaultUnit)
-                            ((DefaultUnit)item).MoveToTarget(info.HitInfo.point);
-                    }
-                    break;
-                case SelectionType.None:
-                    break;
-                default:
-                    break;
             }
         }
     }
@@ -302,32 +268,5 @@ public class SelectionController : MonoBehaviour
         Selected.Clear();
         CurrentSelection = SelectionType.None;
         OnAllDeselectedEvent.Invoke(null);
-    }
-
-    private RayCastInfo<T> CheckIfObjectIsInFocus<T>() where T : MonoBehaviour
-    {
-        RaycastHit hit = new RaycastHit();
-        bool inSight = false;
-        T foundObject = null;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float distance = 10000;
-        RaycastHit[] raycasts = Physics.RaycastAll(ray);
-        for (int i = 0; i < raycasts.Length; i++)
-        {
-            if (raycasts[i].distance < distance)
-            {
-                distance = raycasts[i].distance;
-                T foundobject = raycasts[i].collider.gameObject.GetComponent<T>();
-                if (foundobject)
-                {
-                    inSight = true;
-                    hit = raycasts[i];
-                    foundObject = foundobject;
-                }
-                else
-                    inSight = false;
-            }
-        }
-        return new RayCastInfo<T>(inSight, hit, foundObject);
     }
 }

@@ -8,7 +8,11 @@ public class ChangeStateOperation : Operation
 
     public override void Activate(Deployable selectable)
     {
-        selectable.ChangeState(DeploymentState);
-        UIController.instance.Refreshpanels();
+        SwitchableGroup group = selectable.GetComponent<SwitchableGroup>();
+        if (group)
+        {
+            group.ChangeState(DeploymentState);
+            UIController.instance.Refreshpanels();
+        }
     }
 }

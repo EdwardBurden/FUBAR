@@ -8,6 +8,6 @@ public class SpawnOperation : Operation
 
     public override void Activate(Deployable selectable)
     {
-        Instantiate(SpawnObject, selectable.SpawnPoint.position, selectable.SpawnPoint.rotation, null);
+        Instantiate(SpawnObject, selectable.SpawnPoint, Quaternion.identity, null);
     }
 }

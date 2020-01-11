@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public SelectionController SelectionController;
     private float fixedDeltaTime;
-    public static CameraController instance;
     public bool Follow;
     public Camera MainCamera;
     public float NormalSpeed;
@@ -30,7 +30,6 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        instance = this;
         TargetPosition = transform.position;
         TargetRotation = transform.rotation;
         TargetZoom = MainCamera.transform.localPosition;
@@ -39,9 +38,9 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (Follow && SelectionController.instance.IsSelectionFollowable())
+        if (Follow && SelectionController.IsSelectionFollowable())
         {
-            transform.position = SelectionController.instance.Selected[0].transform.position;
+            transform.position = SelectionController.Selected[0].transform.position;
         }
         else
         {
