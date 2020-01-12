@@ -39,8 +39,8 @@ public class MovementController : MonoBehaviour
             case SelectionType.SingleClickable:
                 SendOrder(SelectionController.Selected, ordr);
                 break;
-            case SelectionType.SingleGroup:
-                SendOrder(SelectionController.SelectedDeployable.ClickableDeployments, ordr);
+            case SelectionType.SingleDeployable:
+                SendOrder(SelectionController.SelectedDeployable.GetAllClickables(), ordr);
                 break;
             case SelectionType.None:
                 break;

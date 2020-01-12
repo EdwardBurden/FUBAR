@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Section : MonoBehaviour
+public class Section : Deployable
 {
     private List<Group> Groups;
     public SectionData Data;
@@ -17,5 +17,32 @@ public class Section : MonoBehaviour
             Group groupspawned = Instantiate(Data.Groups[i], this.transform.position + offset, Quaternion.identity, this.transform);
             Groups.Add(groupspawned);
         }
+    }
+
+    public override Vector3 ClickablesCenterPos()
+    {
+        if (Groups != null && Groups.Count > 0)
+        {
+            Vector3 total = Vector3.zero;
+            foreach (var item in Groups)
+                total += item.ClickablesCenterPos();
+            return total / (float)Groups.Count;
+        }
+        else return this.transform.position;
+    }
+
+    protected override void InstatiateChildren(GameObject prefab, int amount)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override List<ClickableDeployment> GetAllClickables()
+    {
+        List<ClickableDeployment> clickables = new List<ClickableDeployment>();
+        foreach (Group group in Groups)
+        {
+            clickables.AddRange(group.GetAllClickables());
+        }
+        return clickables;
     }
 }

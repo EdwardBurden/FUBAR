@@ -8,8 +8,9 @@ public enum SelectionType
 {
     None,
     SingleClickable,
-    SingleGroup,
-    MultipleClickables
+    MultipleClickables,
+    SingleDeployable,
+
 }
 
 public struct RayCastInfo<T> where T : MonoBehaviour
@@ -39,7 +40,7 @@ public class SelectionController : MonoBehaviour
 
     public ClickableDeployment HoveredClickable;
     public List<ClickableDeployment> Selected;
-    public Group SelectedDeployable;
+    public Deployable SelectedDeployable;
 
     public GameObjectUnityEvent OnClickEvent;
     public GameObjectUnityEvent OnAddedToSelectionEvent;
@@ -237,18 +238,38 @@ public class SelectionController : MonoBehaviour
 
     public void DeplyableSelected(GameObject gameObject)
     {
-        //clicked select squad button on unit
-        if (gameObject && gameObject.GetComponent<Group>())
+        if (gameObject && gameObject.GetComponent<Deployable>())
         {
             ResetSelection();
-            SelectedDeployable = gameObject.GetComponent<Group>();
-            CurrentSelection = SelectionType.SingleGroup;
+            SelectedDeployable = gameObject.GetComponent<Deployable>();
+            CurrentSelection = SelectionType.SingleDeployable;
 
-            foreach (var item in SelectedDeployable.ClickableDeployments)
+            switch (SelectedDeployable.DeployableType)
             {
-                Selected.Add(item);
-                item.TriggerOnAddedToSelection();
-                OnAddedToSelectionEvent.Invoke(item.gameObject);
+                case DeployableFlagState.Group:
+                    Group selectedgroup = SelectedDeployable.GetComponent<Group>();
+                    foreach (var item in selectedgroup.GetAllClickables())
+                    {
+                        Selected.Add(item);
+                        item.TriggerOnAddedToSelection();
+                        OnAddedToSelectionEvent.Invoke(item.gameObject);
+                    }
+                    break;
+                case DeployableFlagState.Section:
+                    Section selectedsection = SelectedDeployable.GetComponent<Section>();
+                    foreach (var item in selectedsection.GetAllClickables())
+                    {
+                        Selected.Add(item);
+                        item.TriggerOnAddedToSelection();
+                        OnAddedToSelectionEvent.Invoke(item.gameObject);
+                    }
+                    break;
+                case DeployableFlagState.Platoon:
+                    break;
+                case DeployableFlagState.Company:
+                    break;
+                default:
+                    break;
             }
         }
     }

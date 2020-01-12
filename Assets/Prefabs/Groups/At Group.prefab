@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6124780217218305253
 Transform:
   m_ObjectHideFlags: 0
@@ -164,8 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcace6875a7fc104bace0de96f21b74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flag: {fileID: 2749944702231385347}
-  ClickableDeployments: []
+  DeployableType: 0
   BaseData: {fileID: 11400000, guid: e12030577e6f28148853721f2ac0b761, type: 2}
   SpawnPointOffset: {x: 0, y: 0, z: 0}
   SpawnRadius: 0

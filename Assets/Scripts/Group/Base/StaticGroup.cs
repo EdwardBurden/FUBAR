@@ -26,7 +26,7 @@ public abstract class StaticGroup : Group
 
     protected override void InitClickables()
     {
-        InstatiateClickables(LocalData.StaticPrefab, LocalData.StaticAmount);
+        InstatiateChildren(LocalData.StaticPrefab.gameObject, LocalData.StaticAmount);
     }
 
     protected override void InitData()

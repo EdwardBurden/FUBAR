@@ -4,21 +4,15 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public abstract class Group : MonoBehaviour
+public abstract class Group : Deployable
 {
-    public GameObject flag;
 
-    public virtual void Update()
-    {
-        flag.transform.position = new Vector3(ClickablesCenterPos().x, flag.transform.position.y, ClickablesCenterPos().z);
-    }
-
-    public List<ClickableDeployment> ClickableDeployments;
+    private List<ClickableDeployment> ClickableDeployments;
     public GroupData BaseData;
     public Vector3 SpawnPointOffset;
     public int SpawnRadius;
 
-    protected Vector3 ClickablesCenterPos()
+    public override Vector3 ClickablesCenterPos()
     {
         if (ClickableDeployments != null && ClickableDeployments.Count > 0)
         {
@@ -56,14 +50,20 @@ public abstract class Group : MonoBehaviour
         ClickableDeployments.Clear();
     }
 
-    protected void InstatiateClickables(ClickableDeployment prefab, int amount)
+    protected override void InstatiateChildren(GameObject gameobjectprefab, int amount)
     {
+        ClickableDeployment clickable = gameobjectprefab.GetComponent<ClickableDeployment>();
         for (int i = 0; i < amount; i++)
         {
-            Vector3 offset = new Vector3((i * prefab.SpawnRadius) - ((amount - 1) * prefab.SpawnRadius) / 2.0f, 0, 0);
-            ClickableDeployment newclickable = Instantiate(prefab, this.transform.position + offset, Quaternion.identity, this.transform);
+            Vector3 offset = new Vector3((i * clickable.SpawnRadius) - ((amount - 1) * clickable.SpawnRadius) / 2.0f, 0, 0);
+            ClickableDeployment newclickable = Instantiate(clickable, this.transform.position + offset, Quaternion.identity, this.transform);
             newclickable.Init(this);
             ClickableDeployments.Add(newclickable);
         }
+    }
+
+    public override List<ClickableDeployment> GetAllClickables()
+    {
+        return ClickableDeployments;
     }
 }

@@ -53,10 +53,10 @@ public abstract class SwitchableGroup : Group
         switch (LocalData.CurrentState)
         {
             case DeploymentState.Movement:
-                InstatiateClickables(LocalData.MovingPrefab, LocalData.MovingAmount);
+                InstatiateChildren(LocalData.MovingPrefab.gameObject, LocalData.MovingAmount);
                 break;
             case DeploymentState.Grounded:
-                InstatiateClickables(LocalData.StaticPrefab, LocalData.StaticAmount);
+                InstatiateChildren(LocalData.StaticPrefab.gameObject, LocalData.StaticAmount);
                 break;
             default:
                 break;
