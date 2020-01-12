@@ -60,7 +60,7 @@ public class MovementController : MonoBehaviour
                 RayCastInfo<AttachmentComponent> atcomp = Helpers.CheckIfObjectIsInFocus<AttachmentComponent>();
                 if (atcomp.Focused)
                 {
-                    atcomp.
+                 //   atcomp.
 
                 }
                 else

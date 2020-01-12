@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class StaticClickable : ClickableDeployment
 {
-    public override void Init(Deployable deployable)
+    public override void Init(Group deployable)
     {
         DeployableRef = deployable;
     }

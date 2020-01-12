@@ -6,7 +6,7 @@ public class SpawnOperation : Operation
 {
     public GameObject SpawnObject;
 
-    public override void Activate(Deployable selectable)
+    public override void Activate(Group selectable)
     {
         Instantiate(SpawnObject, selectable.SpawnPoint, Quaternion.identity, null);
     }

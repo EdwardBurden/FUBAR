@@ -13,7 +13,7 @@ public class UIController : MonoBehaviour
     public GameObject UnitInfoPanel;
 
     private ClickableDeployment SelectedClickableDeployment;
-    private Deployable SelectedDeployable;
+    private Group SelectedDeployable;
 
     private void Start()
     {
@@ -65,7 +65,7 @@ public class UIController : MonoBehaviour
         UnitInfoPanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "";
     }
 
-    private void FillDeployableInfoPanel(Deployable selected)
+    private void FillDeployableInfoPanel(Group selected)
     {
         SwitchableGroup group = selected.GetComponent<SwitchableGroup>();
         if (group)
@@ -131,7 +131,7 @@ public class UIController : MonoBehaviour
 
     public void OnDeployableSelected(GameObject gameObject)
     {
-        Deployable squad = gameObject.GetComponent<Deployable>();
+        Group squad = gameObject.GetComponent<Group>();
         if (squad)
         {
             SelectedDeployable = squad;

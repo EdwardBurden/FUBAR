@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Data /SwitchableGroupData")]
-public class SwitchableGroupData : DeployableData
+public class SwitchableGroupData : GroupData
 {
     public DeploymentState StartingState;
     public int StaticAmount;

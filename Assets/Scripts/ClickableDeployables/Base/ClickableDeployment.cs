@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class ClickableDeployment : MonoBehaviour
 {
     //Refs
-    public Deployable DeployableRef;
+    public Group DeployableRef;
     //Data
     public string LocalName;
     public int SpawnRadius;
@@ -14,7 +14,7 @@ public abstract class ClickableDeployment : MonoBehaviour
     public GameObject HoverObject;
     public GameObject ClickObject;
 
-    public abstract void Init(Deployable deployable);
+    public abstract void Init(Group deployable);
     public abstract void TriggerOnClick();
     public abstract void TriggerOnAddedToSelection();
     public abstract void TriggerDeselect();

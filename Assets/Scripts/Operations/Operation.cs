@@ -8,6 +8,6 @@ public abstract class Operation : ScriptableObject
     public string Description;
     public DeploymentState StateFlag;
 
-    public abstract void Activate(Deployable selectable);
+    public abstract void Activate(Group selectable);
 
 }

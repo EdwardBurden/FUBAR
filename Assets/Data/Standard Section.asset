@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b55a93aa0d0f84541a6239a3ef8351ae, type: 3}
+  m_Name: Standard Section
+  m_EditorClassIdentifier: 
+  Groups:
+  - {fileID: 6771919178863982223, guid: 63573dcc38b703d48993be72fcd09577, type: 3}
+  - {fileID: 6771919178863982223, guid: 98284bf0467812e44a5ecb127588d3ad, type: 3}
+  - {fileID: 6771919178863982223, guid: 8968e6698987d734aaf20bdba57088e2, type: 3}
+  SectionName: Standard Section
+  radius: 0

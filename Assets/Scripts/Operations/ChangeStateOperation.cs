@@ -6,7 +6,7 @@ public class ChangeStateOperation : Operation
 {
     public DeploymentState DeploymentState;
 
-    public override void Activate(Deployable selectable)
+    public override void Activate(Group selectable)
     {
         SwitchableGroup group = selectable.GetComponent<SwitchableGroup>();
         if (group)

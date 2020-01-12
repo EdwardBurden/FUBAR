@@ -13,7 +13,7 @@ public class AttachmentComponent : MonoBehaviour
         {
             clickableDeployment.Attachment = this;
             AttachmentPoints.RemoveAt(0);
-            AttachmentPoints[0];
+          //  AttachmentPoints[0];
         }
 
     }

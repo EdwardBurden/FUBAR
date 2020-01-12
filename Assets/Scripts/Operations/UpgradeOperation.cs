@@ -8,7 +8,7 @@ public class UpgradeOperation : Operation
     public ClickableDeployment NewPrefab;
     public List<Operation> UpgradeOperations;
 
-    public override void Activate(Deployable selectable)
+    public override void Activate(Group selectable)
     {
         SwitchableGroup group = selectable.GetComponent<SwitchableGroup>();
         if (group)

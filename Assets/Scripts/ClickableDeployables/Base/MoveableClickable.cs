@@ -93,7 +93,7 @@ public abstract class MoveableClickable : ClickableDeployment
             HoverObject.SetActive(false);
     }
 
-    public override void Init(Deployable deployable)
+    public override void Init(Group deployable)
     {
         DeployableRef = deployable;
     }

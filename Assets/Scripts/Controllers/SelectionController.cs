@@ -39,7 +39,7 @@ public class SelectionController : MonoBehaviour
 
     public ClickableDeployment HoveredClickable;
     public List<ClickableDeployment> Selected;
-    public Deployable SelectedDeployable;
+    public Group SelectedDeployable;
 
     public GameObjectUnityEvent OnClickEvent;
     public GameObjectUnityEvent OnAddedToSelectionEvent;
@@ -238,10 +238,10 @@ public class SelectionController : MonoBehaviour
     public void DeplyableSelected(GameObject gameObject)
     {
         //clicked select squad button on unit
-        if (gameObject && gameObject.GetComponent<Deployable>())
+        if (gameObject && gameObject.GetComponent<Group>())
         {
             ResetSelection();
-            SelectedDeployable = gameObject.GetComponent<Deployable>();
+            SelectedDeployable = gameObject.GetComponent<Group>();
             CurrentSelection = SelectionType.SingleGroup;
 
             foreach (var item in SelectedDeployable.ClickableDeployments)
