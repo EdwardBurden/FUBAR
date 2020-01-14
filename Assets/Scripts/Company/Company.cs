@@ -6,6 +6,8 @@ public class Company : Deployable
 {
     private List<Platoon> Platoons;
     public CompanyData Data;
+    private Group CommandGroup;
+    private Group DeputyCommandGroup;
 
     public void Init()
     {
@@ -17,8 +19,8 @@ public class Company : Deployable
             groupspawned.Init();
             Platoons.Add(groupspawned);
         }
-        Instantiate(Data.CommandGroup, this.transform.position, Quaternion.identity, this.transform);
-        Instantiate(Data.DeputyCommandGroup, this.transform.position, Quaternion.identity, this.transform);
+        CommandGroup = Instantiate(Data.CommandGroup, this.transform.position, Quaternion.identity, this.transform);
+        DeputyCommandGroup = Instantiate(Data.DeputyCommandGroup, this.transform.position, Quaternion.identity, this.transform);
     }
 
     public override Vector3 ClickablesCenterPos()
@@ -27,8 +29,12 @@ public class Company : Deployable
         {
             Vector3 total = Vector3.zero;
             foreach (var item in Platoons)
+            {
                 total += item.ClickablesCenterPos();
-            return total / (float)Platoons.Count;
+            }
+            total += CommandGroup.ClickablesCenterPos();
+            total += DeputyCommandGroup.ClickablesCenterPos();
+            return total / ((float)Platoons.Count + 2.0f);
         }
         else return this.transform.position;
     }
@@ -40,6 +46,13 @@ public class Company : Deployable
 
     public override List<ClickableDeployment> GetAllClickables()
     {
-        throw new System.NotImplementedException();
+        List<ClickableDeployment> clickables = new List<ClickableDeployment>();
+        foreach (Platoon group in Platoons)
+        {
+            clickables.AddRange(group.GetAllClickables());
+        }
+        clickables.AddRange(CommandGroup.GetAllClickables());
+        clickables.AddRange(DeputyCommandGroup.GetAllClickables());
+        return clickables;
     }
 }

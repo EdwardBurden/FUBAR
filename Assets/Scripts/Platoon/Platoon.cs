@@ -39,6 +39,11 @@ public class Platoon : Deployable
 
     public override List<ClickableDeployment> GetAllClickables()
     {
-        throw new System.NotImplementedException();
+        List<ClickableDeployment> clickables = new List<ClickableDeployment>();
+        foreach (Section group in Sections)
+        {
+            clickables.AddRange(group.GetAllClickables());
+        }
+        return clickables;
     }
 }

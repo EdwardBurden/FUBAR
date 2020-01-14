@@ -265,8 +265,22 @@ public class SelectionController : MonoBehaviour
                     }
                     break;
                 case DeployableFlagState.Platoon:
+                    Platoon platoonselected = SelectedDeployable.GetComponent<Platoon>();
+                    foreach (var item in platoonselected.GetAllClickables())
+                    {
+                        Selected.Add(item);
+                        item.TriggerOnAddedToSelection();
+                        OnAddedToSelectionEvent.Invoke(item.gameObject);
+                    }
                     break;
                 case DeployableFlagState.Company:
+                    Company compselected = SelectedDeployable.GetComponent<Company>();
+                    foreach (var item in compselected.GetAllClickables())
+                    {
+                        Selected.Add(item);
+                        item.TriggerOnAddedToSelection();
+                        OnAddedToSelectionEvent.Invoke(item.gameObject);
+                    }
                     break;
                 default:
                     break;
