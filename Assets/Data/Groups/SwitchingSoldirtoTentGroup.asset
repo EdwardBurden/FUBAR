@@ -22,6 +22,7 @@ MonoBehaviour:
   StartingState: 0
   StaticAmount: 2
   MovingAmount: 4
-  StaticPrefab: {fileID: 0}
+  StaticPrefab: {fileID: 7224232393608394824, guid: 3292407ab8d196c4688d719fdb375e30,
+    type: 3}
   MovingPrefab: {fileID: 6706313884579627394, guid: d194d67d058520544a41dde92442eda1,
     type: 3}

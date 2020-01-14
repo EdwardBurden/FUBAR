@@ -16,5 +16,5 @@ MonoBehaviour:
   Title: Scout spawn
   Description: 
   StateFlag: 1
-  SpawnObject: {fileID: 3234204764303644635, guid: 27038e19c6acb354eb6e35b079b0ad6e,
+  SpawnObject: {fileID: 3234204764303644635, guid: 63573dcc38b703d48993be72fcd09577,
     type: 3}

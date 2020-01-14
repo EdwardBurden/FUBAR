@@ -120,6 +120,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: d9f377bb310831347847930455410e9e, type: 2}
+--- !u!1 &13101718 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3234204764303644635, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+    type: 3}
+  m_PrefabInstance: {fileID: 972253031}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &244830724
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +337,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: GameObjectUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnAddedToSelectionEvent:
     m_PersistentCalls:
       m_Calls:
@@ -345,6 +353,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: GameObjectUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnDeselectEvent:
     m_PersistentCalls:
       m_Calls:
@@ -359,6 +369,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: GameObjectUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnAllDeselectedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -373,6 +385,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: GameObjectUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnHoverEvent:
     m_PersistentCalls:
       m_Calls:
@@ -387,6 +401,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: GameObjectUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OffHoverEvent:
     m_PersistentCalls:
       m_Calls:
@@ -401,6 +417,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: GameObjectUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &382526085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,6 +446,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: GameObjectUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!4 &382526091
 Transform:
   m_ObjectHideFlags: 0
@@ -607,6 +627,41 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4665708455314617075, guid: a054c6dc94fcfa449b35b241b269e12f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a054c6dc94fcfa449b35b241b269e12f, type: 3}
+--- !u!1 &492833055 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2749944702231385347, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+    type: 3}
+  m_PrefabInstance: {fileID: 972253031}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &492833060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492833055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81508852b608edf4ca5f797829f80994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeployableRef: {fileID: 13101718}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: a3beb82d308bd1d4fb72c68a29ba4051, type: 2}
+        m_MethodName: Raise
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: GameObjectUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,6 +1145,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: GameObjectUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &889647522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1117,6 +1174,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: GameObjectUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &889647523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1143,6 +1202,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: GameObjectUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   Button: {fileID: 6480170556103222252, guid: 99f3145f4d7db944b96af82b05382954, type: 3}
   DeployableInfoPanel: {fileID: 841577956}
   UnitInfoPanel: {fileID: 8721406360965408544}
@@ -1173,6 +1234,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: GameObjectUnityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,6 +1319,75 @@ Transform:
   m_Father: {fileID: 317025586}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!1001 &972253031
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3234204764303644635, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+        type: 3}
+      propertyPath: m_Name
+      value: Both
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973215851289074725, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 44.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973215851289074725, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973215851289074725, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 16.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973215851289074725, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973215851289074725, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973215851289074725, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973215851289074725, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973215851289074725, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973215851289074725, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973215851289074725, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973215851289074725, guid: d76c898918e9d5c40bc8e702eb2d52dd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d76c898918e9d5c40bc8e702eb2d52dd, type: 3}
 --- !u!1 &1569982468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1356,6 +1488,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: cd500d40b735efe49b953a5bf99e0580, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
