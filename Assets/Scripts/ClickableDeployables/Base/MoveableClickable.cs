@@ -10,7 +10,6 @@ public abstract class MoveableClickable : ClickableDeployment
 
     private ClickableDeployment AttackTarget;
     private List<Vector3> MovmentOders;
-    public AttachmentComponent Attachment;
 
     public virtual void Start()
     {

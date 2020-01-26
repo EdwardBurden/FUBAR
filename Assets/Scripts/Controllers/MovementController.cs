@@ -57,20 +57,11 @@ public class MovementController : MonoBehaviour
             MoveableClickable moveable = clickableDeployments[i].GetComponent<MoveableClickable>();
             if (moveable)
             {
-                RayCastInfo<AttachmentComponent> atcomp = Helpers.CheckIfObjectIsInFocus<AttachmentComponent>();
-                if (atcomp.Focused)
-                {
-                 //   atcomp.
-
-                }
+                Vector3 offset = new Vector3((i * moveable.SpawnRadius) - ((clickableDeployments.Count - 1) * moveable.SpawnRadius) / 2.0f, 0, 0);
+                if (Input.GetKey(KeyCode.LeftControl))
+                    moveable.AddMovementOrder(target + offset);
                 else
-                {
-                    Vector3 offset = new Vector3((i * moveable.SpawnRadius) - ((clickableDeployments.Count - 1) * moveable.SpawnRadius) / 2.0f, 0, 0);
-                    if (Input.GetKey(KeyCode.LeftControl))
-                        moveable.AddMovementOrder(target + offset);
-                    else
-                        moveable.NewMovementOrder(target + offset);
-                }
+                    moveable.NewMovementOrder(target + offset);
             }
         }
     }
