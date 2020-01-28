@@ -59,15 +59,7 @@ namespace FUBAR
             List<Group> groups = SelectionManager.GetGroup();
             foreach (Group item in groups)
             {
-                foreach (ClickObject click in item.GetObjects())
-                {
-                    AttachComponent comp = click.GetComponent<AttachComponent>();
-                    if (comp)
-                        comp.Dettach();
-                    NavMeshAgent agent = click.GetComponent<NavMeshAgent>();
-                    if (agent)
-                        agent.SetDestination(order.Destination);
-                }
+                item.Move(order);
             }
         }
 
