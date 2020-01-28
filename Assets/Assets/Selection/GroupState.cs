@@ -23,9 +23,18 @@ namespace FUBAR
             throw new System.NotImplementedException();
         }
 
-        public override void Attack()
+        public override void Attack(AttackOrder order)
         {
-            throw new System.NotImplementedException();
+            List<Group> groups = SelectionManager.GetGroup();
+            foreach (Group item in groups)
+            {
+                foreach (ClickObject click in item.GetObjects())
+                {
+                    NavMeshAgent agent = click.GetComponent<NavMeshAgent>();
+                    if (agent)
+                        agent.SetDestination(order.GetShootingDistance(agent.transform.position));
+                }
+            }
         }
 
         public override void Dettach()

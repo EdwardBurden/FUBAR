@@ -31,6 +31,12 @@ namespace FUBAR
                 State.Move((MoveOrder)order);
         }
 
+        public void Attack(Order order)
+        {
+            if (State != null)
+                State.Attack((AttackOrder)order);
+        }
+
         public void OnGroupSelected(Group group)
         {
             OSManager.ResetSelection();

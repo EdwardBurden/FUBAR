@@ -20,9 +20,15 @@ public class ObjectState : SelectionState
         throw new System.NotImplementedException();
     }
 
-    public override void Attack()
+    public override void Attack(AttackOrder order)
     {
-        throw new System.NotImplementedException();
+        List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
+        foreach (ClickObject item in objects)
+        {
+            NavMeshAgent agent = item.GetComponent<NavMeshAgent>();
+            if (agent)
+                agent.SetDestination(order.GetShootingDistance(agent.transform.position));
+        }
     }
 
     public override void Dettach()

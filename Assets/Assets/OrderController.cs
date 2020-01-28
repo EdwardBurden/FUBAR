@@ -19,11 +19,27 @@ namespace FUBAR
         }
     }
 
+
+    public class AttackOrder : Order
+    {
+        public Vector3 Destination;
+
+        public AttackOrder(Vector3 destination)
+        {
+            Destination = destination;
+        }
+
+        public Vector3 GetShootingDistance(Vector3 currentpos)
+        {
+            return Destination - (Destination - currentpos).normalized * 5;
+        }
+    }
+
+
     public class OrderController : MonoBehaviour
     {
         public OrderEvent MoveOrderEvent;
-
-        //   public OrderEvent SttackOrderEvent;
+        public OrderEvent AttackOrderEvent;
 
         //  public OrderEvent MoveOrderEvent;
 
@@ -47,6 +63,8 @@ namespace FUBAR
                         MoveOrderEvent.Raise(order);
                         break;
                     case ClickObjectType.Destructable:
+                        AttackOrder attack = new AttackOrder(LastClickedObject.HitInfo.point);
+                        AttackOrderEvent.Raise(attack);
                         break;
                     case ClickObjectType.Attachable:
                         break;

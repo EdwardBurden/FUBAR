@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043ba18638e0d174d87359c0d1ea8d2d, type: 3}
   m_Name: TestGroup 1
   m_EditorClassIdentifier: 
+  Icon: {fileID: 0}
   Name: Teste
   Objects: {fileID: 8338538871828950037, guid: 64424cf8b9d14d64faef1a342debb841, type: 3}
   ObjectNumber: 4
-  Operations: []
+  Operations:
+  - {fileID: 0}
+  GroupFlag: {fileID: 0}

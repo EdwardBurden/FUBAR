@@ -7,7 +7,7 @@ namespace FUBAR {
     {
         public abstract void Move(MoveOrder order);
 
-        public abstract void Attack();
+        public abstract void Attack(AttackOrder order);
 
         public abstract void Attach();
 
