@@ -5,10 +5,8 @@ using UnityEngine.AI;
 
 namespace FUBAR
 {
-
     public class Unit : ClickObject
     {
-        [SerializeField]
-        private NavMeshAgent AgentComponent;
+
     }
 }

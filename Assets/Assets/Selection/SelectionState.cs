@@ -9,9 +9,7 @@ namespace FUBAR {
 
         public abstract void Attack(AttackOrder order);
 
-        public abstract void Attach();
-
-        public abstract void Dettach();
+        public abstract void Attach(AttachOrder order);
 
         public abstract void Init();
         public abstract void StateLost();

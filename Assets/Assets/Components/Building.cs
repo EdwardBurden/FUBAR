@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace FUBAR
 {
-
     public class Building : ClickObject
     {
         

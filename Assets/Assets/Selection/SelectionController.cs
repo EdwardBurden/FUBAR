@@ -37,6 +37,12 @@ namespace FUBAR
                 State.Attack((AttackOrder)order);
         }
 
+        public void Attch(Order order)
+        {
+            if (State != null)
+                State.Attach((AttachOrder)order);
+        }
+
         public void OnGroupSelected(Group group)
         {
             OSManager.ResetSelection();

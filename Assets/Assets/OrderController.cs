@@ -35,11 +35,21 @@ namespace FUBAR
         }
     }
 
+    public class AttachOrder : Order
+    {
+        public GameObject Anchor;
+
+        public AttachOrder(GameObject attachment)
+        {
+            Anchor = attachment;
+        }
+    }
 
     public class OrderController : MonoBehaviour
     {
         public OrderEvent MoveOrderEvent;
         public OrderEvent AttackOrderEvent;
+        public OrderEvent AttachOrderEvent;
 
         //  public OrderEvent MoveOrderEvent;
 
@@ -67,6 +77,8 @@ namespace FUBAR
                         AttackOrderEvent.Raise(attack);
                         break;
                     case ClickObjectType.Attachable:
+                        AttachOrder att = new AttachOrder(LastClickedObject.FocusObject.gameObject);
+                        AttachOrderEvent.Raise(att);
                         break;
                     default:
                         break;

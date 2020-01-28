@@ -18,9 +18,18 @@ namespace FUBAR
             SelectionManager = selectionManager;
         }
 
-        public override void Attach()
+        public override void Attach(AttachOrder attachOrder)
         {
-            throw new System.NotImplementedException();
+            List<Group> groups = SelectionManager.GetGroup();
+            foreach (Group item in groups)
+            {
+                foreach (ClickObject click in item.GetObjects())
+                {
+                    AttachComponent comp = click.GetComponent<AttachComponent>();
+                    if (comp)
+                        comp.Attach(attachOrder.Anchor.transform);
+                }
+            }
         }
 
         public override void Attack(AttackOrder order)
@@ -30,16 +39,14 @@ namespace FUBAR
             {
                 foreach (ClickObject click in item.GetObjects())
                 {
+                    AttachComponent comp = click.GetComponent<AttachComponent>();
+                    if (comp)
+                        comp.Dettach();
                     NavMeshAgent agent = click.GetComponent<NavMeshAgent>();
                     if (agent)
                         agent.SetDestination(order.GetShootingDistance(agent.transform.position));
                 }
             }
-        }
-
-        public override void Dettach()
-        {
-            throw new System.NotImplementedException();
         }
 
         public override void Init()
@@ -54,6 +61,9 @@ namespace FUBAR
             {
                 foreach (ClickObject click in item.GetObjects())
                 {
+                    AttachComponent comp = click.GetComponent<AttachComponent>();
+                    if (comp)
+                        comp.Dettach();
                     NavMeshAgent agent = click.GetComponent<NavMeshAgent>();
                     if (agent)
                         agent.SetDestination(order.Destination);

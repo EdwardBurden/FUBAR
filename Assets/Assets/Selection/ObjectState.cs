@@ -15,9 +15,15 @@ public class ObjectState : SelectionState
         ObjectSelection = objectSelection;
     }
 
-    public override void Attach()
+    public override void Attach(AttachOrder attachOrder)
     {
-        throw new System.NotImplementedException();
+        List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
+        foreach (ClickObject item in objects)
+        {
+            AttachComponent comp = item.GetComponent<AttachComponent>();
+            if (comp)
+                comp.Attach(attachOrder.Anchor.transform);
+        }
     }
 
     public override void Attack(AttackOrder order)
@@ -25,15 +31,13 @@ public class ObjectState : SelectionState
         List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
         foreach (ClickObject item in objects)
         {
+            AttachComponent comp = item.GetComponent<AttachComponent>();
+            if (comp)
+                comp.Dettach();
             NavMeshAgent agent = item.GetComponent<NavMeshAgent>();
             if (agent)
                 agent.SetDestination(order.GetShootingDistance(agent.transform.position));
         }
-    }
-
-    public override void Dettach()
-    {
-        throw new System.NotImplementedException();
     }
 
     public override void Init()
@@ -46,6 +50,10 @@ public class ObjectState : SelectionState
         List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
         foreach (ClickObject item in objects)
         {
+            AttachComponent comp = item.GetComponent<AttachComponent>();
+            if (comp)
+                comp.Dettach();
+
             NavMeshAgent agent = item.GetComponent<NavMeshAgent>();
             if (agent)
                 agent.SetDestination(ordr.Destination);
