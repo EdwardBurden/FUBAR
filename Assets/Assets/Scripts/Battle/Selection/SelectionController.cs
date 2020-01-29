@@ -7,7 +7,7 @@ namespace FUBAR
 {
     public class SelectionController : MonoBehaviour
     {
-        public ClickObjectEvent ClickObjectSelectedEvent;
+        public ClickObjectListEvent ClickObjectSelectedEvent;
         public ClickObjectEvent ClickObjectDeselectedEvent;
         public ClickObjectEvent NewClickObjectSelectionEvent;
         public ClickObjectEvent NoneSelected;
@@ -48,25 +48,19 @@ namespace FUBAR
                 State.Attach((AttachOrder)order);
         }
 
-        public void OnGroupSelectionAdd(Group group) //called from ui event clicks
+        public void OnGroupSelectionChange(Group group)
         {
             OSManager.ResetSelection();
-            GSManager.SelectionAdded(group);
-            ChangeState(new GroupState(this, GSManager));
-        }
-
-        public void OnGroupSelectionRemove(Group group) //called from ui event clicks
-        {
-            OSManager.ResetSelection();
-            GSManager.SelectionRemoved(group);
-            ChangeState(new GroupState(this, GSManager));
-        }
-
-        public void OnGroupSelected(Group group) //called from ui event clicks
-        {
-            OSManager.ResetSelection();
-            GSManager.GroupSelected(group);
-            ChangeState(new GroupState(this, GSManager));
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                if (group != null && !GSManager.GetGroup().Contains(group))
+                    GSManager.SelectionAdded(group);
+                else
+                    GSManager.SelectionRemoved(group);
+            }
+            else
+                GSManager.GroupSelected(group);
+            ChangeState(new GroupState(GSManager));
         }
 
         public void OnObjectSelected(ClickObject obj)//called from ui event clicks
@@ -75,7 +69,6 @@ namespace FUBAR
             OSManager.NewSelection(obj);
             ChangeState(new ObjectState(OSManager));
         }
-
 
 
         public void ChangeState(SelectionState state)
@@ -147,7 +140,9 @@ namespace FUBAR
                             if (HoverObject && !OSManager.GetSelectedObjects().Contains(HoverObject))
                             {
                                 OSManager.SelectionAdded(HoverObject);
-                                ClickObjectSelectedEvent.Raise(HoverObject);
+                                List<ClickObject> added = new List<ClickObject>();
+                                added.Add(HoverObject);
+                                ClickObjectSelectedEvent.Raise(added);
                             }
                             else
                             {
@@ -212,8 +207,9 @@ namespace FUBAR
                 {
                     founds.OffHover();
                     OSManager.SelectionAdded(founds);
-                    ClickObjectSelectedEvent.Raise(founds);
+
                 }
+                ClickObjectSelectedEvent.Raise(found); //change to pass list at end
                 ChangeState(new ObjectState(OSManager));
             }
         }

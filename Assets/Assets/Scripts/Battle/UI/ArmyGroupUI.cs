@@ -8,9 +8,6 @@ namespace FUBAR
     public class ArmyGroupUI : MonoBehaviour
     {
         public GroupEvent GroupSelectedEvent;
-        public GroupEvent GroupRemovedSelectedEvent;
-        public GroupEvent GroupAddedSelectedEvent;
-
         private Group GroupAssigned;
         private bool Selected;
 
@@ -20,33 +17,14 @@ namespace FUBAR
         {
             if (GroupAssigned != null)
             {
-
-
+                GroupSelectedEvent.Raise(GroupAssigned);
             }
-            GroupSelectedEvent.Raise(GroupAssigned);
         }
-
-        private void Remove()
-        {
-            GroupRemovedSelectedEvent.Raise(GroupAssigned);
-        }
-
-        private void New()
-        {
-            GroupSelectedEvent.Raise(GroupAssigned);
-        }
-
-        private void Add()
-        {
-            GroupAddedSelectedEvent.Raise(GroupAssigned);
-        }
-
-
 
         public void Init(Group group)
         {
             GroupAssigned = group;
-
+            Selected = false;
             button.image.sprite = group.icon;
         }
 

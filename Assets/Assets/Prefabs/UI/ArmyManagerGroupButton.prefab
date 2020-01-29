@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6421465132721827707}
   - component: {fileID: 1888833180362390731}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ArmyManagerGroupButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,6 +143,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GroupSelectedEvent: {fileID: 11400000, guid: 54487a881f8a01c4f805af7a55903ed1, type: 2}
+  GroupRemovedSelectedEvent: {fileID: 11400000, guid: bc0372cf546c9884baed69401c960511,
+    type: 2}
+  GroupAddedSelectedEvent: {fileID: 11400000, guid: 8ad08bec42f36e5499f2a6ccd063e02b,
+    type: 2}
   button: {fileID: 6421465132721827707}
 --- !u!1 &6887236973598335878
 GameObject:

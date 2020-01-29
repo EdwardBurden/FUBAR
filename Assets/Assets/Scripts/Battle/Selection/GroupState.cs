@@ -11,7 +11,7 @@ namespace FUBAR
     {
         private GroupSelectionManager SelectionManager;
 
-        public GroupState(FUBAR.SelectionController selectionController, GroupSelectionManager selectionManager)
+        public GroupState(GroupSelectionManager selectionManager)
         {
             SelectionManager = selectionManager;
         }

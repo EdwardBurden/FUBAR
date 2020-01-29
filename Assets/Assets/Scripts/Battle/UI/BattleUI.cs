@@ -26,14 +26,14 @@ namespace FUBAR
             ClickObjectUI.Hide();
         }
 
-        public void ClickObjectSelectionAdded(ClickObject click)
+        public void ClickObjectSelectionAdded(List<ClickObject> clicks)
         {
-            ClickObjectUI.OnSelecetd(click);
+            ClickObjectUI.OnSelecetd(clicks);
         }
 
         public void ClickObjectSelectionRemoved(ClickObject click)
         {
-            ClickObjectUI.OnSelecetd(click);
+            ClickObjectUI.OnDeselecetd(click);
         }
     }
 }

@@ -34,9 +34,9 @@ namespace FUBAR
                 this.gameObject.SetActive(false);
         }
 
-        public void OnSelecetd(ClickObject clickObject)
+        public void OnSelecetd(List<ClickObject> clickObject)
         {
-            clicks.Add(clickObject);
+            clicks.AddRange(clickObject);
             UpdateList();
             if (!this.gameObject.activeInHierarchy)
                 this.gameObject.SetActive(true);
