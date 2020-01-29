@@ -109,6 +109,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthComponent: {fileID: 6532932402361353149}
   UIComponent: {fileID: 5232736680421325476}
+  ClickType: 0
+  MoveType: 1
+  Name: 
 --- !u!114 &6532932402361353149
 MonoBehaviour:
   m_ObjectHideFlags: 0

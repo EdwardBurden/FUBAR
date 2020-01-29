@@ -5,12 +5,6 @@ using UnityEngine;
 
 namespace FUBAR
 {
-    public enum MovementType
-    {
-        CanMove,
-        CantMove
-    }
-
     public enum ClickObjectType
     {
         Moveable,
@@ -29,7 +23,6 @@ namespace FUBAR
         private Group GroupReferance;
 
         public ClickObjectType ClickType;
-        public MovementType MoveType;
 
         public string Name = "";
 

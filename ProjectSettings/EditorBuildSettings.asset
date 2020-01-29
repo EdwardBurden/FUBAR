@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Assets/Scenes/FubarLite.unity
+    guid: fc292c029bfca5d488c32b1398affaa1
   m_configObjects: {}

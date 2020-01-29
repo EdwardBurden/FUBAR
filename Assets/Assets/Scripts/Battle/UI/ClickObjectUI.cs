@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class ClickObjectUI : MonoBehaviour
+namespace FUBAR
 {
-    [SerializeField]
-    private Image BackgroundImage;
-
-    [SerializeField]
-    private Text NameText;
-
-    public void SetUI(string name)
+    public class ClickObjectUI : MonoBehaviour
     {
-        BackgroundImage.gameObject.SetActive(true);
-        NameText.text = name;
-    }
+        [SerializeField]
+        private Image BackgroundImage;
 
-    public void UnSetUI(string name)
-    {
-        BackgroundImage.gameObject.SetActive(false);
+        [SerializeField]
+        private Text NameText;
+
+        public void SetUI(string name)
+        {
+            BackgroundImage.gameObject.SetActive(true);
+            NameText.text = name;
+        }
+
+        public void UnSetUI(string name)
+        {
+            BackgroundImage.gameObject.SetActive(false);
+        }
     }
 }

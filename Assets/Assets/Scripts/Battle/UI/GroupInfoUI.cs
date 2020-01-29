@@ -4,32 +4,34 @@ using System.Collections.Generic;
 using FUBAR;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class GroupInfoUI : MonoBehaviour
+namespace FUBAR
 {
-    public ClickObjectEvent click;
-    public Button buttonprefab;
-    public Button OperationButtons;
-    public Transform ClickList;
-
-    internal void Init()
+    public class GroupInfoUI : MonoBehaviour
     {
-        //throw new NotImplementedException();
-    }
+        public ClickObjectEvent click;
+        public Button buttonprefab;
+        public Button OperationButtons;
+        public Transform ClickList;
 
-    internal void GroupSelected(FUBAR.Group group)
-    {
-        foreach (Transform item in ClickList)
+        internal void Init()
         {
-            Destroy(item.gameObject);
+            //throw new NotImplementedException();
         }
 
-        foreach (var item in group.GetObjects())
+        internal void GroupSelected(FUBAR.Group group)
         {
-            Button b = Instantiate(buttonprefab, ClickList);
-            b.GetComponentInChildren<Text>().text = item.Name;
-            b.onClick.AddListener(() => click.Raise(item));
-        }
+            foreach (Transform item in ClickList)
+            {
+                Destroy(item.gameObject);
+            }
 
+            foreach (var item in group.GetObjects())
+            {
+                Button b = Instantiate(buttonprefab, ClickList);
+                b.GetComponentInChildren<Text>().text = item.Name;
+                b.onClick.AddListener(() => click.Raise(item));
+            }
+
+        }
     }
 }
