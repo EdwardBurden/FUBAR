@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d5033fb8e03f34d84474f9466b0cd3, type: 3}
+  m_Name: ScoutSpawnOperation
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 0}
+  Title: Scout spawn
+  Description: 
+  StateFlag: 1
+  SpawnObject: {fileID: 3234204764303644635, guid: 63573dcc38b703d48993be72fcd09577,
+    type: 3}
