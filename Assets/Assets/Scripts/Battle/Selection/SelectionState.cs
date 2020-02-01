@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FUBAR {
+namespace FUBAR
+{
     public abstract class SelectionState
     {
         public abstract void Move(MoveOrder order);
@@ -13,5 +14,7 @@ namespace FUBAR {
 
         public abstract void Init();
         public abstract void StateLost();
+
+        public abstract void GeneratePreview(PreviewOrder previewOrder);
     }
 }

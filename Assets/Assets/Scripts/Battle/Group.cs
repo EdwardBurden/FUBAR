@@ -45,7 +45,7 @@ namespace FUBAR
             switch (Formation)
             {
                 case Formation.Square:
-                    positions = FormationController.OrganiseSquareFormation(order.Destination, moveable , columns,space);
+                    positions = Formations.OrganiseSquareFormation(order.Destination, moveable , columns,space);
                     break;
                 case Formation.Line:
                     break;

@@ -20,6 +20,9 @@ namespace FUBAR
         [SerializeField]
         private ClickObjectUI UIComponent;
 
+        [SerializeField]
+        private GameObject PreviewObject;
+
         private Group GroupReferance;
 
         public ClickObjectType ClickType;
@@ -32,6 +35,10 @@ namespace FUBAR
             Name = "Unit" + Random.Range(0, 100);
         }
 
+        public GameObject GetPreviewObject()
+        {
+            return PreviewObject;
+        }
 
         public virtual void OnClick()
         {
@@ -40,12 +47,12 @@ namespace FUBAR
 
         internal virtual void OffHover()
         {
-           // if (UIComponent) UIComponent.UnSetUI("Hover");
+            // if (UIComponent) UIComponent.UnSetUI("Hover");
         }
 
         internal virtual void OnHover()
         {
-           // if (UIComponent) UIComponent.SetUI("Hover");
+            // if (UIComponent) UIComponent.SetUI("Hover");
         }
 
         internal virtual void OffClick()

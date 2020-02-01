@@ -9,7 +9,8 @@ namespace FUBAR
 
         private int maxsize;
 
-        private List<Group> SpawnedGroups;
+        private List<Group> ArmyGroups;
+        private List<ClickObject> UnorganizedObjects;
 
         [SerializeField]
         private GroupData UnitGroup;
@@ -26,7 +27,7 @@ namespace FUBAR
 
         public void Init(BattleSettings battleSettings)
         {
-            SpawnedGroups = new List<Group>();
+            ArmyGroups = new List<Group>();
             maxsize = battleSettings.ArmymaxSize;
         }
         public void AddUnitGroup()
@@ -34,27 +35,27 @@ namespace FUBAR
             if (CanCreateGroup())
             {
                 Group group = new Group(UnitGroup, SpawnPoint, DynamicContainer);
-                SpawnedGroups.Add(group); GroupAddedEvent.Raise();
+                ArmyGroups.Add(group); GroupAddedEvent.Raise();
             }
         }
 
-        private bool CanCreateGroup() { return (SpawnedGroups.Count < maxsize); }
+        private bool CanCreateGroup() { return (ArmyGroups.Count < maxsize); }
 
         public void AddBuildingGroup()
         {
             if (CanCreateGroup())
             {
                 Group group = new Group(BuildingGroup, SpawnPoint, DynamicContainer);
-                SpawnedGroups.Add(group); GroupAddedEvent.Raise();
+                ArmyGroups.Add(group); GroupAddedEvent.Raise();
             }
         }
 
-        public List<Group> Groups() { return SpawnedGroups; }
+        public List<Group> Groups() { return ArmyGroups; }
 
         public List<ClickObject> Objects()
         {
             List<ClickObject> objects = new List<ClickObject>();
-            foreach (Group item in SpawnedGroups)
+            foreach (Group item in ArmyGroups)
             {
                 objects.AddRange(item.GetObjects());
             }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,6 +17,9 @@ namespace FUBAR
         private RectTransform SelectSquareImage;
 
         [SerializeField]
+        private Transform PreviewTransform;
+
+        [SerializeField]
         private ArmyConstructor Army;
 
         private Vector3 SelectionImageStartPos;
@@ -30,6 +34,11 @@ namespace FUBAR
 
         private SelectionState State;
 
+        public void PreviewMovementOrder(PreviewOrder order)
+        {
+            if (State != null)
+                State.GeneratePreview(order);
+        }
         public void Move(Order order)
         {
             if (State != null)
@@ -67,11 +76,10 @@ namespace FUBAR
         {
             GSManager.ResetSelection();
             OSManager.NewSelection(obj);
-            ChangeState(new ObjectState(OSManager));
+            ChangeState(new ObjectState(OSManager, PreviewTransform));
         }
 
-
-        public void ChangeState(SelectionState state)
+        private void ChangeState(SelectionState state)
         {
             if (State == null || state == null || State.GetType() != state.GetType())
             {
@@ -83,7 +91,7 @@ namespace FUBAR
             }
         }
 
-        private void Start()
+        public void Init()
         {
             OSManager = new ObjectSelectionManager();
             GSManager = new GroupSelectionManager();
@@ -149,7 +157,7 @@ namespace FUBAR
                                 OSManager.SelectionRemoved(HoverObject);
                                 ClickObjectDeselectedEvent.Raise(HoverObject);
                             }
-                            ChangeState(new ObjectState(OSManager));
+                            ChangeState(new ObjectState(OSManager, PreviewTransform));
                         }
                         else
                         {
@@ -157,7 +165,7 @@ namespace FUBAR
                             {
                                 OSManager.NewSelection(HoverObject);
                                 NewClickObjectSelectionEvent.Raise(HoverObject);
-                                ChangeState(new ObjectState(OSManager));
+                                ChangeState(new ObjectState(OSManager, PreviewTransform));
                             }
                             else
                             {
@@ -210,7 +218,7 @@ namespace FUBAR
 
                 }
                 ClickObjectSelectedEvent.Raise(found); //change to pass list at end
-                ChangeState(new ObjectState(OSManager));
+                ChangeState(new ObjectState(OSManager, PreviewTransform));
             }
         }
 

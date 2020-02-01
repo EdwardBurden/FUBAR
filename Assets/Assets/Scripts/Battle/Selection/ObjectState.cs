@@ -7,10 +7,12 @@ using UnityEngine.AI;
 public class ObjectState : SelectionState
 {
     private ObjectSelectionManager ObjectSelection;
+    private PreviewManager PreviewManager; //move out make static(maybe)
 
-    public ObjectState( ObjectSelectionManager objectSelection)
+    public ObjectState(ObjectSelectionManager objectSelection, Transform previewtransform)
     {
         ObjectSelection = objectSelection;
+        PreviewManager = new PreviewManager(previewtransform);
     }
 
     public override void Attach(AttachOrder attachOrder)
@@ -38,9 +40,15 @@ public class ObjectState : SelectionState
         }
     }
 
+    public override void GeneratePreview(PreviewOrder previewOrder)
+    {
+        List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
+        PreviewManager.GeneratePreview(previewOrder, objects);
+    }
+
     public override void Init()
     {
-    
+
     }
 
     public override void Move(MoveOrder ordr)
@@ -56,10 +64,12 @@ public class ObjectState : SelectionState
             if (agent)
                 agent.SetDestination(ordr.Destination);
         }
+        PreviewManager.Clean();
     }
 
     public override void StateLost()
     {
         //throw new System.NotImplementedException();
+        //PreviewManager.close
     }
 }

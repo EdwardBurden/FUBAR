@@ -47,6 +47,11 @@ namespace FUBAR
             }
         }
 
+        public override void GeneratePreview(PreviewOrder previewOrder)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override void Init()
         {
             // throw new System.NotImplementedException();

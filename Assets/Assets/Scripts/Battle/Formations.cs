@@ -10,7 +10,7 @@ namespace FUBAR
         Square,
         Line
     }
-    public static class FormationController
+    public static class Formations
     {
 
         public static List<Vector3> OrganiseRelaxedFormation<T>(Vector3 start, List<T> agents, int columns, int space)
