@@ -29,6 +29,8 @@ namespace FUBAR
 
         public string Name = "";
 
+  
+
         public virtual void Init(Group group)
         {
             GroupReferance = group;
