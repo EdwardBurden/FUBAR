@@ -39,6 +39,21 @@ namespace FUBAR
             if (State != null)
                 State.GeneratePreview(order);
         }
+
+        public void BeginPreviewOrder(PreviewOrder order)
+        {
+
+            if (State != null)
+                State.BeginPreview(order);
+        }
+        public void EndPreviewOrder(PreviewOrder order)
+        {
+
+            if (State != null)
+                State.EndPreview(order);
+        }
+
+
         public void Move(Order order)
         {
             if (State != null)
@@ -76,7 +91,7 @@ namespace FUBAR
         {
             GSManager.ResetSelection();
             OSManager.NewSelection(obj);
-            ChangeState(new ObjectState(OSManager, PreviewTransform));
+            ChangeState(new ObjectState(OSManager));
         }
 
         private void ChangeState(SelectionState state)
@@ -157,7 +172,7 @@ namespace FUBAR
                                 OSManager.SelectionRemoved(HoverObject);
                                 ClickObjectDeselectedEvent.Raise(HoverObject);
                             }
-                            ChangeState(new ObjectState(OSManager, PreviewTransform));
+                            ChangeState(new ObjectState(OSManager));
                         }
                         else
                         {
@@ -165,7 +180,7 @@ namespace FUBAR
                             {
                                 OSManager.NewSelection(HoverObject);
                                 NewClickObjectSelectionEvent.Raise(HoverObject);
-                                ChangeState(new ObjectState(OSManager, PreviewTransform));
+                                ChangeState(new ObjectState(OSManager));
                             }
                             else
                             {
@@ -218,7 +233,7 @@ namespace FUBAR
 
                 }
                 ClickObjectSelectedEvent.Raise(found); //change to pass list at end
-                ChangeState(new ObjectState(OSManager, PreviewTransform));
+                ChangeState(new ObjectState(OSManager));
             }
         }
 

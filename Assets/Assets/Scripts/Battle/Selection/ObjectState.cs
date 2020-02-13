@@ -7,12 +7,10 @@ using UnityEngine.AI;
 public class ObjectState : SelectionState
 {
     private ObjectSelectionManager ObjectSelection;
-    private PreviewManager PreviewManager; //move out make static(maybe)
 
-    public ObjectState(ObjectSelectionManager objectSelection, Transform previewtransform)
+    public ObjectState(ObjectSelectionManager objectSelection)
     {
         ObjectSelection = objectSelection;
-        PreviewManager = new PreviewManager(previewtransform);
     }
 
     public override void Attach(AttachOrder attachOrder)
@@ -40,10 +38,22 @@ public class ObjectState : SelectionState
         }
     }
 
+    public override void BeginPreview(PreviewOrder order)
+    {
+        List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
+        PreviewController.Instance.BeginPreview(order, objects);
+    }
+
+    public override void EndPreview(PreviewOrder order)
+    {
+        List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
+        PreviewController.Instance.EndPreview();
+    }
+
     public override void GeneratePreview(PreviewOrder previewOrder)
     {
         List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
-        PreviewManager.GeneratePreview(previewOrder, objects);
+        PreviewController.Instance.Preview(previewOrder, objects);
     }
 
     public override void Init()
@@ -54,17 +64,26 @@ public class ObjectState : SelectionState
     public override void Move(MoveOrder ordr)
     {
         List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
-        foreach (ClickObject item in objects)
+        List<Vector3> posList = new List<Vector3>();
+        if (ordr.DragOrder)
         {
-            AttachComponent comp = item.GetComponent<AttachComponent>();
+            float endDiffference = Vector3.Distance(ordr.End, ordr.Start);
+            int Columns = ((int)endDiffference / 5) + 1;//5 = space
+            posList = Formations.OrganiseSquareFormationFromCorner(ordr.Start, ordr.End, objects, Columns, 5); //remove numbers later
+        }
+        else
+            posList = Formations.OrganiseSquareFormation(ordr.Destination, objects, 4, 5);
+
+        for (int i = 0; i < objects.Count; i++)
+        {
+            AttachComponent comp = objects[i].GetComponent<AttachComponent>();
             if (comp)
                 comp.Dettach();
 
-            NavMeshAgent agent = item.GetComponent<NavMeshAgent>();
+            NavMeshAgent agent = objects[i].GetComponent<NavMeshAgent>();
             if (agent)
-                agent.SetDestination(ordr.Destination);
+                agent.SetDestination(posList[i]);
         }
-        PreviewManager.Clean();
     }
 
     public override void StateLost()

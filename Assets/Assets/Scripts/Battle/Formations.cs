@@ -52,10 +52,18 @@ namespace FUBAR
             List<Vector3> positions = new List<Vector3>();
             for (int i = 0; i < agents.Count; i++)
             {
-                Vector3 pos = CalcPosition(i, columns, space);
+                Vector3 pos = CalcPosition2(i, columns, space);
                 positions.Add(new Vector3(start.x + pos.x - offsetx, 0, start.z + pos.y - offsetz));
             }
             return positions;
+        }
+
+        static Vector2 CalcPosition2(int index, int columns, int space) // call this func for all your objects
+        {
+            float posX = (index % columns) * space;
+            float posY = (index / columns) * space;
+
+            return new Vector2(posX, posY);
         }
 
         static Vector2 CalcPosition(int index, int columns, int space) // call this func for all your objects
