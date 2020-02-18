@@ -46,11 +46,10 @@ namespace FUBAR
             if (State != null)
                 State.BeginPreview(order);
         }
-        public void EndPreviewOrder(PreviewOrder order)
+        public void EndPreviewOrder()
         {
-
             if (State != null)
-                State.EndPreview(order);
+                State.EndPreview();
         }
 
 
@@ -58,18 +57,6 @@ namespace FUBAR
         {
             if (State != null)
                 State.Move((MoveOrder)order);
-        }
-
-        public void Attack(Order order)
-        {
-            if (State != null)
-                State.Attack((AttackOrder)order);
-        }
-
-        public void Attch(Order order)
-        {
-            if (State != null)
-                State.Attach((AttachOrder)order);
         }
 
         public void OnGroupSelectionChange(Group group)

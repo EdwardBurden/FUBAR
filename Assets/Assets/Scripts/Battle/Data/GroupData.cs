@@ -12,5 +12,9 @@ namespace FUBAR
         public int ObjectNumber;
         public List<Operation> Operations;
         public ClickObject GroupFlag;
+
+        public int DefaultSpace;
+
+        public int DefaultColumns;
     }
 }

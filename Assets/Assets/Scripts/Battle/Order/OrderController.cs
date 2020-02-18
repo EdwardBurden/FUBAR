@@ -16,6 +16,7 @@ namespace FUBAR
 
         private RayCastInfo<ClickObject> LastClickedObject;
         public float DragTimer = 0.1f;
+        public float MinSpaceChange = 0.5f;
         private float Timer;
         private bool TimeDrag = false;
 
@@ -28,6 +29,7 @@ namespace FUBAR
                 {
                     LastClickedObject = cickedObject;
                     DragStartPos = LastClickedObject.HitInfo.point;
+                    DragEndPos = DragStartPos;
                     TimeDrag = true;
                     BeginPreview(DragStartPos, DragEndPos);
                 }
@@ -39,7 +41,7 @@ namespace FUBAR
                 if (cickedObject.Focused)
                 {
                     DragEndPos = cickedObject.HitInfo.point;
-                    EndPreview(DragStartPos, DragEndPos);
+                    EndPreview();
                     SendOrder(DragStartPos, DragEndPos);
                     TimeDrag = false;
                     Timer = 0.0f;
@@ -52,7 +54,7 @@ namespace FUBAR
                 if (cickedObject.Focused)
                 {
                     DragEndPos = cickedObject.HitInfo.point;
-                    if (Timer > DragTimer)
+                    if (Timer > DragTimer && MinSpaceChange < Vector3.Distance(DragStartPos, DragEndPos))
                         Preview(DragStartPos, DragEndPos);
                 }
             }
@@ -66,7 +68,7 @@ namespace FUBAR
             switch (LastClickedObject.FocusObject.ClickType)
             {
                 case ClickObjectType.Moveable:
-                    PreviewOrder order = new PreviewOrder(start, end);
+                    PreviewOrder order = new PreviewOrder(start, end, (Timer > DragTimer && MinSpaceChange < Vector3.Distance(start, end)));
                     SelectionController.PreviewMovementOrder(order);
                     break;
                 case ClickObjectType.Destructable:
@@ -81,22 +83,10 @@ namespace FUBAR
 
         }
 
-        private void EndPreview(Vector3 start, Vector3 end)
+        private void EndPreview()
         {
-            switch (LastClickedObject.FocusObject.ClickType)
-            {
-                case ClickObjectType.Moveable:
-                    PreviewOrder order = new PreviewOrder(start, end);
-                    SelectionController.EndPreviewOrder(order);
-                    break;
-                case ClickObjectType.Destructable:
-                    break;
-                case ClickObjectType.Attachable:
+            SelectionController.EndPreviewOrder();
 
-                    break;
-                default:
-                    break;
-            }
         }
 
         private void BeginPreview(Vector3 start, Vector3 end)
@@ -104,7 +94,7 @@ namespace FUBAR
             switch (LastClickedObject.FocusObject.ClickType)
             {
                 case ClickObjectType.Moveable:
-                    PreviewOrder order = new PreviewOrder(start, end);
+                    PreviewOrder order = new PreviewOrder(start, end, false);
                     SelectionController.BeginPreviewOrder(order);
                     break;
                 case ClickObjectType.Destructable:
@@ -124,7 +114,7 @@ namespace FUBAR
             {
                 case ClickObjectType.Moveable:
 
-                    MoveOrder order = new MoveOrder(LastClickedObject.HitInfo.point, start, end, (Timer > DragTimer));
+                    MoveOrder order = new MoveOrder(LastClickedObject.HitInfo.point, start, end, (Timer > DragTimer && MinSpaceChange < Vector3.Distance(start, end)));
                     MoveOrderEvent.Raise(order);
                     break;
                 case ClickObjectType.Destructable:

@@ -13,20 +13,11 @@ namespace FUBAR
     public static class Formations
     {
 
-        public static List<Vector3> OrganiseRelaxedFormation<T>(Vector3 start, List<T> agents, int columns, int space)
+        public static int GetColumnsFromDistance(Vector3 start, Vector3 end, int space = Constants.K_DefaultSpace)
         {
-            int rows = agents.Count / columns;
-            float offsetx = ((columns * space) - space) / 2;
-            float offsetz = ((rows * space) - space) / 2;
-            List<Vector3> positions = new List<Vector3>();
-            for (int i = 0; i < agents.Count; i++)
-            {
-                Vector3 pos = CalcPosition(i, columns, space);
-                positions.Add(new Vector3(start.x + pos.x - offsetx, 0, start.z + pos.y - offsetz));
-            }
-            return positions;
+            float endDiffference = Vector3.Distance(end, start);
+            return ((int)endDiffference / space) + 1;//5 = space
         }
-
 
         public static List<Vector3> OrganiseSquareFormationFromCorner<T>(Vector3 start, Vector3 end, List<T> agents, int columns, int space)
         {
@@ -47,13 +38,16 @@ namespace FUBAR
         public static List<Vector3> OrganiseSquareFormation<T>(Vector3 start, List<T> agents, int columns, int space)
         {
             int rows = agents.Count / columns;
-            float offsetx = ((columns * space) - space) / 2;
-            float offsetz = ((rows * space) - space) / 2;
+            float offsetx = rows > 0 ? ((columns * space) - space) / 2 : ((agents.Count * space) - space) / 2;
+            float offsetz = rows > 0 ? ((rows * space) - space) / 2 : 0;
+
             List<Vector3> positions = new List<Vector3>();
             for (int i = 0; i < agents.Count; i++)
             {
-                Vector3 pos = CalcPosition2(i, columns, space);
-                positions.Add(new Vector3(start.x + pos.x - offsetx, 0, start.z + pos.y - offsetz));
+                Vector3 pos = CalcPosition(i, columns, space);
+                float angle = Vector3.SignedAngle(Vector3.right, (Camera.main.gameObject.transform.right).normalized, Vector3.up);
+                Vector3 rotatedVector = Quaternion.AngleAxis(angle, Vector3.up) * new Vector3(pos.x - offsetx, 0, pos.y + offsetz);
+                positions.Add(new Vector3(start.x + rotatedVector.x, 0, start.z + rotatedVector.z));
             }
             return positions;
         }

@@ -13,30 +13,7 @@ public class ObjectState : SelectionState
         ObjectSelection = objectSelection;
     }
 
-    public override void Attach(AttachOrder attachOrder)
-    {
-        List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
-        foreach (ClickObject item in objects)
-        {
-            AttachComponent comp = item.GetComponent<AttachComponent>();
-            if (comp)
-                comp.Attach(attachOrder.Anchor.transform);
-        }
-    }
-
-    public override void Attack(AttackOrder order)
-    {
-        List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
-        foreach (ClickObject item in objects)
-        {
-            AttachComponent comp = item.GetComponent<AttachComponent>();
-            if (comp)
-                comp.Dettach();
-            NavMeshAgent agent = item.GetComponent<NavMeshAgent>();
-            if (agent)
-                agent.SetDestination(order.GetShootingDistance(agent.transform.position));
-        }
-    }
+ 
 
     public override void BeginPreview(PreviewOrder order)
     {
@@ -44,7 +21,7 @@ public class ObjectState : SelectionState
         PreviewController.Instance.BeginPreview(order, objects);
     }
 
-    public override void EndPreview(PreviewOrder order)
+    public override void EndPreview()
     {
         List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
         PreviewController.Instance.EndPreview();
@@ -67,12 +44,11 @@ public class ObjectState : SelectionState
         List<Vector3> posList = new List<Vector3>();
         if (ordr.DragOrder)
         {
-            float endDiffference = Vector3.Distance(ordr.End, ordr.Start);
-            int Columns = ((int)endDiffference / 5) + 1;//5 = space
-            posList = Formations.OrganiseSquareFormationFromCorner(ordr.Start, ordr.End, objects, Columns, 5); //remove numbers later
+            int Columns = Formations.GetColumnsFromDistance(ordr.Start, ordr.End);
+            posList = Formations.OrganiseSquareFormationFromCorner(ordr.Start, ordr.End, objects, Columns, Constants.K_DefaultSpace); //remove numbers later
         }
         else
-            posList = Formations.OrganiseSquareFormation(ordr.Destination, objects, 4, 5);
+            posList = Formations.OrganiseSquareFormation(ordr.Destination, objects, Constants.K_DefaultColumns, Constants.K_DefaultSpace);
 
         for (int i = 0; i < objects.Count; i++)
         {
@@ -80,9 +56,9 @@ public class ObjectState : SelectionState
             if (comp)
                 comp.Dettach();
 
-            NavMeshAgent agent = objects[i].GetComponent<NavMeshAgent>();
+            MovementComponent agent = objects[i].GetComponent<MovementComponent>();
             if (agent)
-                agent.SetDestination(posList[i]);
+                agent.Move(posList[i]);
         }
     }
 
