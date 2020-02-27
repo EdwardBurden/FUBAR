@@ -11,6 +11,7 @@ namespace FUBAR
         public ClickObject Objects;
         public int ObjectNumber;
         public List<Operation> Operations;
+        public List<Formationenum> Formations;
         public ClickObject GroupFlag;
 
         public int DefaultSpace;

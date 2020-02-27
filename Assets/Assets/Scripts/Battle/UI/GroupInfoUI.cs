@@ -9,29 +9,73 @@ namespace FUBAR
     public class GroupInfoUI : MonoBehaviour
     {
         public ClickObjectEvent click;
-        public Button buttonprefab;
-        public Button OperationButtons;
+        public Button ClickUnitPrefab;
+        public Button FormationChangeButtonPrefab;
+
         public Transform ClickList;
+        public Transform Formations;
+
+        private List<Group> Selected;
 
         internal void Init()
         {
+            Selected = new List<Group>();
             //throw new NotImplementedException();
         }
 
-        internal void GroupSelected(FUBAR.Group group)
+        public void Clear()
         {
+            Selected.Clear();
             foreach (Transform item in ClickList)
             {
                 Destroy(item.gameObject);
             }
+            foreach (Transform item in Formations)
+            {
+                Destroy(item.gameObject);
+            }
+        }
 
+        public void Add(Group group)
+        {
+
+            Clear();
+
+        }
+
+        public void Remove(Group group)
+        {
+
+            Clear();
+
+        }
+
+
+        public void Single(FUBAR.Group group)
+        {
+            Clear();
             foreach (var item in group.GetObjects())
             {
-                Button b = Instantiate(buttonprefab, ClickList);
+                Button b = Instantiate(ClickUnitPrefab, ClickList);
                 b.GetComponentInChildren<Text>().text = item.Name;
                 b.onClick.AddListener(() => click.Raise(item));
             }
-
+            foreach (Formationenum foo in group.Formations)
+            {
+                Button b = Instantiate(FormationChangeButtonPrefab, Formations);
+                switch (foo)
+                {
+                    case Formationenum.Square:
+                        b.onClick.AddListener(() => group.ChangeFormation(new SquareFormation()));
+                        break;
+                    case Formationenum.Line:
+                      //  b.onClick.AddListener(() => group.ChangeFormation(foo));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            Selected.Add(group);
         }
     }
 }

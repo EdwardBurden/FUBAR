@@ -15,7 +15,10 @@ MonoBehaviour:
   Icon: {fileID: 0}
   Name: Teste
   Objects: {fileID: 8338538871828950037, guid: 64424cf8b9d14d64faef1a342debb841, type: 3}
-  ObjectNumber: 50
+  ObjectNumber: 200
   Operations:
   - {fileID: 0}
+  Formations: 0000000001000000
   GroupFlag: {fileID: 0}
+  DefaultSpace: 2
+  DefaultColumns: 4

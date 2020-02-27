@@ -18,19 +18,27 @@ namespace FUBAR
 
         public override void BeginPreview(PreviewOrder order)
         {
-            List<ClickObject> AllObjects = SelectionManager.GetAllObjects();
-            PreviewController.Instance.BeginPreview(order, AllObjects);
+            List<Group> groups = SelectionManager.GetGroup();
+            for (int i = 0; i < groups.Count; i++)
+            {
+                List<Vector3> posList = groups[i].GetMovementPreviewPosition(order, i);
+                PreviewController.Instance.BeginPreview(posList, order, groups[i].GetObjects());
+            }
         }
 
-        public override void EndPreview( )
+        public override void EndPreview()
         {
             PreviewController.Instance.EndPreview();
         }
 
         public override void GeneratePreview(PreviewOrder previewOrder)
         {
-            List<ClickObject> AllObjects = SelectionManager.GetAllObjects();
-            PreviewController.Instance.Preview(previewOrder, AllObjects);
+            List<Group> groups = SelectionManager.GetGroup();
+            for (int i = 0; i < groups.Count; i++)
+            {
+                List<Vector3> posList = groups[i].GetMovementPreviewPosition(previewOrder, i);
+                PreviewController.Instance.Preview(posList, previewOrder, groups[i].GetObjects());
+            }
         }
 
         public override void Init()
@@ -40,25 +48,11 @@ namespace FUBAR
 
         public override void Move(MoveOrder ordr)
         {
-            List<ClickObject> AllObjects = SelectionManager.GetAllObjects();
-            List<Vector3> posList = new List<Vector3>();
-            if (ordr.DragOrder)
+            List<Group> groups = SelectionManager.GetGroup();
+            for (int i = 0; i < groups.Count; i++)
             {
-                int Columns = Formations.GetColumnsFromDistance(ordr.Start, ordr.End);
-                posList = Formations.OrganiseSquareFormationFromCorner(ordr.Start, ordr.End, AllObjects, Columns, Constants.K_DefaultSpace); //remove numbers later
-            }
-            else
-                posList = Formations.OrganiseSquareFormation(ordr.Destination, AllObjects, Constants.K_DefaultColumns, Constants.K_DefaultSpace);
-
-            for (int i = 0; i < AllObjects.Count; i++)
-            {
-                AttachComponent comp = AllObjects[i].GetComponent<AttachComponent>();
-                if (comp)
-                    comp.Dettach();
-
-                MovementComponent agent = AllObjects[i].GetComponent<MovementComponent>();
-                if (agent)
-                    agent.Move(posList[i]);
+                List<Vector3> posList = groups[i].GetMovementPosition(ordr, i);
+                groups[i].Move(posList);
             }
         }
 
@@ -66,5 +60,6 @@ namespace FUBAR
         {
             SelectionManager.ResetSelection();
         }
+
     }
 }

@@ -234,6 +234,9 @@ GameObject:
   - component: {fileID: 320657436}
   - component: {fileID: 320657437}
   - component: {fileID: 320657438}
+  - component: {fileID: 320657434}
+  - component: {fileID: 320657440}
+  - component: {fileID: 320657439}
   m_Layer: 5
   m_Name: BattleUI
   m_TagString: Untagged
@@ -368,6 +371,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &320657434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320657427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f511e311aaeafb142a88a006b1b16725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 9122d1ff62c62ab47b9278638159076d, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 320657432}
+        m_MethodName: GroupsSelected
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &320657435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,6 +497,60 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 320657432}
         m_MethodName: ClickObjectSelectionAdded
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &320657439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320657427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f511e311aaeafb142a88a006b1b16725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 8aed779aa3e20d8418bdfaf62cdf3748, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 320657432}
+        m_MethodName: SingleGroupSelected
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &320657440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320657427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f511e311aaeafb142a88a006b1b16725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: adbc9b7a88c783a42a523560c74eac1e, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 320657432}
+        m_MethodName: GroupDeselected
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -712,8 +796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e812e53abf1b704e9ea2ff9aed46e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DragThreshold: 5
-  Space: 5
   PreviewSpawn: {fileID: 1311024512}
 --- !u!1 &568709111
 GameObject:
@@ -836,7 +918,7 @@ GameObject:
   - component: {fileID: 652148373}
   - component: {fileID: 652148374}
   m_Layer: 5
-  m_Name: Operations
+  m_Name: Formtions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -870,7 +952,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 652148372}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -879,12 +961,13 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 0, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
 --- !u!1 &728477831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,12 +1150,12 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
 --- !u!1 &764036115
@@ -1342,6 +1425,8 @@ MonoBehaviour:
   AttackOrderEvent: {fileID: 11400000, guid: bf08816f812d09743a062348ff99ba2c, type: 2}
   AttachOrderEvent: {fileID: 11400000, guid: f04054775a1b13f4791dc7bffb9bdc75, type: 2}
   SelectionController: {fileID: 1438763794}
+  DragTimer: 0.1
+  MinSpaceChange: 0.5
 --- !u!4 &835315844
 Transform:
   m_ObjectHideFlags: 0
@@ -1556,6 +1641,11 @@ MonoBehaviour:
   NewClickObjectSelectionEvent: {fileID: 11400000, guid: 35801a15cf9ecbb48a9c4d701a932926,
     type: 2}
   NoneSelected: {fileID: 11400000, guid: ff2c72ec039d47848aa13b8b3755dfad, type: 2}
+  GroupRemoved: {fileID: 11400000, guid: adbc9b7a88c783a42a523560c74eac1e, type: 2}
+  SingleGroupSelected: {fileID: 11400000, guid: 8aed779aa3e20d8418bdfaf62cdf3748,
+    type: 2}
+  GroupSelectionAdded: {fileID: 11400000, guid: 9122d1ff62c62ab47b9278638159076d,
+    type: 2}
   SelectSquareImage: {fileID: 160865234}
   PreviewTransform: {fileID: 1311024512}
   Army: {fileID: 1920271062}
@@ -2031,12 +2121,12 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
 --- !u!114 &1642013837
@@ -2341,11 +2431,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   click: {fileID: 11400000, guid: 5f77040c2d548e8469b0f473ab2ea42e, type: 2}
-  buttonprefab: {fileID: 1280529192118231056, guid: de9ca008777553d43b26489fb2b2ce49,
+  ClickUnitPrefab: {fileID: 1280529192118231056, guid: de9ca008777553d43b26489fb2b2ce49,
     type: 3}
-  OperationButtons: {fileID: 5749825257172267462, guid: 3d57f3416348f7341bfb5cc52d092eea,
+  FormationChangeButtonPrefab: {fileID: 1280529192118231056, guid: bb8ac7a76a2d5cd428143ad3e1a943b3,
     type: 3}
   ClickList: {fileID: 755981806}
+  Formations: {fileID: 652148373}
 --- !u!114 &1862960412
 MonoBehaviour:
   m_ObjectHideFlags: 0

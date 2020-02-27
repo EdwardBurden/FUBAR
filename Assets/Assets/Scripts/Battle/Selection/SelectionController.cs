@@ -13,6 +13,10 @@ namespace FUBAR
         public ClickObjectEvent NewClickObjectSelectionEvent;
         public ClickObjectEvent NoneSelected;
 
+        public GroupEvent GroupRemoved;
+        public GroupEvent SingleGroupSelected;
+        public GroupEvent GroupSelectionAdded;
+
         [SerializeField]
         private RectTransform SelectSquareImage;
 
@@ -65,12 +69,21 @@ namespace FUBAR
             if (Input.GetKey(KeyCode.LeftControl))
             {
                 if (group != null && !GSManager.GetGroup().Contains(group))
+                {
                     GSManager.SelectionAdded(group);
+                    GroupSelectionAdded.Raise(group);
+                }
                 else
+                {
                     GSManager.SelectionRemoved(group);
+                    GroupRemoved.Raise(group);
+                }
             }
             else
+            {
                 GSManager.GroupSelected(group);
+                SingleGroupSelected.Raise(group);
+            }
             ChangeState(new GroupState(GSManager));
         }
 
