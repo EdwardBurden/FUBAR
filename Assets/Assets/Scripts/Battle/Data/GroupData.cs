@@ -15,7 +15,6 @@ namespace FUBAR
         public ClickObject GroupFlag;
 
         public int DefaultSpace;
-
         public int DefaultColumns;
     }
 }

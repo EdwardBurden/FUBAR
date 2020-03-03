@@ -5,6 +5,8 @@ namespace FUBAR
 {
     public class ArmyConstructor : MonoBehaviour
     {
+        public static ArmyConstructor Instance;
+
         public BasicEvent GroupAddedEvent;
 
         private int maxsize;
@@ -24,6 +26,12 @@ namespace FUBAR
 
         [SerializeField]
         private Transform DynamicContainer;
+
+        private void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+        }
 
         public void Init(BattleSettings battleSettings)
         {
@@ -61,6 +69,8 @@ namespace FUBAR
             }
             return objects;
         }
+
+
 
     }
 }

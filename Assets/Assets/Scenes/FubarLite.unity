@@ -138,11 +138,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f71183682373f714c875eed1399db9f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthComponent: {fileID: 0}
   UIComponent: {fileID: 0}
   PreviewObject: {fileID: 0}
   ClickType: 0
-  Name: 
 --- !u!1 &160865233
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,11 +604,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f71183682373f714c875eed1399db9f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthComponent: {fileID: 0}
   UIComponent: {fileID: 0}
   PreviewObject: {fileID: 0}
   ClickType: 2
-  Name: 
 --- !u!135 &397585269
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -843,11 +839,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f71183682373f714c875eed1399db9f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthComponent: {fileID: 0}
   UIComponent: {fileID: 0}
   PreviewObject: {fileID: 0}
   ClickType: 1
-  Name: 
 --- !u!135 &568709114
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1547,14 +1541,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd9ace363738a643b24b0c4ad2f279c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectionController: {fileID: 0}
-  Follow: 0
   MainCamera: {fileID: 497692741}
   NormalSpeed: 0.5
   SprintSpeed: 3
   MovementTime: 5
   RotationStrength: 2
   ZoomStrength: {x: 0, y: -10, z: 10}
+  YMax: 100
+  YMin: 0
 --- !u!4 &1144151163
 Transform:
   m_ObjectHideFlags: 0

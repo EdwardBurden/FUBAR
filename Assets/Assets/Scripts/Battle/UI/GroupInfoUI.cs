@@ -57,10 +57,10 @@ namespace FUBAR
             foreach (var item in group.GetObjects())
             {
                 Button b = Instantiate(ClickUnitPrefab, ClickList);
-                b.GetComponentInChildren<Text>().text = item.Name;
+                b.GetComponentInChildren<Text>().text = item.Data.Name;
                 b.onClick.AddListener(() => click.Raise(item));
             }
-            foreach (Formationenum foo in group.Formations)
+            foreach (Formationenum foo in group.Data.Formations)
             {
                 Button b = Instantiate(FormationChangeButtonPrefab, Formations);
                 switch (foo)

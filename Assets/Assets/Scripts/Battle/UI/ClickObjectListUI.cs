@@ -60,7 +60,7 @@ namespace FUBAR
             foreach (var item in clicks)
             {
                 Button b = Instantiate(prefab, this.transform);
-                b.GetComponentInChildren<Text>().text = item.Name;
+                b.GetComponentInChildren<Text>().text = item.Data.Name;
                 b.onClick.AddListener(() => click.Raise(item));
             }
 
