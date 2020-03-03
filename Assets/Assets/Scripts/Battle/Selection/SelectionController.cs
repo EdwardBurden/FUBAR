@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,8 +13,15 @@ namespace FUBAR
         public ClickObjectEvent NewClickObjectSelectionEvent;
         public ClickObjectEvent NoneSelected;
 
+        public GroupEvent GroupRemoved;
+        public GroupEvent SingleGroupSelected;
+        public GroupEvent GroupSelectionAdded;
+
         [SerializeField]
         private RectTransform SelectSquareImage;
+
+        [SerializeField]
+        private Transform PreviewTransform;
 
         [SerializeField]
         private ArmyConstructor Army;
@@ -30,22 +38,29 @@ namespace FUBAR
 
         private SelectionState State;
 
+        public void PreviewMovementOrder(PreviewOrder order)
+        {
+            if (State != null)
+                State.GeneratePreview(order);
+        }
+
+        public void BeginPreviewOrder(PreviewOrder order)
+        {
+
+            if (State != null)
+                State.BeginPreview(order);
+        }
+        public void EndPreviewOrder()
+        {
+            if (State != null)
+                State.EndPreview();
+        }
+
+
         public void Move(Order order)
         {
             if (State != null)
                 State.Move((MoveOrder)order);
-        }
-
-        public void Attack(Order order)
-        {
-            if (State != null)
-                State.Attack((AttackOrder)order);
-        }
-
-        public void Attch(Order order)
-        {
-            if (State != null)
-                State.Attach((AttachOrder)order);
         }
 
         public void OnGroupSelectionChange(Group group)
@@ -54,12 +69,21 @@ namespace FUBAR
             if (Input.GetKey(KeyCode.LeftControl))
             {
                 if (group != null && !GSManager.GetGroup().Contains(group))
+                {
                     GSManager.SelectionAdded(group);
+                    GroupSelectionAdded.Raise(group);
+                }
                 else
+                {
                     GSManager.SelectionRemoved(group);
+                    GroupRemoved.Raise(group);
+                }
             }
             else
+            {
                 GSManager.GroupSelected(group);
+                SingleGroupSelected.Raise(group);
+            }
             ChangeState(new GroupState(GSManager));
         }
 
@@ -70,8 +94,7 @@ namespace FUBAR
             ChangeState(new ObjectState(OSManager));
         }
 
-
-        public void ChangeState(SelectionState state)
+        private void ChangeState(SelectionState state)
         {
             if (State == null || state == null || State.GetType() != state.GetType())
             {
@@ -83,7 +106,7 @@ namespace FUBAR
             }
         }
 
-        private void Start()
+        public void Init()
         {
             OSManager = new ObjectSelectionManager();
             GSManager = new GroupSelectionManager();

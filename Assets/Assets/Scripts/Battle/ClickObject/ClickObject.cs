@@ -12,26 +12,32 @@ namespace FUBAR
         Attachable
     }
 
+    public class LocalClickObjectData
+    {
+        public string Name;
+    }
+
+
     public abstract class ClickObject : MonoBehaviour
     {
-        [SerializeField]
-        private Health HealthComponent;
-
+        public bool Friendly;
+        public LocalClickObjectData Data;
         [SerializeField]
         private ClickObjectUI UIComponent;
-
-        private Group GroupReferance;
-
+        [SerializeField]
+        private GameObject PreviewObject;
         public ClickObjectType ClickType;
 
-        public string Name = "";
-
-        public virtual void Init(Group group)
+        public virtual void Init(LocalClickObjectData data)
         {
-            GroupReferance = group;
-            Name = "Unit" + Random.Range(0, 100);
+            Data = data;
+            //     Name = "Unit" + Random.Range(0, 100);
         }
 
+        public GameObject GetPreviewObject()
+        {
+            return PreviewObject;
+        }
 
         public virtual void OnClick()
         {
@@ -40,12 +46,12 @@ namespace FUBAR
 
         internal virtual void OffHover()
         {
-           // if (UIComponent) UIComponent.UnSetUI("Hover");
+            if (UIComponent) UIComponent.UnSetUI("Hover");
         }
 
         internal virtual void OnHover()
         {
-           // if (UIComponent) UIComponent.SetUI("Hover");
+            if (UIComponent) UIComponent.SetUI("Hover");
         }
 
         internal virtual void OffClick()

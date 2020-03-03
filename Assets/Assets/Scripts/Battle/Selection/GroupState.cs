@@ -16,34 +16,28 @@ namespace FUBAR
             SelectionManager = selectionManager;
         }
 
-        public override void Attach(AttachOrder attachOrder)
+        public override void BeginPreview(PreviewOrder order)
         {
             List<Group> groups = SelectionManager.GetGroup();
-            foreach (Group item in groups)
+            for (int i = 0; i < groups.Count; i++)
             {
-                foreach (ClickObject click in item.GetObjects())
-                {
-                    AttachComponent comp = click.GetComponent<AttachComponent>();
-                    if (comp)
-                        comp.Attach(attachOrder.Anchor.transform);
-                }
+                List<Vector3> posList = groups[i].GetMovementPreviewPosition(order, i);
+                PreviewController.Instance.BeginPreview(posList, order, groups[i].GetObjects());
             }
         }
 
-        public override void Attack(AttackOrder order)
+        public override void EndPreview()
+        {
+            PreviewController.Instance.EndPreview();
+        }
+
+        public override void GeneratePreview(PreviewOrder previewOrder)
         {
             List<Group> groups = SelectionManager.GetGroup();
-            foreach (Group item in groups)
+            for (int i = 0; i < groups.Count; i++)
             {
-                foreach (ClickObject click in item.GetObjects())
-                {
-                    AttachComponent comp = click.GetComponent<AttachComponent>();
-                    if (comp)
-                        comp.Dettach();
-                    NavMeshAgent agent = click.GetComponent<NavMeshAgent>();
-                    if (agent)
-                        agent.SetDestination(order.GetShootingDistance(agent.transform.position));
-                }
+                List<Vector3> posList = groups[i].GetMovementPreviewPosition(previewOrder, i);
+                PreviewController.Instance.Preview(posList, previewOrder, groups[i].GetObjects());
             }
         }
 
@@ -52,12 +46,13 @@ namespace FUBAR
             // throw new System.NotImplementedException();
         }
 
-        public override void Move(MoveOrder order)
+        public override void Move(MoveOrder ordr)
         {
             List<Group> groups = SelectionManager.GetGroup();
-            foreach (Group item in groups)
+            for (int i = 0; i < groups.Count; i++)
             {
-                item.Move(order);
+                List<Vector3> posList = groups[i].GetMovementPosition(ordr, i);
+                groups[i].Move(posList);
             }
         }
 
@@ -65,5 +60,6 @@ namespace FUBAR
         {
             SelectionManager.ResetSelection();
         }
+
     }
 }

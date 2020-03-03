@@ -25,7 +25,7 @@ namespace FUBAR
         {
             GroupAssigned = group;
             Selected = false;
-            button.image.sprite = group.icon;
+            button.image.sprite = group.Data.Icon;
         }
 
     }

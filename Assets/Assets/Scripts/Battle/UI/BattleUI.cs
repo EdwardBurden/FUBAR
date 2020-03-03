@@ -16,24 +16,48 @@ namespace FUBAR
             ClickObjectUI.Init();
         }
 
+        public void SingleGroupSelected(Group group)
+        {
+            ClickObjectUI.Hide();
+            GroupUI.Single(group);
+
+        }
+
+        public void GroupsSelected(Group group)
+        {
+            ClickObjectUI.Hide();
+            GroupUI.Add(group);
+        }
+
+        public void GroupDeselected(Group group)
+        {
+            ClickObjectUI.Hide();
+            GroupUI.Remove(group);
+
+        }
+
         public void ClickObjectSelected(ClickObject click)
         {
             ClickObjectUI.NewSelecetd(click);
+            GroupUI.Clear();
         }
 
         public void NoClickObjectSelected(ClickObject click)
         {
             ClickObjectUI.Hide();
+            GroupUI.Clear();
         }
 
         public void ClickObjectSelectionAdded(List<ClickObject> clicks)
         {
             ClickObjectUI.OnSelecetd(clicks);
+            GroupUI.Clear();
         }
 
         public void ClickObjectSelectionRemoved(ClickObject click)
         {
             ClickObjectUI.OnDeselecetd(click);
+            GroupUI.Clear();
         }
     }
 }

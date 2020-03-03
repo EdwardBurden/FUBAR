@@ -34,6 +34,16 @@ namespace FUBAR
             return SelectedGroups;
         }
 
+        public List<ClickObject> GetAllObjects()
+        {
+            List<ClickObject> Objects = new List<ClickObject>();
+            foreach (var item in SelectedGroups)
+            {
+                Objects.AddRange(item.GetObjects());
+            }
+            return Objects;
+        }
+
         public void GroupSelected(Group group)
         {
             ResetSelection();

@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public SelectionController SelectionController;
     private float fixedDeltaTime;
-    public bool Follow;
     public Camera MainCamera;
     public float NormalSpeed;
     public float SprintSpeed;
@@ -28,6 +26,9 @@ public class CameraController : MonoBehaviour
     private Vector3 RotateStartPosition;
     private Vector3 RotateCurrentPosition;
 
+    public int YMax;
+    public int YMin;
+
     private void Start()
     {
         TargetPosition = transform.position;
@@ -38,55 +39,17 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (Follow && SelectionController.IsSelectionFollowable())
-        {
-            transform.position = SelectionController.Selected[0].transform.position;
-        }
-        else
-        {
-            HandleMouseInput();
-            HandleKeyInput();
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Follow = false;
-        }
-        if (Input.GetKeyDown(KeyCode.Insert))
-        {
-            Follow = true;
-        }
+        HandleMouseInput();
+        HandleKeyInput();
     }
 
     private void HandleMouseInput()
     {
-        if (Input.mouseScrollDelta.y != 0)
+        Vector3 zoom = TargetZoom + (Input.mouseScrollDelta.y * ZoomStrength);
+        if (Input.mouseScrollDelta.y != 0 && zoom.y > YMin && zoom.y < YMax)
         {
-            TargetZoom += Input.mouseScrollDelta.y * ZoomStrength;
+            TargetZoom = zoom;
         }
-
-        /*if (Input.GetMouseButtonDown(1))
-        {
-            Plane plane = new Plane(Vector3.up, Vector3.zero);
-            Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition);
-            float entry;
-            if (plane.Raycast(ray, out entry))
-            {
-                DragStartPosition = ray.GetPoint(entry);
-            }
-        }
-
-        if (Input.GetMouseButton(1))
-        {
-
-            Plane plane = new Plane(Vector3.up, Vector3.zero);
-            Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition);
-            float entry;
-            if (plane.Raycast(ray, out entry))
-            {
-                DragCurrentPosition = ray.GetPoint(entry);
-                TargetPosition = transform.position + DragStartPosition - DragCurrentPosition;
-            }
-        }*/
 
         if (Input.GetMouseButtonDown(2))
         {
@@ -135,13 +98,16 @@ public class CameraController : MonoBehaviour
             TargetRotation *= Quaternion.Euler(Vector3.up * -RotationStrength);
         }
 
-        if (Input.GetKey(KeyCode.R))
+        Vector3 zoom = TargetZoom + ZoomStrength;
+        if (Input.GetKey(KeyCode.R) && zoom.y > YMin && zoom.y < YMax)
         {
-            TargetZoom += ZoomStrength;
+            TargetZoom = zoom;
         }
-        if (Input.GetKey(KeyCode.F))
+
+        zoom = TargetZoom - ZoomStrength;
+        if (Input.GetKey(KeyCode.F) && zoom.y > YMin && zoom.y < YMax)
         {
-            TargetZoom -= ZoomStrength;
+            TargetZoom = zoom;
         }
         if (Time.timeScale == 0.2f)
             Time.timeScale = 1.0f;
@@ -158,6 +124,7 @@ public class CameraController : MonoBehaviour
 
         transform.position = Vector3.Lerp(transform.position, TargetPosition, Time.deltaTime * MovementTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, Time.deltaTime * MovementTime);
+
         MainCamera.transform.localPosition = Vector3.Lerp(MainCamera.transform.localPosition, TargetZoom, Time.deltaTime * MovementTime);
     }
 }
