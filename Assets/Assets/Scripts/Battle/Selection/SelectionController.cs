@@ -63,6 +63,12 @@ namespace FUBAR
                 State.Move((MoveOrder)order);
         }
 
+        public void OnSelectionReset()
+        {
+            NoneSelected.Raise(null);
+            ChangeState(null);
+        }
+
         public void OnGroupSelectionChange(Group group)
         {
             OSManager.ResetSelection();

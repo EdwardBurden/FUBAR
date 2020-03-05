@@ -107,11 +107,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a68294c1ef930749b36be336ed5eb7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthComponent: {fileID: 6532932402361353149}
+  Friendly: 0
   UIComponent: {fileID: 5232736680421325476}
+  PreviewObject: {fileID: 6581939191097481642, guid: 7fe0ac613e7b0884483ee5e6597fd79a,
+    type: 3}
   ClickType: 0
-  MoveType: 1
-  Name: 
 --- !u!114 &6532932402361353149
 MonoBehaviour:
   m_ObjectHideFlags: 0
