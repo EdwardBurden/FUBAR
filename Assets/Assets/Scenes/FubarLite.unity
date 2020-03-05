@@ -1665,7 +1665,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311024511}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 809.70325, y: -56.015568, z: -174.90479}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2753,9 +2753,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GroupAddedEvent: {fileID: 11400000, guid: b697dbc70bc08664a9a6940bb3d55653, type: 2}
-  UnitGroup: {fileID: 11400000, guid: 3de6645b92eb5834189f0b33958bb4c2, type: 2}
-  BuildingGroup: {fileID: 11400000, guid: 76be022a3ae71c14fbe5e046d6274af0, type: 2}
-  SpawnPoint: {fileID: 764036116}
   DynamicContainer: {fileID: 764036116}
 --- !u!4 &1920271063
 Transform:

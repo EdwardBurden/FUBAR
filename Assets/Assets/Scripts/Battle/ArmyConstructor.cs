@@ -81,9 +81,9 @@ namespace FUBAR
             }
         }
 
-        public void AddObject(ClickObject clickObject, Transform transform)
+        public void AddObject(ClickObject clickObject, Vector3 position , Quaternion rotation)
         {
-            ClickObject obj = Instantiate(clickObject, transform.position , transform.rotation, DynamicContainer);
+            ClickObject obj = Instantiate(clickObject, position, rotation, DynamicContainer);
             ArmyGroup.Add(obj);
            // GroupAddedEvent.Raise();
         }
