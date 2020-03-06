@@ -369,10 +369,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 650253884}
-  - component: {fileID: 650253886}
   - component: {fileID: 650253885}
+  - component: {fileID: 650253886}
   m_Layer: 0
-  m_Name: PersistantSceneLoader
+  m_Name: Persistant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -409,7 +409,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 650253886}
-        m_MethodName: OnSceneSelection
+        m_MethodName: LoadGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -428,9 +428,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 650253883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eba4ea70ab84a014988e97719154f939, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a660575edbe91b42b5ec0eb0df08593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Instance: {fileID: 0}
 --- !u!1 &865658374
 GameObject:
   m_ObjectHideFlags: 0

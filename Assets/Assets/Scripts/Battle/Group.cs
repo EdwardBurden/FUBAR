@@ -11,7 +11,6 @@ namespace FUBAR
     {
         public List<ClickObject> Objects;
         public Sprite Icon;
-        public List<Operation> Operations;
         public int FormationColumns;
         public int FormationSpace;
         public BaseFormation CurrentFormation;
@@ -22,7 +21,6 @@ namespace FUBAR
             CurrentFormation = new SquareFormation();
             Objects = new List<ClickObject>();
             Icon = data.Icon;
-            Operations = data.Operations;
             FormationColumns = data.DefaultColumns;
             FormationSpace = data.DefaultSpace;
             Formations = data.Formations;
