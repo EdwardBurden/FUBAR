@@ -71,21 +71,23 @@ namespace FUBAR
             Maxsize = battleSettings.ArmymaxSize;
         }
 
-        public void Addgroup(GroupData groupData, Transform transform)
+        public void Addgroup(GroupData groupData, Vector3 position, Quaternion rotation)
+
         {
             if (CanCreateGroup())
             {
-                Group group = new Group(groupData, transform, DynamicContainer);
+                Group group = new Group(groupData, position , rotation, DynamicContainer);
                 ArmyGroup.Add(group);
                 GroupAddedEvent.Raise();
             }
         }
 
-        public void AddObject(ClickObject clickObject, Vector3 position , Quaternion rotation)
+        public void AddObject(ClickObject clickObject, Vector3 position, Quaternion rotation)
         {
             ClickObject obj = Instantiate(clickObject, position, rotation, DynamicContainer);
+            obj.Init(new LocalClickObjectData() { Name = "Single"});
             ArmyGroup.Add(obj);
-           // GroupAddedEvent.Raise();
+            // GroupAddedEvent.Raise();
         }
 
         private bool CanCreateGroup() { return (ArmyGroup.GetGroups().Count < Maxsize); }

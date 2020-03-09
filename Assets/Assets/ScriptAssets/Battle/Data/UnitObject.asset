@@ -9,6 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25db7c31aba1b504c8d70fcd5e83502f, type: 3}
-  m_Name: SceneClick
+  m_Script: {fileID: 11500000, guid: 6f02f87b4fe400341939307efd7c560a, type: 3}
+  m_Name: UnitObject
   m_EditorClassIdentifier: 
+  Cost: 0
+  Icon: {fileID: 0}
+  Name: Unit Object
+  Unit: {fileID: 8338538871828950037, guid: 64424cf8b9d14d64faef1a342debb841, type: 3}

@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043ba18638e0d174d87359c0d1ea8d2d, type: 3}
   m_Name: TestGroup 1
   m_EditorClassIdentifier: 
+  Cost: 0
   Icon: {fileID: 0}
-  Name: Teste
+  Name: Unit Group
   Objects: {fileID: 8338538871828950037, guid: 64424cf8b9d14d64faef1a342debb841, type: 3}
-  ObjectNumber: 200
-  Operations:
-  - {fileID: 0}
+  ObjectNumber: 5
   Formations: 0000000001000000
   GroupFlag: {fileID: 0}
   DefaultSpace: 2
   DefaultColumns: 4
+  PlaceAblePreview: {fileID: 6581939191097481642, guid: 7fe0ac613e7b0884483ee5e6597fd79a,
+    type: 3}

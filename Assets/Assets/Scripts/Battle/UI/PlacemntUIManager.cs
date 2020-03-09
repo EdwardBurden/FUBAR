@@ -8,13 +8,25 @@ namespace FUBAR
     public class PlacemntUIManager : MonoBehaviour
     {
         [SerializeField]
-        private Button ButtonPrefab;
+        private PlaceableItemUI ButtonPrefab;
+        [SerializeField]
+        private Transform Objects;
+        [SerializeField]
+        private Transform Groups;
+
 
         void Start()
         {
-            foreach (GroupData item in AssetLoader.Groups)
+            foreach (BasePlacementData item in AssetLoader.Placeables)
             {
-                Instantiate(ButtonPrefab, this.transform);
+                PlaceableItemUI b = null;
+                if (item is GroupData)
+                {
+                    b = Instantiate(ButtonPrefab, Groups.transform);
+                }
+                else
+                    b = Instantiate(ButtonPrefab, Objects.transform);
+                b.Init(item);
             }
         }
 

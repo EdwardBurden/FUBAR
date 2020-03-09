@@ -28,25 +28,30 @@ namespace FUBAR
         }
     }
 
-
-
     public class Group
     {
         public LocalGroupData Data;
         private GroupData StartData;
 
-        public Group(GroupData group, Transform transform, Transform dynamic)
+        public Group(GroupData group, Vector3 position, Quaternion rotation, Transform dynamic)
         {
             Data = new LocalGroupData(group);
             Data.Name += UnityEngine.Random.Range(0, 100);
             for (int i = 0; i < group.ObjectNumber; i++)
             {
-                ClickObject obj = GameObject.Instantiate(group.Objects, transform.position, transform.rotation, dynamic);
+                ClickObject obj = GameObject.Instantiate(group.Objects, position, rotation, dynamic);
                 LocalClickObjectData objectData = new LocalClickObjectData();
                 objectData.Name = Data.Name + "Unit" + UnityEngine.Random.Range(0, 100);
                 obj.Init(objectData);
                 Data.Objects.Add(obj);
             }
+            MoveOrder moveOrder = new MoveOrder(position, position, position, false);
+            List<Vector3> posList = GetMovementPosition(moveOrder, 0);
+            for (int i = 0; i < Data.Objects.Count; i++)
+            {
+                Data.Objects[i].transform.position = posList[i];
+            }
+
         }
 
         public List<ClickObject> GetObjects() { return Data.Objects; }

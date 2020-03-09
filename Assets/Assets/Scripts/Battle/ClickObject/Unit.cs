@@ -12,6 +12,8 @@ namespace FUBAR
     {
         public WeaponBehaviour WeaponBehaviour;
         public Health Health;
+
+
     }
 
 

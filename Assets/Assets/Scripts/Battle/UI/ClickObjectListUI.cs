@@ -57,7 +57,7 @@ namespace FUBAR
                 Destroy(item.gameObject);
             }
 
-            foreach (var item in clicks)
+            foreach (ClickObject item in clicks)
             {
                 Button b = Instantiate(prefab, this.transform);
                 b.GetComponentInChildren<Text>().text = item.Data.Name;

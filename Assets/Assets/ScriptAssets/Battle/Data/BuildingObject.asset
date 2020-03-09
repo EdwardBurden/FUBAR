@@ -9,6 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2995caad5828d1840b0f559cca36e979, type: 3}
-  m_Name: PlacementStarted
+  m_Script: {fileID: 11500000, guid: d4e5d90d36b934f489fc7eabd057029c, type: 3}
+  m_Name: BuildingObject
   m_EditorClassIdentifier: 
+  Cost: 0
+  Icon: {fileID: 0}
+  Name: Building Object
+  Length: 3
+  Width: 3
+  Building: {fileID: 2677394921966576450, guid: 483e6b05f62ddfc41abbf57ea6228906,
+    type: 3}

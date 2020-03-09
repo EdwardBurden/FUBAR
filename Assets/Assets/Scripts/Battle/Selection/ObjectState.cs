@@ -78,7 +78,6 @@ public class ObjectState : SelectionState
 
     public override void StateLost()
     {
-        //throw new System.NotImplementedException();
-        //PreviewManager.close
+        ObjectSelection.ResetSelection();
     }
 }

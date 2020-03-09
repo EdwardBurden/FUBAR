@@ -9,7 +9,7 @@ namespace FUBAR
     public class PlacementController : MonoBehaviour
     {
         private List<GameObject> PlacementObject;
-        private ClickObject SelectdObj;
+        private BasePlacementData SelectdObj;
         private Vector3 Center;
         private bool PlacementActive;
         public Transform PreviewTransform;
@@ -33,28 +33,14 @@ namespace FUBAR
             }
         }
 
-        public void OnPlacementSelected(ClickObject placement)
+        public void OnPlacementSelected(BasePlacementData placement)
         {
+            Init();
             RayCastInfo<TerrainObject> clickable = Helpers.CheckIfObjectIsInFocus<TerrainObject>();
             if (clickable.Focused)
             {
-                Vector3 intPos = new Vector3((int)clickable.HitInfo.point.x, (int)clickable.HitInfo.point.y, (int)clickable.HitInfo.point.z);
                 SelectdObj = placement;
-                Building building = SelectdObj.GetComponent<Building>();
-                if (building)
-                {
-
-                    float widthspace = 0.5f;
-                    for (int i = 0; i < building.Length; i++)
-                    {
-                        for (int j = 0; j < building.Width; j++)
-                        {
-                            Vector3 pos = new Vector3(intPos.x - (building.Length / 2.0f) + (widthspace + i), intPos.y, intPos.z - (building.Width / 2.0f) + (widthspace + j));
-                            PlacementObject.Add(Instantiate(SelectdObj.GetPreviewObject(), pos, Quaternion.identity, PreviewTransform));
-                        }
-                    }
-                }
-                PlacementObject.Add(Instantiate(SelectdObj.GetPreviewObject(), intPos + Vector3.up, Quaternion.identity, PreviewTransform));
+                PlacementObject = SelectdObj.StartPlacement(clickable, PreviewTransform);
                 PlacementActive = true;
             }
         }
@@ -64,12 +50,6 @@ namespace FUBAR
             if (PlacementActive)
             {
                 HandlePlacementPreview();
-
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-
-                }
-
                 if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
                 {
                     HandlePlacement();
@@ -79,7 +59,7 @@ namespace FUBAR
 
         private void HandlePlacement()
         {
-            ArmyConstructor.Instance.AddObject(SelectdObj, Center, Quaternion.identity);
+            SelectdObj.Place();
             Init();
         }
 
@@ -88,28 +68,7 @@ namespace FUBAR
             RayCastInfo<TerrainObject> clickable = Helpers.CheckIfObjectIsInFocus<TerrainObject>();
             if (clickable.Focused)
             {
-                float widthspace = 0.5f;
-                Vector3 intPos = new Vector3(Mathf.FloorToInt(clickable.HitInfo.point.x) + widthspace, (int)clickable.HitInfo.point.y, Mathf.FloorToInt(clickable.HitInfo.point.z) + widthspace);
-                Building building = SelectdObj.GetComponent<Building>();
-                if (building)
-                {
-                    float offset = building.Length % 2 == 0 ? 0 : 0.5f;
-                    float startX = offset + intPos.x - (building.Length * 0.5f);
-                    float startZ = offset + intPos.z - (building.Length * 0.5f);
-                    int count = 0;
-                    for (int i = 0; i < building.Length; i++)
-                    {
-                        for (int j = 0; j < building.Width; j++)
-                        {
-                            //  int X = intPos.x
-                            Vector3 pos = new Vector3(startX + i, intPos.y, startZ + j);
-                            PlacementObject[count].transform.position = pos;
-                            count++;
-                        }
-                    }
-                }
-                PlacementObject[PlacementObject.Count - 1].transform.position = intPos + Vector3.up;
-                Center = intPos;
+                SelectdObj.GeneratePlacementPreview(clickable, PlacementObject);
             }
         }
     }

@@ -23,9 +23,9 @@ namespace FUBAR
         public bool Friendly;
         public LocalClickObjectData Data;
         [SerializeField]
-        private ClickObjectUI UIComponent;
+        protected ClickObjectUI UIComponent;
         [SerializeField]
-        private GameObject PreviewObject;
+        protected GameObject PreviewObject;
         public ClickObjectType ClickType;
 
         public virtual void Init(LocalClickObjectData data)
@@ -46,12 +46,12 @@ namespace FUBAR
 
         internal virtual void OffHover()
         {
-            if (UIComponent) UIComponent.UnSetUI("Hover");
+           // if (UIComponent) UIComponent.UnSetUI("Hover");
         }
 
         internal virtual void OnHover()
         {
-            if (UIComponent) UIComponent.SetUI("Hover");
+           // if (UIComponent) UIComponent.SetUI("Hover");
         }
 
         internal virtual void OffClick()
