@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FUBAR;
 using UnityEngine;
 using UnityEngine.AI;
@@ -22,7 +23,7 @@ namespace FUBAR
             for (int i = 0; i < groups.Count; i++)
             {
                 List<Vector3> posList = groups[i].GetMovementPreviewPosition(order, i);
-                PreviewController.Instance.BeginPreview(posList, order, groups[i].GetObjects());
+                PreviewController.Instance.BeginPreview(posList, order, groups[i].GetObjects().Where(x => x.GetComponent<MovementComponent>()).ToList());
             }
         }
 
@@ -37,7 +38,7 @@ namespace FUBAR
             for (int i = 0; i < groups.Count; i++)
             {
                 List<Vector3> posList = groups[i].GetMovementPreviewPosition(previewOrder, i);
-                PreviewController.Instance.Preview(posList, previewOrder, groups[i].GetObjects());
+                PreviewController.Instance.Preview(posList, previewOrder, groups[i].GetObjects().Where(x => x.GetComponent<MovementComponent>()).ToList());
             }
         }
 

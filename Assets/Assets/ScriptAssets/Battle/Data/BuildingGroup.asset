@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: BuildingGroup
   m_EditorClassIdentifier: 
   Cost: 0
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 65d500253719e97498beac10db1e5abe, type: 3}
   Name: BBuilding Group
   Objects: {fileID: 2677394921966576450, guid: 5d653c2da11a46a4d94a4dfa5a597527, type: 3}
   ObjectNumber: 3
   Formations: 00000000
-  GroupFlag: {fileID: 0}
+  GroupFlag: {fileID: 7575400358843641722, guid: 09b55c4b4c88f3a4f92c42ecd6d0c72c,
+    type: 3}
   DefaultSpace: 5
   DefaultColumns: 2
   PlaceAblePreview: {fileID: 6581939191097481642, guid: 7fe0ac613e7b0884483ee5e6597fd79a,

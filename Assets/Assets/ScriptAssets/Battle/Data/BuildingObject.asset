@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BuildingObject
   m_EditorClassIdentifier: 
   Cost: 0
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 53e9d4963b705ec42b9b58dae1c37828, type: 3}
   Name: Building Object
   Length: 3
   Width: 3

@@ -15,7 +15,7 @@ public class PlaceableItemUI : MonoBehaviour
     public void Init(BasePlacementData item)
     {
         button.onClick.RemoveAllListeners();
-        button.GetComponentInChildren<Text>().text = item.Name;
+        button.image.sprite = item.Icon;
         button.onClick.AddListener(delegate { PlacementEvent.Raise(item); });
     }
 }

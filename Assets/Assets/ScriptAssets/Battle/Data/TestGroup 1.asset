@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: TestGroup 1
   m_EditorClassIdentifier: 
   Cost: 0
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 5422b1ce54e89084ea04e9cf151b36df, type: 3}
   Name: Unit Group
   Objects: {fileID: 8338538871828950037, guid: 64424cf8b9d14d64faef1a342debb841, type: 3}
   ObjectNumber: 5
   Formations: 0000000001000000
-  GroupFlag: {fileID: 0}
+  GroupFlag: {fileID: 7575400358843641722, guid: 09b55c4b4c88f3a4f92c42ecd6d0c72c,
+    type: 3}
   DefaultSpace: 2
   DefaultColumns: 4
   PlaceAblePreview: {fileID: 6581939191097481642, guid: 7fe0ac613e7b0884483ee5e6597fd79a,

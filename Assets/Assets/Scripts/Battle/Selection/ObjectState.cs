@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FUBAR;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,11 +14,9 @@ public class ObjectState : SelectionState
         ObjectSelection = objectSelection;
     }
 
-
-
     public override void BeginPreview(PreviewOrder order)
     {
-        List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
+        List<ClickObject> objects = ObjectSelection.GetSelectedObjects().Where(x => x.GetComponent<MovementComponent>()).ToList();
         List<Vector3> poss;
         SquareFormation formation = new SquareFormation();
         if (!order.Drag)
@@ -39,7 +38,7 @@ public class ObjectState : SelectionState
 
     public override void GeneratePreview(PreviewOrder previewOrder)
     {
-        List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
+        List<ClickObject> objects = ObjectSelection.GetSelectedObjects().Where(x => x.GetComponent<MovementComponent>()).ToList();
         SquareFormation formation = new SquareFormation();
         int columns = formation.GetColumnsFromDistance(previewOrder.start, previewOrder.end, Constants.K_DefaultSpace);
         List<Vector3> poss = formation.GetDragFormationPosition(previewOrder.start, previewOrder.end, objects, columns, Constants.K_DefaultSpace);
@@ -53,7 +52,7 @@ public class ObjectState : SelectionState
 
     public override void Move(MoveOrder ordr)
     {
-        List<ClickObject> objects = ObjectSelection.GetSelectedObjects();
+        List<ClickObject> objects = ObjectSelection.GetSelectedObjects().Where(x => x.GetComponent<MovementComponent>()).ToList();
         List<Vector3> posList = new List<Vector3>();
         SquareFormation formation = new SquareFormation();
         if (ordr.DragOrder)
@@ -66,10 +65,6 @@ public class ObjectState : SelectionState
 
         for (int i = 0; i < objects.Count; i++)
         {
-            AttachComponent comp = objects[i].GetComponent<AttachComponent>();
-            if (comp)
-                comp.Dettach();
-
             MovementComponent agent = objects[i].GetComponent<MovementComponent>();
             if (agent)
                 agent.Move(posList[i]);

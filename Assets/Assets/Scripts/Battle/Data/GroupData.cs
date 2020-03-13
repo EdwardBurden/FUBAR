@@ -9,7 +9,7 @@ namespace FUBAR
         public ClickObject Objects;
         public int ObjectNumber;
         public List<Formationenum> Formations;
-        public ClickObject GroupFlag;
+        public GroupFlag GroupFlag;
         public int DefaultSpace;
         public int DefaultColumns;
 

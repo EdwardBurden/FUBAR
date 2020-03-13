@@ -45,6 +45,8 @@ namespace FUBAR
                 obj.Init(objectData);
                 Data.Objects.Add(obj);
             }
+            GroupFlag flag = GameObject.Instantiate(group.GroupFlag, position, rotation, dynamic);
+            flag.Init(this);
             MoveOrder moveOrder = new MoveOrder(position, position, position, false);
             List<Vector3> posList = GetMovementPosition(moveOrder, 0);
             for (int i = 0; i < Data.Objects.Count; i++)
