@@ -20,11 +20,14 @@ namespace FUBAR
         public override void BeginPreview(PreviewOrder order)
         {
             List<Group> groups = SelectionManager.GetGroup();
+            List<Vector3> posList = new List<Vector3>();
+            List<ClickObject> moveobjects = new List<ClickObject>();
             for (int i = 0; i < groups.Count; i++)
             {
-                List<Vector3> posList = groups[i].GetMovementPreviewPosition(order, i);
-                PreviewController.Instance.BeginPreview(posList, order, groups[i].GetObjects().Where(x => x.GetComponent<MovementComponent>()).ToList());
+                posList.AddRange(groups[i].GetMovementPreviewPosition(order, i));
+                moveobjects.AddRange(groups[i].GetObjects().Where(x => x.GetComponent<MovementComponent>()).ToList());
             }
+            PreviewController.Instance.BeginPreview(posList, order, moveobjects);
         }
 
         public override void EndPreview()
@@ -35,11 +38,14 @@ namespace FUBAR
         public override void GeneratePreview(PreviewOrder previewOrder)
         {
             List<Group> groups = SelectionManager.GetGroup();
+            List<Vector3> posList = new List<Vector3>();
+            List<ClickObject> moveobjects = new List<ClickObject>();
             for (int i = 0; i < groups.Count; i++)
             {
-                List<Vector3> posList = groups[i].GetMovementPreviewPosition(previewOrder, i);
-                PreviewController.Instance.Preview(posList, previewOrder, groups[i].GetObjects().Where(x => x.GetComponent<MovementComponent>()).ToList());
+                posList.AddRange(groups[i].GetMovementPreviewPosition(previewOrder, i));
+                moveobjects.AddRange(groups[i].GetObjects().Where(x => x.GetComponent<MovementComponent>()).ToList());
             }
+            PreviewController.Instance.Preview(posList, previewOrder, moveobjects);
         }
 
         public override void Init()
