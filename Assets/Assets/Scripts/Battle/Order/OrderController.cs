@@ -66,20 +66,10 @@ namespace FUBAR
 
         private void Preview(Vector3 start, Vector3 end)
         {
-            switch (LastClickedObject.FocusObject.ClickType)
-            {
-                case ClickObjectType.Moveable:
-                    PreviewOrder order = new PreviewOrder(start, end, (Timer > DragTimer && MinSpaceChange < Vector3.Distance(start, end)));
-                    SelectionController.PreviewMovementOrder(order);
-                    break;
-                case ClickObjectType.Destructable:
-                    break;
-                case ClickObjectType.Attachable:
 
-                    break;
-                default:
-                    break;
-            }
+            PreviewOrder order = new PreviewOrder(start, end, (Timer > DragTimer && MinSpaceChange < Vector3.Distance(start, end)));
+            SelectionController.PreviewMovementOrder(order);
+
 
 
         }
@@ -92,43 +82,18 @@ namespace FUBAR
 
         private void BeginPreview(Vector3 start, Vector3 end)
         {
-            switch (LastClickedObject.FocusObject.ClickType)
-            {
-                case ClickObjectType.Moveable:
-                    PreviewOrder order = new PreviewOrder(start, end, false);
-                    SelectionController.BeginPreviewOrder(order);
-                    break;
-                case ClickObjectType.Destructable:
-                    break;
-                case ClickObjectType.Attachable:
 
-                    break;
-                default:
-                    break;
-            }
+            PreviewOrder order = new PreviewOrder(start, end, false);
+            SelectionController.BeginPreviewOrder(order);
+
 
         }
 
         private void SendOrder(Vector3 start, Vector3 end)
         {
-            switch (LastClickedObject.FocusObject.ClickType)
-            {
-                case ClickObjectType.Moveable:
+            MoveOrder order = new MoveOrder(LastClickedObject.HitInfo.point, start, end, (Timer > DragTimer && MinSpaceChange < Vector3.Distance(start, end)));
+            MoveOrderEvent.Raise(order);
 
-                    MoveOrder order = new MoveOrder(LastClickedObject.HitInfo.point, start, end, (Timer > DragTimer && MinSpaceChange < Vector3.Distance(start, end)));
-                    MoveOrderEvent.Raise(order);
-                    break;
-                case ClickObjectType.Destructable:
-                    AttackOrder attack = new AttackOrder(LastClickedObject.HitInfo.point);
-                    AttackOrderEvent.Raise(attack);
-                    break;
-                case ClickObjectType.Attachable:
-                    AttachOrder att = new AttachOrder(LastClickedObject.FocusObject.gameObject);
-                    AttachOrderEvent.Raise(att);
-                    break;
-                default:
-                    break;
-            }
         }
 
 

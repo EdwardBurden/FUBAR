@@ -5,13 +5,6 @@ using UnityEngine;
 
 namespace FUBAR
 {
-    public enum ClickObjectType
-    {
-        Moveable,
-        Destructable,
-        Attachable
-    }
-
     public class LocalClickObjectData
     {
         public string Name;
@@ -20,43 +13,41 @@ namespace FUBAR
 
     public abstract class ClickObject : MonoBehaviour
     {
-        public bool Friendly;
         public LocalClickObjectData Data;
         [SerializeField]
         protected ClickObjectUI UIComponent;
         [SerializeField]
-        protected GameObject PreviewObject;
-        public ClickObjectType ClickType;
+        protected GameObject PreviewObjectPrefab;
 
         public virtual void Init(LocalClickObjectData data)
         {
             Data = data;
-            //     Name = "Unit" + Random.Range(0, 100);
+            UIComponent.Init(data);
         }
 
         public GameObject GetPreviewObject()
         {
-            return PreviewObject;
+            return PreviewObjectPrefab;
         }
 
         public virtual void OnClick()
         {
-            if (UIComponent) UIComponent.SetUI("Click");
+            if (UIComponent) UIComponent.Show();
         }
 
         internal virtual void OffHover()
         {
-           // if (UIComponent) UIComponent.UnSetUI("Hover");
+            if (UIComponent) UIComponent.Hide();
         }
 
         internal virtual void OnHover()
         {
-           // if (UIComponent) UIComponent.SetUI("Hover");
+            if (UIComponent) UIComponent.Show();
         }
 
         internal virtual void OffClick()
         {
-            if (UIComponent) UIComponent.UnSetUI("Click");
+            if (UIComponent) UIComponent.Hide();
         }
     }
 }

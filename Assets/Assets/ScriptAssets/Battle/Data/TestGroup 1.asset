@@ -18,6 +18,10 @@ MonoBehaviour:
   Objects: {fileID: 8338538871828950037, guid: 64424cf8b9d14d64faef1a342debb841, type: 3}
   ObjectNumber: 5
   Formations: 0000000001000000
+  Operations:
+  - {fileID: 11400000, guid: d07b9a0a9860a574ba1b2a9749292d2e, type: 2}
+  - {fileID: 11400000, guid: c4db5e44abe9b8c488f35159f5047396, type: 2}
+  - {fileID: 11400000, guid: b97225bd2f8cdeb46b630aec9de6971f, type: 2}
   GroupFlag: {fileID: 7575400358843641722, guid: 09b55c4b4c88f3a4f92c42ecd6d0c72c,
     type: 3}
   DefaultSpace: 2
