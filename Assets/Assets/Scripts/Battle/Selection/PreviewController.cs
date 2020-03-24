@@ -20,9 +20,6 @@ namespace FUBAR
             Instance = this;
         }
 
-
-
-
         public void BeginPreview(List<Vector3> poss, PreviewOrder previewOrder, List<ClickObject> clickObjects)
         {
             Clean();

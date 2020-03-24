@@ -6,21 +6,58 @@ namespace FUBAR
 {
     public class ClickObjectUI : MonoBehaviour
     {
-        [SerializeField]
-        private Image BackgroundImage;
 
         [SerializeField]
         private Text NameText;
 
-        public void SetUI(string name)
+        private bool Clicked = false;
+
+
+        public void Clickshow()
         {
-            BackgroundImage.gameObject.SetActive(true);
-            NameText.text = name;
+            if (!Clicked)
+            {
+                this.gameObject.SetActive(true);
+                Clicked = true;
+            }
         }
 
-        public void UnSetUI(string name)
+
+        public void ClickHide()
         {
-            BackgroundImage.gameObject.SetActive(false);
+            if (Clicked)
+            {
+                this.gameObject.SetActive(false);
+                Clicked = false;
+            }
+        }
+
+
+
+        public void HoverShow()
+        {
+            if (!Clicked)
+                this.gameObject.SetActive(true);
+        }
+
+        public void HoverHide()
+        {
+            if (!Clicked)
+                this.gameObject.SetActive(false);
+        }
+
+        public void Init(LocalClickObjectData localClickObjectData)
+        {
+            NameText.text = localClickObjectData.Name;
+            this.gameObject.SetActive(false);
+        }
+
+        private void Update()
+        {
+            transform.LookAt((Camera.main.transform.forward * 1000), Vector3.up);
+
+
+            //transform.rotation = Quaternion.LookRotation(this.transform.position - (Camera.main.transform.forward * -1000), Vector3.up);
         }
     }
 }

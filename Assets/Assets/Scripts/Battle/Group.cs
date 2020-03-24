@@ -6,50 +6,62 @@ using UnityEngine.AI;
 
 namespace FUBAR
 {
-
     public class LocalGroupData
     {
         public List<ClickObject> Objects;
         public Sprite Icon;
-        public List<Operation> Operations;
         public int FormationColumns;
         public int FormationSpace;
         public BaseFormation CurrentFormation;
         public List<Formationenum> Formations;
+        public List<GroupOperation> GroupOperations;
         public string Name;
         public LocalGroupData(GroupData data)
         {
             CurrentFormation = new SquareFormation();
             Objects = new List<ClickObject>();
             Icon = data.Icon;
-            Operations = data.Operations;
             FormationColumns = data.DefaultColumns;
             FormationSpace = data.DefaultSpace;
-            Formations = data.Formations;
+            Formations = new List<Formationenum>(data.Formations);
             Name = data.Name;
+            GroupOperations = new List<GroupOperation>(data.Operations);
         }
     }
-
-
 
     public class Group
     {
         public LocalGroupData Data;
-        private GroupData StartData;
 
-        public Group(GroupData group, Transform transform, Transform dynamic)
+        public Group(GroupData group, Vector3 position, Quaternion rotation, Transform dynamic)
         {
             Data = new LocalGroupData(group);
             Data.Name += UnityEngine.Random.Range(0, 100);
-            for (int i = 0; i < group.ObjectNumber; i++)
+
+            CreateGrouo(group, position, rotation, dynamic);
+        }
+
+        private void CreateGrouo(GroupData groupData, Vector3 position, Quaternion rotation, Transform dynamic)
+        {
+            for (int i = 0; i < groupData.ObjectNumber; i++)
             {
-                ClickObject obj = GameObject.Instantiate(group.Objects, transform.position, transform.rotation, dynamic);
+                ClickObject obj = GameObject.Instantiate(groupData.Objects, position, rotation, dynamic);
                 LocalClickObjectData objectData = new LocalClickObjectData();
                 objectData.Name = Data.Name + "Unit" + UnityEngine.Random.Range(0, 100);
                 obj.Init(objectData);
                 Data.Objects.Add(obj);
             }
+
+            GroupFlag flag = GameObject.Instantiate(groupData.GroupFlag, position, rotation, dynamic);
+            flag.Init(this);
+            MoveOrder moveOrder = new MoveOrder(position, position, position, false);
+            List<Vector3> posList = GetMovementPosition(moveOrder, 0);
+            for (int i = 0; i < Data.Objects.Count; i++)
+            {
+                Data.Objects[i].transform.position = posList[i];
+            }
         }
+
 
         public List<ClickObject> GetObjects() { return Data.Objects; }
         public List<Vector3> GetMovementPreviewPosition(PreviewOrder moveOrder, int order)
@@ -83,9 +95,6 @@ namespace FUBAR
         {
             for (int i = 0; i < Data.Objects.Count; i++)
             {
-                AttachComponent comp = Data.Objects[i].GetComponent<AttachComponent>();
-                if (comp)
-                    comp.Dettach();
                 MovementComponent agent = Data.Objects[i].GetComponent<MovementComponent>();
                 if (agent)
                     agent.Move(posList[i]);

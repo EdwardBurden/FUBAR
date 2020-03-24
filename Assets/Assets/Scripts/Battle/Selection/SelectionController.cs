@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static Helpers;
 
 namespace FUBAR
 {
@@ -61,6 +62,12 @@ namespace FUBAR
         {
             if (State != null)
                 State.Move((MoveOrder)order);
+        }
+
+        public void OnSelectionReset()
+        {
+            NoneSelected.Raise(null);
+            ChangeState(null);
         }
 
         public void OnGroupSelectionChange(Group group)

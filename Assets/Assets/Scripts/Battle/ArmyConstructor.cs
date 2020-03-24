@@ -3,26 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace FUBAR
 {
+    public class ArmyGroup
+    {
+        private List<Group> Groups;
+        private List<ClickObject> Objects;
+
+        public ArmyGroup(List<Group> groups, List<ClickObject> objects)
+        {
+            Groups = groups;
+            Objects = objects;
+        }
+
+        public ArmyGroup()
+        {
+            Groups = new List<Group>();
+            Objects = new List<ClickObject>();
+        }
+
+        public List<ClickObject> GetObjects()
+        {
+            List<ClickObject> objects = new List<ClickObject>();
+            foreach (Group item in Groups)
+            {
+                objects.AddRange(item.GetObjects());
+            }
+            objects.AddRange(Objects);
+            return objects;
+        }
+
+        public List<Group> GetGroups()
+        {
+            return Groups;
+        }
+
+        public void Add(ClickObject clickObject)
+        {
+            Objects.Add(clickObject);
+        }
+
+        public void Add(Group group)
+        {
+            Groups.Add(group);
+        }
+    }
+
+
     public class ArmyConstructor : MonoBehaviour
     {
         public static ArmyConstructor Instance;
 
         public BasicEvent GroupAddedEvent;
-
-        private int maxsize;
-
-        private List<Group> ArmyGroups;
-        private List<ClickObject> UnorganizedObjects;
-
-        [SerializeField]
-        private GroupData UnitGroup;
-
-        [SerializeField]
-        private GroupData BuildingGroup;
-
-        [SerializeField]
-        private Transform SpawnPoint;
-
+        private int Maxsize;
+        private ArmyGroup ArmyGroup;
 
         [SerializeField]
         private Transform DynamicContainer;
@@ -35,39 +67,36 @@ namespace FUBAR
 
         public void Init(BattleSettings battleSettings)
         {
-            ArmyGroups = new List<Group>();
-            maxsize = battleSettings.ArmymaxSize;
+            ArmyGroup = new ArmyGroup();
+            Maxsize = battleSettings.ArmymaxSize;
         }
-        public void AddUnitGroup()
+
+        public void Addgroup(GroupData groupData, Vector3 position, Quaternion rotation)
+
         {
             if (CanCreateGroup())
             {
-                Group group = new Group(UnitGroup, SpawnPoint, DynamicContainer);
-                ArmyGroups.Add(group); GroupAddedEvent.Raise();
+                Group group = new Group(groupData, position , rotation, DynamicContainer);
+                ArmyGroup.Add(group);
+                GroupAddedEvent.Raise();
             }
         }
 
-        private bool CanCreateGroup() { return (ArmyGroups.Count < maxsize); }
-
-        public void AddBuildingGroup()
+        public void AddObject(ClickObject clickObject, Vector3 position, Quaternion rotation)
         {
-            if (CanCreateGroup())
-            {
-                Group group = new Group(BuildingGroup, SpawnPoint, DynamicContainer);
-                ArmyGroups.Add(group); GroupAddedEvent.Raise();
-            }
+            ClickObject obj = Instantiate(clickObject, position, rotation, DynamicContainer);
+            obj.Init(new LocalClickObjectData() { Name = "Single"});
+            ArmyGroup.Add(obj);
+            // GroupAddedEvent.Raise();
         }
 
-        public List<Group> Groups() { return ArmyGroups; }
+        private bool CanCreateGroup() { return (ArmyGroup.GetGroups().Count < Maxsize); }
+
+        public List<Group> Groups() { return ArmyGroup.GetGroups(); }
 
         public List<ClickObject> Objects()
         {
-            List<ClickObject> objects = new List<ClickObject>();
-            foreach (Group item in ArmyGroups)
-            {
-                objects.AddRange(item.GetObjects());
-            }
-            return objects;
+            return ArmyGroup.GetObjects();
         }
 
 

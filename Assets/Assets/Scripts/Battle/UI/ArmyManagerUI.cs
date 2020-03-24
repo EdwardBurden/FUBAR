@@ -11,6 +11,7 @@ namespace FUBAR
         private ArmyConstructor Army;
 
         private int size;
+        public Transform SpawnPoint;
 
         [SerializeField]
         private ArmyGroupUI ButtonPrefab;
@@ -18,27 +19,27 @@ namespace FUBAR
         public void Init(int size)
         {
             this.size = size;
-            Fill();
+            Empty();
         }
 
-        public void Fill()
+        private void Empty()
         {
-            foreach (Transform item in this.transform)
+            foreach (Transform item in SpawnPoint)
             {
                 Destroy(item.gameObject);
             }
+        }
 
-            for (int i = 0; i < size; i++)
-            {
-                ArmyGroupUI button = Instantiate(ButtonPrefab, this.transform);
-                if (Army.Groups().Count > i)
-                    button.Init(Army.Groups()[i]);
-            }
+        private void Add()
+        {
+            ArmyGroupUI button = Instantiate(ButtonPrefab, SpawnPoint);
+            button.Init(Army.Groups()[Army.Groups().Count - 1]);
         }
 
         public void OnGroupUpdate()
         {
-            Fill();
+            //change to take parameter later
+            Add();
         }
     }
 }
