@@ -17,51 +17,18 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 6a54f868d331ffa47b59d133639e3497
   m_SerializeEntries:
-  - m_GUID: 2fb62ce1a2216724ea24f9ccbe57db15
-    m_Address: BuildingObject
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Placeable
-    m_mainAssetType: FUBAR.BuildingPlaceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   - m_GUID: 3de6645b92eb5834189f0b33958bb4c2
-    m_Address: Unit
+    m_Address: TestGroup 1
     m_ReadOnly: 0
     m_SerializedLabels:
     - Placeable
     m_mainAssetType: FUBAR.GroupData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_GUID: 5d653c2da11a46a4d94a4dfa5a597527
-    m_Address: Assets/Assets/Prefabs/Battle/Building.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_GUID: 616c6e483e1f8314c8997d678a1c022c
-    m_Address: Menu
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_mainAssetType: UnityEditor.SceneAsset, UnityEditor, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - m_GUID: 6c4c6d4d165582948a34f015655dbba6
     m_Address: Title
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEditor.SceneAsset, UnityEditor, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_GUID: 76be022a3ae71c14fbe5e046d6274af0
-    m_Address: BuildingData
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Placeable
-    m_mainAssetType: FUBAR.GroupData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_GUID: c713a3c3eacedd142b1993808bafe168
-    m_Address: UnitObjectData
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Placeable
-    m_mainAssetType: FUBAR.UnitPlacementData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - m_GUID: fc292c029bfca5d488c32b1398affaa1
     m_Address: FubarLite

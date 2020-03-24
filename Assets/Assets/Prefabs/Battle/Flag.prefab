@@ -46,7 +46,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlagButton: {fileID: 1015659144438803751}
   Height: 10
-  GroupSelectedEvent: {fileID: 11400000, guid: 54487a881f8a01c4f805af7a55903ed1, type: 2}
+  GroupSelectedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 54487a881f8a01c4f805af7a55903ed1, type: 2}
+        m_MethodName: Raise
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5339657064143044421
 GameObject:
   m_ObjectHideFlags: 0

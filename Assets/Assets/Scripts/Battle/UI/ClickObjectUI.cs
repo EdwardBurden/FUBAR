@@ -10,25 +10,54 @@ namespace FUBAR
         [SerializeField]
         private Text NameText;
 
-        public void Show()
-        {
-            this.gameObject.SetActive(true);
+        private bool Clicked = false;
 
+
+        public void Clickshow()
+        {
+            if (!Clicked)
+            {
+                this.gameObject.SetActive(true);
+                Clicked = true;
+            }
         }
 
-        public void Hide()
+
+        public void ClickHide()
         {
-            this.gameObject.SetActive(false);
+            if (Clicked)
+            {
+                this.gameObject.SetActive(false);
+                Clicked = false;
+            }
+        }
+
+
+
+        public void HoverShow()
+        {
+            if (!Clicked)
+                this.gameObject.SetActive(true);
+        }
+
+        public void HoverHide()
+        {
+            if (!Clicked)
+                this.gameObject.SetActive(false);
         }
 
         public void Init(LocalClickObjectData localClickObjectData)
         {
             NameText.text = localClickObjectData.Name;
+            this.gameObject.SetActive(false);
         }
 
         private void Update()
         {
-            transform.rotation = Quaternion.LookRotation(this.transform.position - Camera.main.transform.position, Vector3.up);
+            transform.LookAt((Camera.main.transform.forward * 1000), Vector3.up);
+
+
+            //transform.rotation = Quaternion.LookRotation(this.transform.position - (Camera.main.transform.forward * -1000), Vector3.up);
         }
     }
 }

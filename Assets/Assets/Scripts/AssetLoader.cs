@@ -11,18 +11,20 @@ namespace FUBAR
     public class AssetLoader : MonoBehaviour
     {
         public static AssetLoader Instance;
-
+        public GameObject Battle;
         public static List<BasePlacementData> Placeables = new List<BasePlacementData>();
 
-        private async void Start()
+        private async void Awake()
         {
             if (Instance == null)
                 Instance = this;
             DontDestroyOnLoad(this);
             await AssetLoader.LoadAssets();
-            LoadGame();
+            Battle.SetActive(true);
+            // LoadGame();
 
         }
+
         public static async Task LoadAssets()
         {
             AsyncOperationHandle<IList<BasePlacementData>> grouphandle = Addressables.LoadAssetsAsync<BasePlacementData>(new List<object> { "Placeable" }, null, Addressables.MergeMode.Intersection);

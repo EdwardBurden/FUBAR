@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FUBAR;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GroupFlag : MonoBehaviour
@@ -10,7 +11,7 @@ public class GroupFlag : MonoBehaviour
     public Button FlagButton;
     Group Group;
     public float Height;
-    public GroupEvent GroupSelectedEvent;
+    public GroupUnityEvent GroupSelectedEvent;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +34,7 @@ public class GroupFlag : MonoBehaviour
     public void OnCLick()
     {
         if (Group != null)
-            GroupSelectedEvent.Raise(Group);
+            GroupSelectedEvent.Invoke(Group);
     }
 
     internal void Init(Group group)

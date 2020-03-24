@@ -32,22 +32,22 @@ namespace FUBAR
 
         public virtual void OnClick()
         {
-            if (UIComponent) UIComponent.Show();
+            if (UIComponent) UIComponent.Clickshow();
         }
 
         internal virtual void OffHover()
         {
-            if (UIComponent) UIComponent.Hide();
+            if (UIComponent) UIComponent.HoverHide();
         }
 
         internal virtual void OnHover()
         {
-            if (UIComponent) UIComponent.Show();
+            if (UIComponent) UIComponent.HoverShow();
         }
 
         internal virtual void OffClick()
         {
-            if (UIComponent) UIComponent.Hide();
+            if (UIComponent) UIComponent.ClickHide();
         }
     }
 }
