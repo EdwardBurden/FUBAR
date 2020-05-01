@@ -13,11 +13,11 @@ namespace FUBAR
         private Transform Objects;
         [SerializeField]
         private Transform Groups;
-
+        public List<BasePlacementData> HackList;
 
         void Start()
         {
-            foreach (BasePlacementData item in AssetLoader.Placeables)
+            foreach (BasePlacementData item in HackList)
             {
                 PlaceableItemUI b = null;
                 if (item is GroupData)

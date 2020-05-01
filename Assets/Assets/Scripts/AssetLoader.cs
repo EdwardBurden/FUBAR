@@ -12,14 +12,21 @@ namespace FUBAR
     {
         public static AssetLoader Instance;
         public GameObject Battle;
-        public static List<BasePlacementData> Placeables = new List<BasePlacementData>();
+        private static List<BasePlacementData> Placeables;
+        public List<BasePlacementData> HackList;
+
+        public static List<BasePlacementData> GetData()
+        {
+            return Placeables;
+        }
 
         private async void Awake()
         {
+            Placeables = new List<BasePlacementData>(HackList);
             if (Instance == null)
                 Instance = this;
             DontDestroyOnLoad(this);
-            await AssetLoader.LoadAssets();
+            await LoadAssets();
             Battle.SetActive(true);
             // LoadGame();
 
@@ -29,7 +36,8 @@ namespace FUBAR
         {
             AsyncOperationHandle<IList<BasePlacementData>> grouphandle = Addressables.LoadAssetsAsync<BasePlacementData>(new List<object> { "Placeable" }, null, Addressables.MergeMode.Intersection);
             await grouphandle.Task;
-            Placeables.AddRange(grouphandle.Result);
+
+            //  Placeables.AddRange(grouphandle.Result);
         }
 
         public void LoadGame()

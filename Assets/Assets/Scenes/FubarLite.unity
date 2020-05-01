@@ -195,6 +195,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Battle: {fileID: 4579228567722943873}
+  HackList:
+  - {fileID: 11400000, guid: 76be022a3ae71c14fbe5e046d6274af0, type: 2}
+  - {fileID: 11400000, guid: 2fb62ce1a2216724ea24f9ccbe57db15, type: 2}
+  - {fileID: 11400000, guid: 3de6645b92eb5834189f0b33958bb4c2, type: 2}
+  - {fileID: 11400000, guid: c713a3c3eacedd142b1993808bafe168, type: 2}
 --- !u!4 &1285598192
 Transform:
   m_ObjectHideFlags: 0
@@ -615,6 +620,35 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3198304701933294620, guid: b5c1b82207c599a4e95b9c85aac57cb3,
+        type: 3}
+      propertyPath: HackList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198304701933294620, guid: b5c1b82207c599a4e95b9c85aac57cb3,
+        type: 3}
+      propertyPath: HackList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 76be022a3ae71c14fbe5e046d6274af0,
+        type: 2}
+    - target: {fileID: 3198304701933294620, guid: b5c1b82207c599a4e95b9c85aac57cb3,
+        type: 3}
+      propertyPath: HackList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2fb62ce1a2216724ea24f9ccbe57db15,
+        type: 2}
+    - target: {fileID: 3198304701933294620, guid: b5c1b82207c599a4e95b9c85aac57cb3,
+        type: 3}
+      propertyPath: HackList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3de6645b92eb5834189f0b33958bb4c2,
+        type: 2}
+    - target: {fileID: 3198304701933294620, guid: b5c1b82207c599a4e95b9c85aac57cb3,
+        type: 3}
+      propertyPath: HackList.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: c713a3c3eacedd142b1993808bafe168,
+        type: 2}
     - target: {fileID: 3198304702130123157, guid: b5c1b82207c599a4e95b9c85aac57cb3,
         type: 3}
       propertyPath: PreviewSpawn
